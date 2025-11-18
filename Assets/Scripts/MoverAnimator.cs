@@ -109,16 +109,47 @@ public class MoverAnimator : MonoBehaviour
             if (Vector3.Distance(transform.position, destination) < 0.05f)
                 hasDestination = false;
         }
-        else
-        {
-            direction = Direction.S;
-        }
 
         // Animation
         if (animator)
         {
             animator.SetInteger("Direction", (int)direction);
             animator.SetBool("IsMoving", hasDestination);
+            switch (direction)
+            {
+                case Direction.N:
+                    animator.SetFloat("DirX", 0.0f);
+                    animator.SetFloat("DirY", -1.0f);
+                    break;
+                case Direction.S:
+                    animator.SetFloat("DirX", 0.0f);
+                    animator.SetFloat("DirY", 1.0f);
+                    break;
+                case Direction.E:
+                    animator.SetFloat("DirX", -1.0f);
+                    animator.SetFloat("DirY", 0.0f);
+                    break;
+                case Direction.W:
+                    animator.SetFloat("DirX", -1.0f);
+                    animator.SetFloat("DirY", 0.0f);
+                    break;
+                case Direction.NE:
+                    animator.SetFloat("DirX", 1.0f);
+                    animator.SetFloat("DirY", -1.0f);
+                    break;
+                case Direction.NW:
+                    animator.SetFloat("DirX", -1.0f);
+                    animator.SetFloat("DirY", -1.0f);
+                    break;
+                case Direction.SE:
+                    animator.SetFloat("DirX", 1.0f);
+                    animator.SetFloat("DirY", 1.0f);
+                    break;
+                case Direction.SW:
+                    animator.SetFloat("DirX", -1.0f);
+                    animator.SetFloat("DirY", 1.0f);
+                    break;
+            }
         }
 
         // Animation
