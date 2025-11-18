@@ -5,6 +5,9 @@ using UnityEngine;
 /// </summary>
 public class MoverAnimator : MonoBehaviour
 {
+    private SpriteRenderer spriteRenderer;
+    private Animator animator;
+
     public enum Direction : int
     {
        N,S,E,W,NE,SE,NW,SW
@@ -80,6 +83,7 @@ public class MoverAnimator : MonoBehaviour
 
     public Vector3 Destination => destination;
 
+    public bool reverseSpriteRenderer = true;
 
     public float speed = 5f;
 
@@ -92,18 +96,36 @@ public class MoverAnimator : MonoBehaviour
     }
     void Update()
     {
-        if (!hasDestination)
-            return;
+        // Déplacement
+        if (hasDestination)
+        {
+            // incrémente la position actuelle vers la destination
+            transform.position = Vector3.MoveTowards(transform.position, destination, speed * Time.deltaTime);
 
-        // incrémente la position actuelle vers la destination
-        transform.position = Vector3.MoveTowards(transform.position, destination, speed * Time.deltaTime);
+            // obtient la direction la plus proche du vecteur de destination
+            direction = GetClosestDirection((destination - transform.position).normalized);
 
-        // obtient la direction la plus proche du vecteur de destination
-        direction = GetClosestDirection((destination - transform.position).normalized);
+            // Arrivé au point
+            if (Vector3.Distance(transform.position, destination) < 0.05f)
+                hasDestination = false;
+        }
+        else
+        {
+            direction = Direction.S;
+        }
 
-        // Arrivé au point
-        if (Vector3.Distance(transform.position, destination) < 0.05f)
-            hasDestination = false;
+        // Animation
+        if (animator)
+        {
+            animator.SetInteger("Direction", (int)direction);
+            animator.SetBool("IsMoving", hasDestination);
+        }
+
+        // Animation
+        if (reverseSpriteRenderer && spriteRenderer)
+        {
+            spriteRenderer.flipX = direction == Direction.W || direction == Direction.NW || direction == Direction.SW;
+        }
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -111,4 +133,10 @@ public class MoverAnimator : MonoBehaviour
         
     }
 
+    // Initialisation
+    void Awake()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
+    }
 }
