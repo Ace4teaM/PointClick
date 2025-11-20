@@ -37,3 +37,15 @@ Pour adapter le contrôleur à d'autres images de sprite et garder le fonctionne
 et changer les groupes de sprite pour chaque direction dans les propriétés
 
 ![](C:\Users\aceteam\source\repos\PointClick\Unity\PointClick\animation_override_controler_prop.png)
+
+**Ordre de profondeur des objets**
+
+L'ordre de rendu est définit sur l'axe `Y` ce qui permet d'utiliser la position des objets comme profondeur de champ. Cela permet de simuler un personnage qui passe devant ou derrière un objet.
+
+Note la profondeur est géré par `Layer` donc `Background` ne passera jamais devant `Character`
+
+![animation_override_controler](render transparency axis.png)
+
+![animation_override_controler_prop](render transparency axis_prop.png)
+
+![render transparency axis_scene](render transparency axis_scene.png)
