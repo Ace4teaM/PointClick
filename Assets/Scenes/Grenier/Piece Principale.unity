@@ -491,7 +491,7 @@ GameObject:
   - component: {fileID: 1571151722}
   - component: {fileID: 1571151723}
   m_Layer: 0
-  m_Name: Fred (1)
+  m_Name: Seb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -627,7 +627,7 @@ Animator:
   m_GameObject: {fileID: 1853911852}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: 3b8f3551e8b755b4f95943c200392c69, type: 2}
+  m_Controller: {fileID: 22100000, guid: 28285be0a54572f4aa61ca7ba16d4bf5, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
