@@ -11,6 +11,23 @@ public class MovingController : MonoBehaviour
 
     public PolygonCollider2D[] WalkingArea => walkingArea;
 
+    // Offset entre le segment de collision et la position réel de déplacement
+    // Evite les problèmes de traverser des murs lié à la précision des floats
+    public float moveOffset = 0.1f;
+
+    // Obtient le point de destination d'un vecteur avec un offset
+    // Cette méthode est utilisé pour ne pas déplacer le personnage exactement à l'emplacement de la collision mais juste avant
+    public Vector3 GetPointBeforeDestination(Vector3 start, Vector3 destination, float offset)
+    {
+        Vector3 dir = destination - start;
+        float dist = dir.magnitude;
+
+        if (dist <= offset)
+            return start;
+
+        return destination - dir.normalized * offset;
+    }
+
     // Cette fonction sera bindée dans Input Action
     public void OnClick(InputAction.CallbackContext context)
     {
@@ -28,7 +45,7 @@ public class MovingController : MonoBehaviour
                 {
                     if(hit == null || (hit != null && (Vector2.Distance(moverAnimator.walkingPoint.position, found) < Vector2.Distance(moverAnimator.walkingPoint.position, hit.Value))))
                     {
-                        hit = found;
+                        hit = GetPointBeforeDestination(moverAnimator.walkingPoint.position, found, moveOffset);
                     }
                 }
             }
@@ -67,8 +84,8 @@ public class MovingController : MonoBehaviour
     }
 
     #region Gizmo
-    [SerializeField] public Vector3 lastCollisionPointFrom;
-    [SerializeField] public Vector3 lastCollisionPointTo;
+    private Vector3 lastCollisionPointFrom;
+    private Vector3 lastCollisionPointTo;
 
     private void OnDrawGizmos()
     {
