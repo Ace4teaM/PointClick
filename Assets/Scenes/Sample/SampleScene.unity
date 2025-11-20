@@ -217,6 +217,10 @@ PrefabInstance:
       propertyPath: moverAnimator
       value: 
       objectReference: {fileID: 934083199}
+    - target: {fileID: 4473213189603570489, guid: 1ef7f85920f83964d8da74ff597386c8, type: 3}
+      propertyPath: 'walkingArea.Array.data[0]'
+      value: 
+      objectReference: {fileID: 987861928}
     - target: {fileID: 5331691510339290734, guid: 1ef7f85920f83964d8da74ff597386c8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.548

@@ -219,8 +219,7 @@ Transform:
   m_LocalPosition: {x: 7.53, y: -4.18, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1970230805}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &157614906
@@ -291,11 +290,23 @@ PrefabInstance:
     - target: {fileID: 4473213189603570489, guid: 1ef7f85920f83964d8da74ff597386c8, type: 3}
       propertyPath: walkingArea
       value: 
-      objectReference: {fileID: 1332642250032053350}
+      objectReference: {fileID: 0}
     - target: {fileID: 4473213189603570489, guid: 1ef7f85920f83964d8da74ff597386c8, type: 3}
       propertyPath: moverAnimator
       value: 
       objectReference: {fileID: 5161938315556451194}
+    - target: {fileID: 4473213189603570489, guid: 1ef7f85920f83964d8da74ff597386c8, type: 3}
+      propertyPath: walkingArea.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4473213189603570489, guid: 1ef7f85920f83964d8da74ff597386c8, type: 3}
+      propertyPath: 'walkingArea.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1332642250032053350}
+    - target: {fileID: 4473213189603570489, guid: 1ef7f85920f83964d8da74ff597386c8, type: 3}
+      propertyPath: 'walkingArea.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1970230804}
     - target: {fileID: 5331691510339290734, guid: 1ef7f85920f83964d8da74ff597386c8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.2873
@@ -377,6 +388,39 @@ Transform:
   - {fileID: 734505872456020753}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1345796889
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1345796890}
+  m_Layer: 0
+  m_Name: WalkingArea
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1345796890
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1345796889}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 8.49351, y: -4.23103, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1970230805}
+  - {fileID: 7990158867514737600}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1970230803
 GameObject:
   m_ObjectHideFlags: 0
@@ -388,7 +432,7 @@ GameObject:
   - component: {fileID: 1970230805}
   - component: {fileID: 1970230804}
   m_Layer: 0
-  m_Name: WalkingArea
+  m_Name: Canape
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -454,11 +498,11 @@ Transform:
   m_GameObject: {fileID: 1970230803}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.2427001, y: 1.5352099, z: 0}
+  m_LocalPosition: {x: -2.2062101, y: 1.58624, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 92312751}
+  m_Father: {fileID: 1345796890}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &296495863294645323
 SpriteRenderer:
@@ -683,7 +727,7 @@ GameObject:
   - component: {fileID: 7990158867514737600}
   - component: {fileID: 1332642250032053350}
   m_Layer: 0
-  m_Name: WalkingArea
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -717,7 +761,7 @@ Animator:
   m_GameObject: {fileID: 8336528519910120299}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: 3b8f3551e8b755b4f95943c200392c69, type: 2}
+  m_Controller: {fileID: 22100000, guid: b0a6db72fef5d404ea5cf27e65fc6ac2, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -867,12 +911,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1682828529408995260}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.2873, y: -2.64479, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -2.2062101, y: 1.58624, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1345796890}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8336528519910120299
 GameObject:
@@ -902,6 +946,6 @@ SceneRoots:
   - {fileID: 6893266130667470890}
   - {fileID: 5115888292877416342}
   - {fileID: 478289906}
-  - {fileID: 7990158867514737600}
   - {fileID: 650576863}
   - {fileID: 92312751}
+  - {fileID: 1345796890}
