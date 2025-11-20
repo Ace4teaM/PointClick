@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -5,10 +6,10 @@ public class MovingController : MonoBehaviour
 {
     private Camera mainCam;
 
-    [SerializeField] private PolygonCollider2D walkingArea;
+    [SerializeField] private PolygonCollider2D[] walkingArea;
     public MoverAnimator moverAnimator;
 
-    public PolygonCollider2D WalkingArea => walkingArea;
+    public PolygonCollider2D[] WalkingArea => walkingArea;
 
     // Cette fonction sera bindée dans Input Action
     public void OnClick(InputAction.CallbackContext context)
@@ -20,10 +21,28 @@ public class MovingController : MonoBehaviour
             worldPos.z = 0f; // pour 2D
 
             // recherche la collision la plus proche
-            if (walkingArea.GetFirstIntersection(moverAnimator.transform.position, worldPos, out Vector2 hit))
+            Vector2? hit = null;
+            foreach (var area in walkingArea)
             {
-                Debug.DrawLine(moverAnimator.transform.position, hit, Color.red); // visualisation
-                worldPos = new Vector3(hit.x, hit.y,0);
+                if (area.GetFirstIntersection(moverAnimator.walkingPoint.position, worldPos, out var found))
+                {
+                    if(hit == null || (hit != null && (Vector2.Distance(moverAnimator.walkingPoint.position, found) < Vector2.Distance(moverAnimator.walkingPoint.position, hit.Value))))
+                    {
+                        hit = found;
+                    }
+                }
+            }
+
+            if (hit != null)
+            {
+                lastCollisionPointFrom = moverAnimator.walkingPoint.position;
+                lastCollisionPointTo = hit.Value;
+                worldPos = new Vector3(hit.Value.x, hit.Value.y,0);
+            }
+            else
+            {
+                lastCollisionPointFrom = moverAnimator.walkingPoint.position;
+                lastCollisionPointTo = worldPos;
             }
 
             moverAnimator.SetDestination(worldPos);
@@ -46,4 +65,15 @@ public class MovingController : MonoBehaviour
     {
         
     }
+
+    #region Gizmo
+    [SerializeField] public Vector3 lastCollisionPointFrom;
+    [SerializeField] public Vector3 lastCollisionPointTo;
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(lastCollisionPointFrom, lastCollisionPointTo);
+    }
+    #endregion
 }

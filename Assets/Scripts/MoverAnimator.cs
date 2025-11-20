@@ -7,6 +7,7 @@ public class MoverAnimator : MonoBehaviour
 {
     private SpriteRenderer spriteRenderer;
     private Animator animator;
+    public Transform walkingPoint;
 
     public enum Direction : int
     {
@@ -56,9 +57,9 @@ public class MoverAnimator : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, gizmoSize);
+        Gizmos.DrawWireSphere(walkingPoint.position, gizmoSize);
         Gizmos.color = Color.orange;
-        DrawArrow(transform.position, gizmoDirections[(int)direction], gizmoSize * 2);
+        DrawArrow(walkingPoint.position, gizmoDirections[(int)direction], gizmoSize * 2);
     }
 
     private void DrawArrow(Vector3 start, Vector3 dir, float length)
@@ -100,13 +101,13 @@ public class MoverAnimator : MonoBehaviour
         if (hasDestination)
         {
             // incrémente la position actuelle vers la destination
-            transform.position = Vector3.MoveTowards(transform.position, destination, speed * Time.deltaTime);
+            walkingPoint.position = Vector3.MoveTowards(walkingPoint.position, destination, speed * Time.deltaTime);
 
             // obtient la direction la plus proche du vecteur de destination
-            direction = GetClosestDirection((destination - transform.position).normalized);
+            direction = GetClosestDirection((destination - walkingPoint.position).normalized);
 
             // Arrivé au point
-            if (Vector3.Distance(transform.position, destination) < 0.05f)
+            if (Vector3.Distance(walkingPoint.position, destination) < 0.05f)
                 hasDestination = false;
         }
 
@@ -169,5 +170,10 @@ public class MoverAnimator : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+    }
+    private void OnValidate()
+    {
+        if (walkingPoint == null)
+            walkingPoint = this.transform;
     }
 }
