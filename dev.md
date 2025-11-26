@@ -49,3 +49,9 @@ Note la profondeur est géré par `Layer` donc `Background` ne passera jamais de
 ![animation_override_controler_prop](render transparency axis_prop.png)
 
 ![render transparency axis_scene](render transparency axis_scene.png)
+
+**Déboguer avec VisualStudio**
+
+Attacher le debogeur Unity depuis l'éditeur Visual Studio
+
+![image-20251124181543852](debug.png)

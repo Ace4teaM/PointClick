@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -58,43 +60,79 @@ public class MoverAnimator : MonoBehaviour
     {
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(walkingPoint.position, gizmoSize);
-        Gizmos.color = Color.orange;
-        DrawArrow(walkingPoint.position, gizmoDirections[(int)direction], gizmoSize * 2);
+        if (hasDestination)
+        {
+            Gizmos.color = Color.orange;
+            Gizmos.DrawLine(walkingPoint.position, destination);
+            var prev = destination;
+            foreach (var other in destinationsQueued)
+            {
+                Gizmos.DrawLine(prev, other);
+                prev = other;
+            }
+        }
     }
 
-    private void DrawArrow(Vector3 start, Vector3 dir, float length)
-    {
-        float headAngle = 20f;             // angle de la pointe
-        float headLength = 0.10f;          // longueur de la pointe
-
-        Vector3 end = start + dir * length;
-
-        // Ligne principale
-        Gizmos.DrawLine(start, end);
-
-        // Pointe de flèche
-        Vector3 right = Quaternion.Euler(0, 0, headAngle) * -dir;
-        Vector3 left = Quaternion.Euler(0, 0, -headAngle) * -dir;
-        Gizmos.DrawLine(end, end + right * headLength);
-        Gizmos.DrawLine(end, end + left * headLength);
-    }
     #endregion
 
     [SerializeField] private Vector3 destination;
 
     public Vector3 Destination => destination;
+    private Queue<Vector3> destinationsQueued = new Queue<Vector3>();
 
     public bool reverseSpriteRenderer = true;
 
     public float speed = 5f;
 
+    public float destinationThreshold = 0.005f;
+
     private bool hasDestination = false;
 
+    /// <summary>
+    /// Définit le point de destination
+    /// </summary>
+    /// <remarks>Si aucune destination en cours, définit le point en cours</remarks>
     public void SetDestination(Vector3 pos)
     {
         destination = pos;
         hasDestination = true;
     }
+
+    /// <summary>
+    /// Définit une liste de points de destinations chainé
+    /// </summary>
+    /// <remarks>Si aucune destination en cours, définit le point en cours</remarks>
+    public void SetDestinations(Queue<Vector3> positions)
+    {
+        destinationsQueued = positions;
+        destination = destinationsQueued.Dequeue();
+        hasDestination = true;
+    }
+
+    /// <summary>
+    /// Ajoute un point de destination à la queue
+    /// </summary>
+    /// <remarks>Si aucune destination en cours, définit le point en cours</remarks>
+    public void AddDestination(Vector3 pos)
+    {
+        destinationsQueued.Enqueue(pos);
+        if(hasDestination == false)
+        {
+            destination = destinationsQueued.Dequeue();
+            hasDestination = true;
+        }
+    }
+
+    /// <summary>
+    /// Obtient le dernier point de la liste des destinations
+    /// </summary>
+    public Vector3 GetLastDestinationQueued()
+    {
+        if (destinationsQueued.Count > 0)
+            return destinationsQueued.Last();
+        return destination;
+    }
+
     void Update()
     {
         // Déplacement
@@ -107,8 +145,19 @@ public class MoverAnimator : MonoBehaviour
             direction = GetClosestDirection((destination - walkingPoint.position).normalized);
 
             // Arrivé au point
-            if (Vector3.Distance(walkingPoint.position, destination) < 0.05f)
-                hasDestination = false;
+            if (Vector3.Distance(walkingPoint.position, destination) < destinationThreshold)
+            {
+                // point suivant ?
+                if (destinationsQueued.Count > 0)
+                {
+                    destination = destinationsQueued.Dequeue();
+                }
+                // sinon, fin du déplacement
+                else
+                {
+                    hasDestination = false;
+                }
+            }
         }
 
         // Animation

@@ -2,14 +2,21 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// MovingController à pour fonction de réagir aux événements de la souris
+/// pour determiner le chemin directe entre la position actuelle et la destination
+/// puis de passer la droite au MoverAnimator pour animation
+/// </summary>
 public class MovingController : MonoBehaviour
 {
     private Camera mainCam;
 
     [SerializeField] private PolygonCollider2D[] walkingArea;
+    [SerializeField] private PathFinder walkingPath;
     public MoverAnimator moverAnimator;
 
     public PolygonCollider2D[] WalkingArea => walkingArea;
+    public PathFinder WalkingPath => walkingPath;
 
     // Offset entre le segment de collision et la position réel de déplacement
     // Evite les problèmes de traverser des murs lié à la précision des floats
@@ -28,41 +35,73 @@ public class MovingController : MonoBehaviour
         return destination - dir.normalized * offset;
     }
 
+    internal bool AdjustDestinationPoint(Vector3 startPos, ref Vector3 worldPos)
+    {
+        // recherche la collision la plus proche
+        Vector2? hit = null;
+        foreach (var area in walkingArea)
+        {
+            if (area.GetFirstIntersection(startPos, worldPos, out var found))
+            {
+                if (hit == null || (hit != null && (Vector2.Distance(startPos, found) < Vector2.Distance(startPos, hit.Value))))
+                {
+                    hit = GetPointBeforeDestination(startPos, found, moveOffset);
+                }
+            }
+        }
+
+        if (hit != null)
+        {
+            worldPos = new Vector3(hit.Value.x, hit.Value.y, 0);
+            return true;
+        }
+
+        return false;
+    }
+
     // Cette fonction sera bindée dans Input Action
     public void OnClick(InputAction.CallbackContext context)
     {
+        var device = context.control.device;
+
+        if (!context.control.IsPressed())
+            return;
+
         if (context.performed) // assure que c’est un clic, pas un relâché
         {
             Vector2 mousePos = Mouse.current.position.ReadValue();
-            Vector3 worldPos = mainCam.ScreenToWorldPoint(mousePos);
+            Vector3 targetPos = mainCam.ScreenToWorldPoint(mousePos);
+
+            Vector3 startPos = moverAnimator.walkingPoint.position;
+
+            // Calcule le chemin le plus directe
+            // Si la destination n'est pas direct et qu'un chemin est disponible
+            // pour guider le déplacement, on l'utilise
+            Vector3 worldPos = targetPos;
             worldPos.z = 0f; // pour 2D
-
-            // recherche la collision la plus proche
-            Vector2? hit = null;
-            foreach (var area in walkingArea)
+            if (AdjustDestinationPoint(startPos, ref worldPos) == true && walkingPath != null)
             {
-                if (area.GetFirstIntersection(moverAnimator.walkingPoint.position, worldPos, out var found))
+                worldPos = targetPos;
+                worldPos.z = 0f;
+
+                var path = walkingPath.FindPath(moverAnimator.walkingPoint.position, worldPos);
+
+                // ajoute le dernier segment du déplacement
+                if(path.Count > 0)
                 {
-                    if(hit == null || (hit != null && (Vector2.Distance(moverAnimator.walkingPoint.position, found) < Vector2.Distance(moverAnimator.walkingPoint.position, hit.Value))))
-                    {
-                        hit = GetPointBeforeDestination(moverAnimator.walkingPoint.position, found, moveOffset);
-                    }
+                    AdjustDestinationPoint(path.Last(), ref worldPos);
+                    path.Enqueue(worldPos);
                 }
-            }
 
-            if (hit != null)
-            {
-                lastCollisionPointFrom = moverAnimator.walkingPoint.position;
-                lastCollisionPointTo = hit.Value;
-                worldPos = new Vector3(hit.Value.x, hit.Value.y,0);
+                moverAnimator.SetDestinations(path);
             }
             else
             {
-                lastCollisionPointFrom = moverAnimator.walkingPoint.position;
-                lastCollisionPointTo = worldPos;
+                moverAnimator.SetDestination(worldPos);
             }
 
-            moverAnimator.SetDestination(worldPos);
+            lastCollisionPointFrom = startPos;
+            lastCollisionPointTo = worldPos;
         }
     }
 
