@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 39f1e0254dea0e646ac3e15515dfe210
+guid: 8239fbd910b7b0a40aa4caf7229214ce
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6646566780172719940
-    second: WALK_NE_2_0
+      213: 4352078687236909546
+    second: IDLE_N_0_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,23 +126,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: WALK_NE_2_0
+      name: IDLE_N_0_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 512
-        height: 1024
+        x: 15
+        y: 186
+        width: 219
+        height: 682
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4475b1485495d3c50800000000000000
-      internalID: 6646566780172719940
+      spriteID: ae9ed4bf180b56c30800000000000000
+      internalID: 4352078687236909546
       vertices: []
       indices: 
       edges: []
@@ -151,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: cad21cc2e472bd845bf10216c2d8d720
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      WALK_NE_2_0: 6646566780172719940
+      IDLE_N_0_0: 4352078687236909546
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

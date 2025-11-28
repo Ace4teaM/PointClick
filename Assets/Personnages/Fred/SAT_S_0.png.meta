@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 39f1e0254dea0e646ac3e15515dfe210
+guid: 4f78c76f33a154349934bf7b28db5b84
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6646566780172719940
-    second: WALK_NE_2_0
+      213: 2036611107463803459
+    second: SAT_S_0_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -48,10 +48,10 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 0
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 1400
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -126,23 +126,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: WALK_NE_2_0
+      name: SAT_S_0_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 512
-        height: 1024
+        x: 292
+        y: 289
+        width: 372
+        height: 469
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4475b1485495d3c50800000000000000
-      internalID: 6646566780172719940
+      spriteID: 342bef5030f734c10800000000000000
+      internalID: 2036611107463803459
       vertices: []
       indices: 
       edges: []
@@ -151,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: cad21cc2e472bd845bf10216c2d8d720
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      WALK_NE_2_0: 6646566780172719940
+      SAT_S_0_0: 2036611107463803459
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
