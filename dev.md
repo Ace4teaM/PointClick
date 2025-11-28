@@ -20,6 +20,14 @@ Attacher la méthode `OnClick` à l'objet `MouseClickController`
 
 ![](input_binding2.png)
 
+**Sprites personnages**
+
+Lors de l'importation des sprites vérifier que celui-ci n'est pas tronqué automatiquement.
+
+Vérifier que le type est bien Full Rect et si celui-ci est quand même tronqué (comme dans l'exemple ci dessous), ouvrir l'éditeur de sprite et ajuster le rectangle pour qu'il prenne toute l'image.
+
+![](sprite_mesh type.png)
+
 **Animation du personnage**
 
 La propriété Has Exit Time permet de stopper l'animation immédiatement avant de passer à l'état suivant.
