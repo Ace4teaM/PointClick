@@ -1,5 +1,6 @@
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 /// <summary>
@@ -59,6 +60,12 @@ public class MovingController : MonoBehaviour
         return false;
     }
 
+    /// <summary>
+    /// Si true l'utiliseur a cliquer pour déplacer l'objet
+    /// Cette propriété est utilisé en décalage avec OnClick et Update pour permettre à Unity de calculer toutes les propriétés d'UI avant l'action (ie: EventSystem.current.IsPointerOverGameObject())
+    /// </summary>
+    private bool wantMove = false;
+
     // Cette fonction sera bindée dans Input Action
     public void OnClick(InputAction.CallbackContext context)
     {
@@ -69,6 +76,32 @@ public class MovingController : MonoBehaviour
 
         if (context.performed) // assure que c’est un clic, pas un relâché
         {
+            wantMove = true;
+        }
+    }
+
+    void Awake()
+    {
+        mainCam = Camera.main;
+    }
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if(wantMove)
+        {
+            wantMove = false;
+
+            // Le clic vient de l’UI (Button ou autre)
+            if (EventSystem.current.IsPointerOverGameObject())
+                return;
+
             Vector2 mousePos = Mouse.current.position.ReadValue();
             Vector3 targetPos = mainCam.ScreenToWorldPoint(mousePos);
 
@@ -87,7 +120,7 @@ public class MovingController : MonoBehaviour
                 var path = walkingPath.FindPath(moverAnimator.walkingPoint.position, worldPos);
 
                 // ajoute le dernier segment du déplacement
-                if(path.Count > 0)
+                if (path.Count > 0)
                 {
                     AdjustDestinationPoint(path.Last(), ref worldPos);
                     path.Enqueue(worldPos);
@@ -103,23 +136,6 @@ public class MovingController : MonoBehaviour
             lastCollisionPointFrom = startPos;
             lastCollisionPointTo = worldPos;
         }
-    }
-
-    void Awake()
-    {
-        mainCam = Camera.main;
-    }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     #region Gizmo
