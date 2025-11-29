@@ -12,6 +12,7 @@ public class ButtonAnimatorChangeEvent : MonoBehaviour
     void Awake()
     {
         animator = GetComponent<Animator>();
+        animator.SetBool("Actived", GameData.action == type);
     }
 
     private void OnEnable()
