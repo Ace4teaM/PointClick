@@ -4,5 +4,5 @@ public enum ActionType
     Move,
     Inspect,
     Talk,
-    Action
+    Activate
 }

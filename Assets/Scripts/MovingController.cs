@@ -76,9 +76,7 @@ public class MovingController : MonoBehaviour
             return;
 
         // Vérifie si l'action en cours est "Déplacer"
-        var gameData = GameObject.Find("GameData")?.GetComponent<Variables>();
-        ActionType action = gameData.declarations.Get<ActionType>("Action");
-        if (action != ActionType.Move)
+        if (GameData.action != ActionType.Move)
             return;
 
 
