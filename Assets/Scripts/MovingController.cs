@@ -2,6 +2,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using Unity.VisualScripting;
 
 /// <summary>
 /// MovingController à pour fonction de réagir aux événements de la souris
@@ -73,6 +74,13 @@ public class MovingController : MonoBehaviour
 
         if (!context.control.IsPressed())
             return;
+
+        // Vérifie si l'action en cours est "Déplacer"
+        var gameData = GameObject.Find("GameData")?.GetComponent<Variables>();
+        ActionType action = gameData.declarations.Get<ActionType>("Action");
+        if (action != ActionType.Move)
+            return;
+
 
         if (context.performed) // assure que c’est un clic, pas un relâché
         {
