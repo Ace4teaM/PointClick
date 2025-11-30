@@ -205,7 +205,7 @@ public class MoverAnimator : MonoBehaviour
         // Animation
         if (reverseSpriteRenderer && spriteRenderer)
         {
-            spriteRenderer.flipX = direction == Direction.W || direction == Direction.NW || direction == Direction.SW;
+            spriteRenderer.flipX = direction == Direction.W || direction == Direction.N || direction == Direction.NW || direction == Direction.SW;
         }
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
