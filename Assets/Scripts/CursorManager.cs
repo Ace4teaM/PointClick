@@ -1,12 +1,19 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
+/// <summary>
+/// Gestion du curseur à l'écran
+/// </summary>
 public class CursorManager : MonoBehaviour
 {
+    public Texture2D uiCursor;
     public Texture2D moveCursor;
     public Texture2D inspectCursor;
     public Texture2D talkCursor;
     public Texture2D actionCursor;
 
+    public Vector2 uiHotspot;
     public Vector2 moveHotspot;
     public Vector2 inspectHotspot;
     public Vector2 talkHotspot;
@@ -41,20 +48,28 @@ public class CursorManager : MonoBehaviour
 
     private void UpdateCursor()
     {
-        switch (GameData.action)
+        // Le curseur se trouve sur un élément de l’UI (Button ou autre)
+        if (HoverCursorFlag.HoverFlagType == HoverFlagType.UI)
         {
-            case ActionType.Move:
-                Cursor.SetCursor(moveCursor, moveHotspot, CursorMode.Auto);
-                break;
-            case ActionType.Inspect:
-                Cursor.SetCursor(inspectCursor, inspectHotspot, CursorMode.Auto);
-                break;
-            case ActionType.Talk:
-                Cursor.SetCursor(talkCursor, talkHotspot, CursorMode.Auto);
-                break;
-            case ActionType.Activate:
-                Cursor.SetCursor(actionCursor, actionHotspot, CursorMode.Auto);
-                break;
+            Cursor.SetCursor(uiCursor, uiHotspot, CursorMode.Auto);
+        }
+        else
+        {
+            switch (GameData.action)
+            {
+                case ActionType.Move:
+                    Cursor.SetCursor(moveCursor, moveHotspot, CursorMode.Auto);
+                    break;
+                case ActionType.Inspect:
+                    Cursor.SetCursor(inspectCursor, inspectHotspot, CursorMode.Auto);
+                    break;
+                case ActionType.Talk:
+                    Cursor.SetCursor(talkCursor, talkHotspot, CursorMode.Auto);
+                    break;
+                case ActionType.Activate:
+                    Cursor.SetCursor(actionCursor, actionHotspot, CursorMode.Auto);
+                    break;
+            }
         }
     }
 
@@ -62,5 +77,17 @@ public class CursorManager : MonoBehaviour
     void Start()
     {
         UpdateCursor();
+    }
+
+    HoverFlagType lastHoverType = HoverCursorFlag.HoverFlagType;
+    
+    void Update()
+    {
+        // Le curseur se trouve sur un élément de l’UI (Button ou autre)
+        if (lastHoverType != HoverCursorFlag.HoverFlagType)
+        {
+            UpdateCursor();
+            lastHoverType = HoverCursorFlag.HoverFlagType;
+        }
     }
 }
