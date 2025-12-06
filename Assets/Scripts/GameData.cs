@@ -7,13 +7,6 @@ public class GameData : MonoBehaviour
 
     public static event Action<ActionType> OnActionChanged;
 
-    public static bool showInventory = false;
-
-    public void ToggleInventory()
-    {
-        showInventory = !showInventory;
-    }
-
     public void EnableMove()
     {
         action = ActionType.Move;

@@ -106,7 +106,7 @@ public class MovingController : MonoBehaviour
             wantMove = false;
 
             // Le clic vient de l’UI (Button ou autre)
-            if (EventSystem.current.IsPointerOverGameObject())
+            if (HoverCursorFlag.HoverFlagType == HoverFlagType.UI)
                 return;
 
             Vector2 mousePos = Mouse.current.position.ReadValue();
