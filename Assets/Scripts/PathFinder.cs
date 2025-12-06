@@ -2,9 +2,11 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 using UnityEditor;
-using UnityEditor.EditorTools;
 using System.Linq;
 using UnityEngine.InputSystem;
+
+#if UNITY_EDITOR
+using UnityEditor.EditorTools;
 
 /// <summary>
 /// Implémernte un outil dédié pour éviter de mixer les outils de bases (move/pan/scale) avec les points d'éditions de chemins
@@ -288,6 +290,7 @@ public class PathEditor : Editor
         }
     }
 }
+#endif
 
 [System.Serializable]
 public class PathNode

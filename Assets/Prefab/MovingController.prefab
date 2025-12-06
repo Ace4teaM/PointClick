@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5331691510339290734}
   - component: {fileID: 4473213189603570489}
-  - component: {fileID: 322863632851575316}
+  - component: {fileID: 3796280120796401358}
   m_Layer: 0
   m_Name: MovingController
   m_TagString: Untagged
@@ -45,9 +45,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e7785243d7bed647a92b78ec2c4455f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MovingCollider
-  walkingArea: {fileID: 0}
+  walkingArea:
+  - {fileID: 0}
+  walkingPath: {fileID: 0}
   moverAnimator: {fileID: 0}
---- !u!114 &322863632851575316
+  moveOffset: 0.1
+--- !u!114 &3796280120796401358
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -128,6 +131,18 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4473213189603570489}
         m_TargetAssemblyTypeName: MovingController, Assembly-CSharp
+        m_MethodName: OnClick
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: InspectingController, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 0
         m_Arguments:
