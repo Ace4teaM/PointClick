@@ -4820,7 +4820,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HoverCursorFlag
   flagType: 1
-  flag: schtroumpfs
+  flag: Schtroumpfs
 --- !u!60 &1176298149
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -9650,7 +9650,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HoverCursorFlag
   flagType: 1
-  flag: Uncharted 4
+  flag: Marko's Magic Football
 --- !u!60 &2139986855
 PolygonCollider2D:
   m_ObjectHideFlags: 0
