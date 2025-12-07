@@ -66,6 +66,8 @@ Attacher le debogeur Unity depuis l'éditeur Visual Studio
 
 ## Scénes
 
+### Organisation des scènes
+
 Sous Unity le jeu est composé de différentes **Scènes**. Chaque scène et ses objets peuvent être chargé/déchargé individuellement et en complément des scènes déjà existantes.
 
 **Dans ce projet les scènes se groupées ainsi:**
@@ -93,3 +95,46 @@ En mode **Editeur** vous devez donc avoir au moins plusieurs scènes ouverte pou
 **Handler/Manager/Controller**
 
 Certains objets on besoins d'être relier à des objets de la scène `Main`, les objets étant dans des scènes différentes il existe des objets intermédiaires nommé `Handler` (ex: `GameDataHandler`) ou directement accessible par script (ex: `GameData`).
+
+### Données persistantes
+
+Les données persistantes entre les scènes sont contenu dans le `GameObject` nommé `Persistant` il est contenu dans la scène Main qui est constamment chargé. Les autres scènes sont ouvertes en plus de la scène principale.
+
+## Build
+
+Toutes les scènes faisant partie du **build final** doit se trouver dans la liste des scènes accessibles depuis le menu **File > Build Profiles**.
+
+Les scène ne se trouvant pas dans cette liste de pourrons pas êtres ouvertes avec `SceneManager.LoadScene()`
+
+La scène n°0, sera la première scène chargé au démarrage de l'application.
+
+![](SceneList.jpg) 
+
+## Interface Utilisateur
+
+l'UI est implémenté derrière un objet **Canvas** permettant de séparer l'espace de la scène avec celle de l'UI en Overlay.
+
+### Placement ancré
+
+Pour placer un élément dans la zone de l'écran, utiliser les ancrages sur les objets du Canvas.
+
+> Maintenir le bouton `Alt + Shift` pour réinitialiser le pivot et le placement aux limites de l'écran.
+
+![](ui_anchors.png)
+
+En fonction du type d'ancrage `Stretch` ou `Non-Stretch` il faut utiliser respectivement `Pos X,Pos Y` ou `Left,Top` pour spécifier les marges supplémentaires (et donc éviter d'être totalement collé au bord de l'écran).
+
+![](ui_anchors2.png)
+
+## Son et Bruitages
+
+### Bruitage sur événement d'animation
+
+Certains bruitages son synchronisés avec les frames d'animations visuels.
+
+Pour se faire il faut se rendre dans la vue **Animation** et ajouter des événements sur les frames qui doivent  déclencher un son.
+
+![](C:/Users/aceteam/source/repos/PointClick/sound_animation.png)
+
+La méthode appelée est programmée dans un **GameObject** nommé **SoundController** dédié au personnage.
+
