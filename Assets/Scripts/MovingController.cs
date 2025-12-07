@@ -12,8 +12,6 @@ using System.Collections.Generic;
 /// </summary>
 public class MovingController : MonoBehaviour
 {
-    private Camera mainCam;
-
     [SerializeField] private PolygonCollider2D[] walkingArea;
     [SerializeField] private PathFinder walkingPath;
     public MoverAnimator moverAnimator;
@@ -69,27 +67,22 @@ public class MovingController : MonoBehaviour
     private bool wantMove = false;
 
     // Cette fonction sera bindée dans Input Action
-    public void OnClick(InputAction.CallbackContext context)
+    internal void OnClick()
     {
-        var device = context.control.device;
-
-        if (!context.control.IsPressed())
-            return;
-
         // Vérifie si l'action en cours est "Déplacer"
         if (GameData.action != ActionType.Move)
             return;
 
-
-        if (context.performed) // assure que c’est un clic, pas un relâché
-        {
-            wantMove = true;
-        }
+        wantMove = true;
     }
 
     void Awake()
     {
-        mainCam = Camera.main;
+        GameData.InputClickEvent += OnClick;
+    }
+    void OnDestroy()
+    {
+        GameData.InputClickEvent -= OnClick;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -110,7 +103,7 @@ public class MovingController : MonoBehaviour
                 return;
 
             Vector2 mousePos = Mouse.current.position.ReadValue();
-            Vector3 targetPos = mainCam.ScreenToWorldPoint(mousePos);
+            Vector3 targetPos = Camera.main.ScreenToWorldPoint(mousePos);
 
             Vector3 startPos = moverAnimator.walkingPoint.position;
 

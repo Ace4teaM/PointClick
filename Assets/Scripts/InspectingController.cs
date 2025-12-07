@@ -1,5 +1,7 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class InspectingController : MonoBehaviour
 {
@@ -8,24 +10,23 @@ public class InspectingController : MonoBehaviour
     /// Cette propriété est utilisé en décalage avec OnClick et Update pour permettre à Unity de calculer toutes les propriétés d'UI avant l'action (ie: EventSystem.current.IsPointerOverGameObject())
     /// </summary>
     private bool wantInspect = false;
+    void Awake()
+    {
+        GameData.InputClickEvent += OnClick;
+    }
+    void OnDestroy()
+    {
+        GameData.InputClickEvent -= OnClick;
+    }
 
     // Cette fonction sera bindée dans Input Action
-    public void OnClick(InputAction.CallbackContext context)
+    internal void OnClick()
     {
-        var device = context.control.device;
-
-        if (!context.control.IsPressed())
-            return;
-
-        // Vérifie si l'action en cours est "Déplacer"
+        // Vérifie si l'action en cours est "Inspecter"
         if (GameData.action != ActionType.Inspect)
             return;
 
-
-        if (context.performed) // assure que c’est un clic, pas un relâché
-        {
-            wantInspect = true;
-        }
+        wantInspect = true;
     }
 
     // Update is called once per frame
@@ -40,7 +41,11 @@ public class InspectingController : MonoBehaviour
 
             switch (HoverCursorFlag.HoverFlag)
             {
+                case "Porte":
+                    SceneTransition.SetTransition(Scenes.BoitesAuSol);
+                    break;
                 case "Bibliothèque":
+                    SceneTransition.SetTransition(Scenes.Bibliotheque);
                     break;
                 case "Canapé":
                     break;

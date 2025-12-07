@@ -63,3 +63,33 @@ Note la profondeur est géré par `Layer` donc `Background` ne passera jamais de
 Attacher le debogeur Unity depuis l'éditeur Visual Studio
 
 ![image-20251124181543852](debug.png)
+
+## Scénes
+
+Sous Unity le jeu est composé de différentes **Scènes**. Chaque scène et ses objets peuvent être chargé/déchargé individuellement et en complément des scènes déjà existantes.
+
+**Dans ce projet les scènes se groupées ainsi:**
+
+* La scène de démarrage (toujours active) : `Main`
+* Les scènes d'interfaces utilisateurs : `Scenes/UserInterface/*`
+* Les scènes de jeux : `Scenes/Game/*`
+* Les scènes de transitions : `Scenes/Transitions/*`
+
+![](scenes2.jpg)
+
+**Les scènes sont combinables mais pas dans n'importe quel ordre:**
+
+* `Main` est toujours actif et contient les objets single-instance (`PlayerInput`, `MainCamera`, `Persistant`, ...)
+* 1 scène de `UserInterface` à la fois
+* 1 scène de `Game` à la fois
+* La scène `Transition` est chargé et déchargé automatiquement lors de la transition d'une scène `Game`
+
+**Editeurs**
+
+En mode **Editeur** vous devez donc avoir au moins plusieurs scènes ouverte pour faire fonctionner le jeu: `Main`, 1 scène de `Game` et 1 scène de `UserInterface`.
+
+![](scenes.jpg)
+
+**Handler/Manager/Controller**
+
+Certains objets on besoins d'être relier à des objets de la scène `Main`, les objets étant dans des scènes différentes il existe des objets intermédiaires nommé `Handler` (ex: `GameDataHandler`) ou directement accessible par script (ex: `GameData`).
