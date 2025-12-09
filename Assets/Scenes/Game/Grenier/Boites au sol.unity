@@ -248,6 +248,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2636f192a73375240b35eff683a66232, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  graphText: "graph TB\r\nA((S)) --> C{Actions}\r\n    C -->|Inspect PS4| D>Fred:
+    'Je peux sentir la marque de ce carton dans mon crane']\r\n    C -->|Inspect
+    NES| E>Fred: 'Non ! pas les tortues... pas les tortues !']\r\n    C -->|Inspect
+    Power Glove| H>Fred: 'Cette merde ne servira plus jamais']\r\n    C -->|Inspect
+    Boule de cristal| F>Fred: 'Ha... la belle \xE9poque...']\r\n    C -->|Inspect
+    Publicit\xE9 | G>Fred: 'Une publicit\xE9 ? Qu'est ce que \xE7a fait l\xE0 ?]
+    --> Z((F))\n"
+  graphStep: 67
 --- !u!4 &530946239
 Transform:
   m_ObjectHideFlags: 0
@@ -298,6 +306,51 @@ Transform:
   - {fileID: 1563741441}
   - {fileID: 1901998438}
   - {fileID: 1411471853}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &758963630
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 758963632}
+  - component: {fileID: 758963631}
+  m_Layer: 0
+  m_Name: InitStates
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &758963631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 758963630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45db9d9049ad06145a557cec39f032cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  sceneType: 0
+--- !u!4 &758963632
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 758963630}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.53761876, y: 0.08852166, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1050808793
@@ -482,7 +535,8 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 2.2534719, y: 0.47854316}
+    - - {x: 0.71605337, y: 0.36376873}
+      - {x: 1.5440894, y: 0.60299623}
       - {x: 1.254988, y: 0.6643731}
       - {x: -0.6623231, y: 0.04965478}
       - {x: 0.7208688, y: -0.33049786}
@@ -500,7 +554,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HoverCursorFlag
   flagType: 1
-  flag: PowerGlove
+  flag: "Publicit\xE9"
 --- !u!1 &1406347315
 GameObject:
   m_ObjectHideFlags: 0
@@ -692,7 +746,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HoverCursorFlag
   flagType: 1
-  flag: Boule
+  flag: Posters
 --- !u!1 &1563741440
 GameObject:
   m_ObjectHideFlags: 0
@@ -792,7 +846,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HoverCursorFlag
   flagType: 1
-  flag: PowerGlove
+  flag: Power Glove
 --- !u!1 &1901998437
 GameObject:
   m_ObjectHideFlags: 0
@@ -875,11 +929,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HoverCursorFlag
   flagType: 1
-  flag: Boule
+  flag: Boule de cristal
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 758963632}
   - {fileID: 1050808794}
   - {fileID: 681670041}
   - {fileID: 530946239}

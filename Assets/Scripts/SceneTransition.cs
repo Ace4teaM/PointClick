@@ -132,7 +132,8 @@ public class SceneTransition : MonoBehaviour
         // Recharge la nouvelle UI
         yield return SceneManager.LoadSceneAsync(newCurrentSceneUI, LoadSceneMode.Additive);
 
-        GameData.CurrentSceneGame = newCurrentSceneGame;
-        GameData.CurrentSceneUI = newCurrentSceneUI;
+        // NOTE: initialisé automatiquement par le script InitStates
+        //GameData.CurrentSceneGame = newCurrentSceneGame;
+        //GameData.CurrentSceneUI = newCurrentSceneUI;
     }
 }

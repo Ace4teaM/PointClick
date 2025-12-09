@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -6,8 +7,62 @@ using UnityEngine.SceneManagement;
 public class InspectingController : MonoBehaviour
 {
     /// <summary>
+    /// Contient le texte du flow graph mermaid qui détermine les séquences du gameplay
+    /// </summary>
+    /// <example>
+    /// graph TB
+    /// A((S)) --> C{Actions}
+    /// C-- >| Inspect PS4 | D > Fred: 'Je peux sentir la marque de ce carton dans mon crane']
+    /// C-- >| Inspect NES | E > Fred: 'Non ! pas les tortues... pas les tortues !']
+    /// C-- >| Inspect Power Glove| H>Fred: 'Cette merde ne servira plus jamais']
+    /// C-- >| Inspect Boule de cristal| F>Fred: 'Ha... la belle époque...']
+    /// C-- >| Inspect Publicité | G > Fred: 'Une publicité ? Qu'est ce que ça fait là ?] --> Z((F))
+    /// </example>
+    [TextArea(3, 30)]
+    public string graphText = string.Empty;
+    public char graphStep = 'A';
+
+    internal struct GraphExpression
+    {
+        public int textStart;
+        public int textEnd;
+    }
+
+    /// <summary>
+    /// Tente de trouver l'étape correspondante dans le texte du graph
+    /// </summary>
+    /// <param name="step"></param>
+    /// <param name="expression"></param>
+    /// <returns></returns>
+    internal bool TryFindStep(char step, out GraphExpression expression)
+    {
+        expression = new GraphExpression();
+        var match = Regex.Match(graphText, $@"^[{step}].*$", RegexOptions.Multiline);
+        if(match.Success)
+        {
+            expression.textStart = match.Index;
+            expression.textEnd = match.Index + match.Length;
+            return true;
+        }
+        return false;
+    }
+    internal bool TryFindAction(char step, ActionType action, string actionName, out GraphExpression expression)
+    {
+        expression = new GraphExpression();
+        var pattern = $@"^\s*[{step}]\s*\-+\>\s*\|\s*{action}\s+{actionName}\s*\|\s*(.*)$";
+        var match = Regex.Match(graphText, pattern, RegexOptions.Multiline);
+        if (match.Success)
+        {
+            expression.textStart = match.Groups[1].Index;
+            expression.textEnd = match.Groups[1].Index + match.Groups[1].Length;
+            return true;
+        }
+        return false;
+    }
+
+    /// <summary>
     /// Si true l'utiliseur a cliquer pour déplacer l'objet
-    /// Cette propriété est utilisé en décalage avec OnClick et Update pour permettre à Unity de calculer toutes les propriétés d'UI avant l'action (ie: EventSystem.current.IsPointerOverGameObject())
+    /// Cette propriété est utilisée en décalage avec OnClick et Update pour permettre à Unity de calculer toutes les propriétés d'UI avant l'action (ie: EventSystem.current.IsPointerOverGameObject())
     /// </summary>
     private bool wantInspect = false;
     void Awake()
@@ -38,6 +93,16 @@ public class InspectingController : MonoBehaviour
             // Le clic vient de l’UI (Button ou autre)
             if (HoverCursorFlag.HoverFlagType == HoverFlagType.UI)
                 return;
+
+
+            if (GameData.action == ActionType.Inspect)
+            {
+                if(TryFindAction(graphStep, GameData.action, HoverCursorFlag.HoverFlag, out var expression))
+                {
+                    Debug.Log(graphText.Substring(expression.textStart, expression.textEnd - expression.textStart));
+                    // examine le résultat de l'action
+                }
+            }
 
             switch (HoverCursorFlag.HoverFlag)
             {

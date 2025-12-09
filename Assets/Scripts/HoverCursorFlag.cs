@@ -26,13 +26,13 @@ public class HoverCursorFlag : MonoBehaviour, IPointerEnterHandler, IPointerExit
     {
         HoverFlag = flag;
         HoverFlagType = flagType;
-        OnFlagChanged?.Invoke(flagType, flag);
+        OnFlagChanged?.Invoke(HoverFlagType, HoverFlag);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         HoverFlag = string.Empty;
         HoverFlagType = HoverFlagType.None;
-        OnFlagChanged?.Invoke(flagType, flag);
+        OnFlagChanged?.Invoke(HoverFlagType, HoverFlag);
     }
 }
