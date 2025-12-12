@@ -28,6 +28,17 @@ public class Animations : MonoBehaviour
         }
     }
 
+    public async Task WaitForBoolAsync(Action exec, Func<Task> condition)
+    {
+        exec();
+        var task = condition();
+        // Attend que la condition soit vraie
+        while (!task.IsCompleted)
+        {
+            await Task.Delay(10); // petite pause pour éviter de bloquer le CPU
+        }
+    }
+
     void MoveTo(string playerName, string anchorName)
     {
         var anchor = GameObject.Find(anchorName).GetComponentInChildren<Transform>();
@@ -50,7 +61,20 @@ public class Animations : MonoBehaviour
             {
                 player.GetComponentInChildren<Animator>().SetBool(name, value);
             },
-            () => player.GetComponentInChildren<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Idle_S"))
+            () => player.GetComponentInChildren<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Sat_S"))
+        );
+    }
+
+    void ChangeState(string playerName, string name, float value, Func<Task> delay)
+    {
+        var player = GameObject.Find(playerName);
+        tasks.Add(() => WaitForBoolAsync(
+            () =>
+            {
+                player.GetComponentInChildren<Animator>().SetFloat(name, value);
+                delay();
+            },
+            delay)
         );
     }
 
@@ -61,9 +85,11 @@ public class Animations : MonoBehaviour
         {
             case "Fred se lève du canapé":
                 {
-                    ChangeState("Fred", "Sit", false);
                     MoveTo("Fred", "A_Bibliotheque");
                     MoveTo("Fred", "A_Canape");
+                    ChangeState("Fred", "IsSat", true);
+                    ChangeState("Fred", "SatState", 2f, () => Task.Delay(3000));
+                    ChangeState("Fred", "IsSat", false);
                     start = true;
                 }
                 break;

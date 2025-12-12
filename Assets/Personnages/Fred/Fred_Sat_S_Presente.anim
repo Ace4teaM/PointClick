@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Fred_Sat_S
+  m_Name: Fred_Sat_S_Presente
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,7 +21,7 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 2036611107463803459, guid: 4f78c76f33a154349934bf7b28db5b84, type: 3}
+      value: {fileID: -8344324636391406465, guid: c2365d2918284fc4786af05573d28c44, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -44,7 +44,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 2036611107463803459, guid: 4f78c76f33a154349934bf7b28db5b84, type: 3}
+    - {fileID: -8344324636391406465, guid: c2365d2918284fc4786af05573d28c44, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
