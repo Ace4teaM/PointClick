@@ -5364,7 +5364,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HoverCursorFlag
   flagType: 1
-  flag: Alone In The Dark
+  flag: Alone in the Dark
 --- !u!60 &1250300632
 PolygonCollider2D:
   m_ObjectHideFlags: 0

@@ -109,7 +109,7 @@ public class InspectingController : MonoBehaviour
                     if (g.TryGetDialog(nextExpression, out var dialog))
                     {
                         //var obj = SceneUtils.GetObjectByName(GameData.CurrentSceneUI, "Animations");
-                        if(anim == null)
+                        if (anim == null)
                         {
                             Debug.LogError($"Impossible de trouver l'objet d'animations 'Animations'");
                         }
@@ -139,6 +139,15 @@ public class InspectingController : MonoBehaviour
                         g.graphStep = nextStep;
                         return;
                     }
+                }
+            }
+            // si il n'y a pas de prochaine étape, on recommence l'action précédente
+            else
+            {
+                if (g.HasNextStep(g.graphStep) == false)
+                {
+                    // (généralement un dialogue sans suite mais pas la fin du graph)
+                    g.graphStep = prevActionStep;
                 }
             }
         }
