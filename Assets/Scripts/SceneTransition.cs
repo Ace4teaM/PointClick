@@ -2,15 +2,20 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Description = System.ComponentModel.DescriptionAttribute;
 
 /// <summary>
 /// Demande la transition de la scène
 /// </summary>
 /// <param name="name">Nom de la nouvelle scène</param>
+/// <remarks>Les descriptions sont utilisées pour parser les actions du flow-graph</remarks>
 public enum Scenes
 {
+    [Description("Bibliothèque")]
     Bibliotheque,
+    [Description("Boites au sol")]
     BoitesAuSol,
+    [Description("Pièce principale")]
     PiecePrincipale
 }
 
@@ -38,6 +43,18 @@ public class SceneTransition : MonoBehaviour
         }
     }
 
+    internal static void ChangeUI(string sceneUI)
+    {
+        if (loadTransition == true)
+            return;
+
+        newCurrentSceneGame = GameData.CurrentSceneGame;
+        newCurrentSceneUI = sceneUI;
+        GameData.TransitionScene = null;
+
+        loadTransition = true;
+    }
+
     internal static void SetTransition(Scenes scene)
     {
         if (loadTransition == true)
@@ -45,6 +62,7 @@ public class SceneTransition : MonoBehaviour
            
         newCurrentSceneGame = GameData.CurrentSceneGame;
         newCurrentSceneUI = GameData.CurrentSceneUI;
+        GameData.TransitionScene = "CircleTransition";
 
         switch (scene)
         {
@@ -105,14 +123,17 @@ public class SceneTransition : MonoBehaviour
         yield return SceneManager.UnloadSceneAsync(oldCurrentSceneUI);
 
         // Charge la scène de transition
-        yield return SceneManager.LoadSceneAsync(transitionName, LoadSceneMode.Additive);
-
-        yield return WaitAndAnimate(2f, t =>
+        if (transitionName != null)
         {
-            fadeInTimer = t;
-        });
+            yield return SceneManager.LoadSceneAsync(transitionName, LoadSceneMode.Additive);
 
-        // Charger la scène persistante
+            yield return WaitAndAnimate(2f, t =>
+            {
+                fadeInTimer = t;
+            });
+        }
+
+        // Charger la scène de jeu (si nécessaire)
         if (newCurrentSceneGame != oldCurrentSceneGame && SceneManager.GetSceneByName(oldCurrentSceneGame).isLoaded)
         {
             yield return SceneManager.UnloadSceneAsync(oldCurrentSceneGame);
@@ -121,13 +142,17 @@ public class SceneTransition : MonoBehaviour
                 yield return null;
         }
 
-        yield return WaitAndAnimate(2f, t =>
-        {
-            fadeOutTimer = t;
-        });
 
-        // Unload de la scène de transition
-        yield return SceneManager.UnloadSceneAsync(transitionName);
+        if (transitionName != null)
+        {
+            yield return WaitAndAnimate(2f, t =>
+            {
+                fadeOutTimer = t;
+            });
+
+            // Unload de la scène de transition
+            yield return SceneManager.UnloadSceneAsync(transitionName);
+        }
 
         // Recharge la nouvelle UI
         yield return SceneManager.LoadSceneAsync(newCurrentSceneUI, LoadSceneMode.Additive);

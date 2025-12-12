@@ -1,9 +1,7 @@
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using Unity.VisualScripting;
-using System.Collections.Generic;
 
 /// <summary>
 /// MovingController à pour fonction de réagir aux événements de la souris
@@ -65,6 +63,13 @@ public class MovingController : MonoBehaviour
     /// Cette propriété est utilisé en décalage avec OnClick et Update pour permettre à Unity de calculer toutes les propriétés d'UI avant l'action (ie: EventSystem.current.IsPointerOverGameObject())
     /// </summary>
     private bool wantMove = false;
+    private Vector3 targetPos = Vector3.zero;
+
+    internal void SetDestination(Vector3 pos)
+    {
+        wantMove = true;
+        targetPos = pos;
+    }
 
     // Cette fonction sera bindée dans Input Action
     internal void OnClick()
@@ -72,6 +77,13 @@ public class MovingController : MonoBehaviour
         // Vérifie si l'action en cours est "Déplacer"
         if (GameData.action != ActionType.Move)
             return;
+
+        // Le clic vient de l’UI (Button ou autre)
+        if (HoverCursorFlag.HoverFlagType == HoverFlagType.UI)
+            return;
+
+        Vector2 mousePos = Mouse.current.position.ReadValue();
+        targetPos = Camera.main.ScreenToWorldPoint(mousePos);
 
         wantMove = true;
     }
@@ -91,6 +103,87 @@ public class MovingController : MonoBehaviour
         
     }
 
+    internal Queue<Vector3> MakePath(Vector3 targetPos)
+    {
+        Vector3 startPos = moverAnimator.walkingPoint.position;
+
+        // Calcule le chemin le plus directe
+        // Si la destination n'est pas direct et qu'un chemin est disponible
+        // pour guider le déplacement, on l'utilise
+        Vector3 worldPos = targetPos;
+        worldPos.z = 0f; // pour 2D
+        if (AdjustDestinationPoint(startPos, ref worldPos) == true && walkingPath != null)
+        {
+            worldPos = targetPos;
+            worldPos.z = 0f;
+
+            var path = walkingPath.FindPath(moverAnimator.walkingPoint.position, worldPos);
+
+            // recherche le chemin de départ le plus direct en partant du dernier noeud
+            for (int i = path.Count - 1; i >= 0; i--)
+            {
+                bool found = false;
+                foreach (var area in walkingArea)
+                {
+                    if ((found = area.GetFirstIntersection(startPos, path.ElementAt(i), out var hit)))
+                    {
+                        break;
+                    }
+                }
+
+                // si il n'y a aucune collision, alors on peut se rendre directement à ce point
+                if (!found)
+                {
+                    for (int j = 0; j < i; j++)
+                        path.Dequeue();
+                    break;
+                }
+            }
+
+            // recherche le chemin d'arrivé le plus direct en partant du premier noeud
+            for (int i = 0; i < path.Count; i++)
+            {
+                bool found = false;
+                foreach (var area in walkingArea)
+                {
+                    if ((found = area.GetFirstIntersection(worldPos, path.ElementAt(i), out var hit)))
+                    {
+                        break;
+                    }
+                }
+
+                // si il n'y a aucune collision, alors on peut se rendre directement à ce point
+                if (!found)
+                {
+                    Queue<Vector3> queue = new Queue<Vector3>();
+
+                    // Remplissage
+                    for (int j = 0; j < i + 1; j++)
+                        queue.Enqueue(path.Dequeue());
+
+                    path = queue;
+
+                    break;
+                }
+            }
+
+            // ajoute le dernier segment du déplacement
+            if (path.Count > 0)
+            {
+                AdjustDestinationPoint(path.Last(), ref worldPos);
+                path.Enqueue(worldPos);
+            }
+
+            return path;
+        }
+        else
+        {
+            var path = new Queue<Vector3>();
+            path.Enqueue(worldPos);
+            return path;
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -98,102 +191,8 @@ public class MovingController : MonoBehaviour
         {
             wantMove = false;
 
-            // Le clic vient de l’UI (Button ou autre)
-            if (HoverCursorFlag.HoverFlagType == HoverFlagType.UI)
-                return;
-
-            Vector2 mousePos = Mouse.current.position.ReadValue();
-            Vector3 targetPos = Camera.main.ScreenToWorldPoint(mousePos);
-
-            Vector3 startPos = moverAnimator.walkingPoint.position;
-
-            // Calcule le chemin le plus directe
-            // Si la destination n'est pas direct et qu'un chemin est disponible
-            // pour guider le déplacement, on l'utilise
-            Vector3 worldPos = targetPos;
-            worldPos.z = 0f; // pour 2D
-            if (AdjustDestinationPoint(startPos, ref worldPos) == true && walkingPath != null)
-            {
-                worldPos = targetPos;
-                worldPos.z = 0f;
-
-                var path = walkingPath.FindPath(moverAnimator.walkingPoint.position, worldPos);
-
-                // recherche le chemin de départ le plus direct en partant du dernier noeud
-                for(int i = path.Count-1; i>=0;i--)
-                {
-                    bool found = false;
-                    foreach (var area in walkingArea)
-                    {
-                        if ((found = area.GetFirstIntersection(startPos, path.ElementAt(i), out var hit)))
-                        {
-                            break;
-                        }
-                    }
-
-                    // si il n'y a aucune collision, alors on peut se rendre directement à ce point
-                    if (!found)
-                    {
-                        for(int j=0;j<i;j++)
-                            path.Dequeue();
-                        break;
-                    }
-                }
-
-                // recherche le chemin d'arrivé le plus direct en partant du premier noeud
-                for (int i = 0; i < path.Count; i++)
-                {
-                    bool found = false;
-                    foreach (var area in walkingArea)
-                    {
-                        if ((found = area.GetFirstIntersection(worldPos, path.ElementAt(i), out var hit)))
-                        {
-                            break;
-                        }
-                    }
-
-                    // si il n'y a aucune collision, alors on peut se rendre directement à ce point
-                    if (!found)
-                    {
-                        Queue<Vector3> queue = new Queue<Vector3>();
-
-                        // Remplissage
-                        for (int j = 0; j < i+1; j++)
-                            queue.Enqueue(path.Dequeue());
-
-                        path = queue;
-
-                        break;
-                    }
-                }
-
-                // ajoute le dernier segment du déplacement
-                if (path.Count > 0)
-                {
-                    AdjustDestinationPoint(path.Last(), ref worldPos);
-                    path.Enqueue(worldPos);
-                }
-
-                moverAnimator.SetDestinations(path);
-            }
-            else
-            {
-                moverAnimator.SetDestination(worldPos);
-            }
-
-            lastCollisionPointFrom = startPos;
-            lastCollisionPointTo = worldPos;
+            var path = MakePath(targetPos);
+            moverAnimator.SetDestinations(path);
         }
     }
-
-    #region Gizmo
-    private Vector3 lastCollisionPointFrom;
-    private Vector3 lastCollisionPointTo;
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(lastCollisionPointFrom, lastCollisionPointTo);
-    }
-    #endregion
 }

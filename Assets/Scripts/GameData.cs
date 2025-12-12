@@ -1,7 +1,4 @@
 using System;
-using System.Collections;
-using UnityEngine;
-using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Données statiques non persistantes du jeu
@@ -24,6 +21,16 @@ public static class GameData
     public static event Action InputClickEvent;
 
     /// <summary>
+    /// Evénement dialogue
+    /// </summary>
+    public static event Action<string> OnDialogChanged;
+
+    /// <summary>
+    /// Evénement animation
+    /// </summary>
+    public static event Action<string> OnAnimationChanged;
+
+    /// <summary>
     /// Nom de la scène utilisée pour la prochaine transition
     /// </summary>
     public static string TransitionScene = "CircleTransition";
@@ -35,6 +42,24 @@ public static class GameData
     /// Nom de la scène actuellement chargée pour l'environnement
     /// </summary>
     public static string CurrentSceneUI;
+    /// <summary>
+    /// Texte du dialogue en cours
+    /// </summary>
+    public static string ShowDialog;
+    /// <summary>
+    /// Nom de l'aniamtion en cours
+    /// </summary>
+    public static string ShowAnimation;
+
+    internal static void OnDialogChange()
+    {
+        OnDialogChanged?.Invoke(ShowDialog);
+    }
+
+    internal static void OnAnimationChange()
+    {
+        OnAnimationChanged?.Invoke(ShowAnimation);
+    }
 
     internal static void OnActionChange()
     {

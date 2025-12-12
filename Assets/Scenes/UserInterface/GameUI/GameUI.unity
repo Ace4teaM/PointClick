@@ -843,7 +843,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3530050227959320894, guid: 909a08d07172bb245a4a7e503a9a75eb, type: 3}
       propertyPath: type
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1561,7 +1561,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3530050227959320894, guid: 909a08d07172bb245a4a7e503a9a75eb, type: 3}
       propertyPath: type
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1865,7 +1865,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3530050227959320894, guid: 909a08d07172bb245a4a7e503a9a75eb, type: 3}
       propertyPath: type
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2209,6 +2209,10 @@ PrefabInstance:
     - target: {fileID: 3514229384453724090, guid: 909a08d07172bb245a4a7e503a9a75eb, type: 3}
       propertyPath: m_Name
       value: Button Move
+      objectReference: {fileID: 0}
+    - target: {fileID: 3530050227959320894, guid: 909a08d07172bb245a4a7e503a9a75eb, type: 3}
+      propertyPath: type
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

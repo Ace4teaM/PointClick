@@ -119,6 +119,101 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &116317634
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 116317635}
+  - component: {fileID: 116317636}
+  m_Layer: 0
+  m_Name: GameGraph
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &116317635
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 116317634}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &116317636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 116317634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d9b00c4e62376a47b24c844da72e15c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  graphs:
+  - "graph TB\r\nA((S)) -->B(Fred se l\xE8ve du canap\xE9)\r\n    B --> C{Actions}\r\n   
+    C -->|Parler \xE0 Seb| D>Seb: Tu dois trouver Tintin au tibet pour la prochaine
+    vid\xE9o]\r\n    C -->|Inspect Biblioth\xE8que| E[Transition : Bibliotheque]\r\n   
+    E --> F{Actions}\r\n    F -->|Inspect bon jeu| G[Transition : Piece principale]\r\n   
+    F -->|Inspect Dragon's Lair| H>Fred: Mon Dieu ! Ce jeu est le diable incarn\xE9]\r\n   
+    F -->|Inspect Asterix| I>Fred: Bordel... Infogrames fait vraiement des jeux pourris]\r\n   
+    G --> Z((F))"
+  - "graph TB\r\nA((S)) --> C{Actions}\r\n    C -->|Inspect PS4| D>Fred: J'ai la
+    marque de ce carton dans mon crane]\r\n    C -->|Inspect NES| E>Fred: Non ! pas
+    les tortues... pas les tortues !]\r\n    C -->|Inspect Power Glove| H>Fred: Cette
+    merde ne servira plus jamais]\r\n    C -->|Inspect Boule de cristal| F>Fred:
+    Ha... la belle \xE9poque...]\r\n    C -->|Inspect Publicit\xE9| G>Fred: Une publicit\xE9
+    ? Qu'est ce que \xE7a fait l\xE0 ?]\r\n    G -->|Wait 2sec| I>Fred: Je me demande
+    si... nannnn...]\r\n    C -->|Activate Publicit\xE9| J[Transition: Pi\xE8ce principale]\r\n   
+    J --> Z((F))"
+  - "graph TB\r\nA((S)) --> C{Actions}\r\n    C -->|Inspecter Porte des toilettes|
+    I>Fred: 'Les toilettes... je n'ai pas envie']\r\n    C -->|Inspecter Guichet
+    1| D>Fred: 'Je ne peux pas utiliser cette file, elle est d\xE9j\xE0 occup\xE9e']\r\n   
+    C -->|Inspecter Guichet 2| E>Fred: 'Ce guichet est libre mais l'Agent semble
+    d\xE9rang\xE9 par quelque chose]\r\n    C -->|Inspecter Pot de fleur| K2>Fred:
+    'Tr\xE8s jolie plante, on dirait que quelque chose brille \xE0 l'interieur]\r\n   
+    C -->|Actionner Pot de fleur| K[[Vous obtenez : Pi\xE8ces de monnaie]]\r\n   
+    C -->|Parler au magasin| D3>Fred: 'Bonjour !', Caissier: 'Bonjour monsieur, que
+    d\xE9sirez vous ? Je suis d\xE9sol\xE9 mais je ne prends pas la carte de cr\xE9dit,
+    uniquement la monnaie']\r\n    C -->|Actionner sur Magasin| D2>Caissier: 'D\xE9sol\xE9
+    monsieur mais si vous n'avez pas d'argent je ne peux rien vous vendre]\r\n   
+    C -->|Utiliser pi\xE8ces de monnaie sur magasin| J>Caissier: 'Faites votre choix...']\r\n   
+    J -->|Animation| J1[Afficher les \xE9l\xE9ments achetables]\r\n    J1 -->|Choix
+    Magazine Elle&Lui| J2>Fred:'Je n'ai pas besoin de ca !']\r\n    J1 -->|Choix
+    Paquet de bonbons| J3>Fred:'C'est fou le prix de ce paquet de N&M's]\r\n    J1
+    -->|Choix M\xE9dicament| J4[[Vous obtenez : M\xE9dicament]]\r\n    C -->|Parler
+    Guichet 2| F>Fred: 'Bonjour ! Je souhaiterai...', Agent: 'D\xE9sol\xE9 monsieur
+    ! Je dois m'absenter quelques instants]\r\n    F -->|Animation| F2[L'Agent part
+    imm\xE9diatement au toilettes, on entend des bruits \xE0 travers la porte]\r\n   
+    F2 -->|Inspecter Porte des toilettes| F3>Agent: 'C'est occup\xE9 !]\r\n    F2
+    -->|Donner M\xE9dicament sur Porte des toilettes | F4>Fred: 'Prenez ce m\xE9dicament',
+    Agent: 'Merci monsieur !']\r\n    F4 -->|Animation | F5[L'Agent retourne au guichet]\r\n   
+    F5 -->|Parler Guichet 2| F6>Fred: 'Bonjour ! Je souhaiterai un billet pour Osaka',
+    Agent: 'Ho, il me reste une place sur le prochain vol qui d\xE9cole dans 30min']\r\n   
+    F6 -->|Obtenez objet | F7[[Billet d'avion]] --> Z((F))\r\n    C -->|Inspecter
+    Guichet 3 ou 4| H>Fred: 'Ce guichet est ferm\xE9']"
+  graphIndex: 0
+  graphStep: 65
+  graphText: "graph TB\r\nA((S)) -->B(Fred se l\xE8ve du canap\xE9)\r\n    B -->
+    C{Actions}\r\n    C -->|Parler \xE0 Seb| D>Seb: Tu dois trouver Tintin au tibet
+    pour la prochaine vid\xE9o]\r\n    C -->|Inspect Biblioth\xE8que| E[Transition
+    : Bibliotheque]\r\n    E --> F{Actions}\r\n    F -->|Inspect bon jeu| G[Transition
+    : Piece principale]\r\n    F -->|Inspect Dragon's Lair| H>Fred: Mon Dieu ! Ce
+    jeu est le diable incarn\xE9]\r\n    F -->|Inspect Asterix| I>Fred: Bordel...
+    Infogrames fait vraiement des jeux pourris]\r\n    G --> Z((F))"
 --- !u!1001 &157614906
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -226,6 +321,50 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &530946237
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 530946239}
+  - component: {fileID: 530946238}
+  m_Layer: 0
+  m_Name: InspectingController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &530946238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 530946237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2636f192a73375240b35eff683a66232, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+--- !u!4 &530946239
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 530946237}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 937.28, y: 35.940002, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -513,7 +652,9 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 157614906}
+  - {fileID: 116317635}
   - {fileID: 706300236}
   - {fileID: 2110915179}
   - {fileID: 329879907}
   - {fileID: 1888794666}
+  - {fileID: 530946239}

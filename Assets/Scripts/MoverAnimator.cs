@@ -88,6 +88,8 @@ public class MoverAnimator : MonoBehaviour
 
     private bool hasDestination = false;
 
+    internal bool IsFinish => hasDestination == false;
+
     /// <summary>
     /// Définit le point de destination
     /// </summary>

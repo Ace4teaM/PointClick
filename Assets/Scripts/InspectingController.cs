@@ -1,70 +1,12 @@
-using System.Collections;
-using System.Text.RegularExpressions;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 
 public class InspectingController : MonoBehaviour
 {
     /// <summary>
-    /// Contient le texte du flow graph mermaid qui détermine les séquences du gameplay
-    /// </summary>
-    /// <example>
-    /// graph TB
-    /// A((S)) --> C{Actions}
-    /// C-- >| Inspect PS4 | D > Fred: 'Je peux sentir la marque de ce carton dans mon crane']
-    /// C-- >| Inspect NES | E > Fred: 'Non ! pas les tortues... pas les tortues !']
-    /// C-- >| Inspect Power Glove| H>Fred: 'Cette merde ne servira plus jamais']
-    /// C-- >| Inspect Boule de cristal| F>Fred: 'Ha... la belle époque...']
-    /// C-- >| Inspect Publicité | G > Fred: 'Une publicité ? Qu'est ce que ça fait là ?] --> Z((F))
-    /// </example>
-    [TextArea(3, 30)]
-    public string graphText = string.Empty;
-    public char graphStep = 'A';
-
-    internal struct GraphExpression
-    {
-        public int textStart;
-        public int textEnd;
-    }
-
-    /// <summary>
-    /// Tente de trouver l'étape correspondante dans le texte du graph
-    /// </summary>
-    /// <param name="step"></param>
-    /// <param name="expression"></param>
-    /// <returns></returns>
-    internal bool TryFindStep(char step, out GraphExpression expression)
-    {
-        expression = new GraphExpression();
-        var match = Regex.Match(graphText, $@"^[{step}].*$", RegexOptions.Multiline);
-        if(match.Success)
-        {
-            expression.textStart = match.Index;
-            expression.textEnd = match.Index + match.Length;
-            return true;
-        }
-        return false;
-    }
-    internal bool TryFindAction(char step, ActionType action, string actionName, out GraphExpression expression)
-    {
-        expression = new GraphExpression();
-        var pattern = $@"^\s*[{step}]\s*\-+\>\s*\|\s*{action}\s+{actionName}\s*\|\s*(.*)$";
-        var match = Regex.Match(graphText, pattern, RegexOptions.Multiline);
-        if (match.Success)
-        {
-            expression.textStart = match.Groups[1].Index;
-            expression.textEnd = match.Groups[1].Index + match.Groups[1].Length;
-            return true;
-        }
-        return false;
-    }
-
-    /// <summary>
     /// Si true l'utiliseur a cliquer pour déplacer l'objet
     /// Cette propriété est utilisée en décalage avec OnClick et Update pour permettre à Unity de calculer toutes les propriétés d'UI avant l'action (ie: EventSystem.current.IsPointerOverGameObject())
     /// </summary>
-    private bool wantInspect = false;
+    private bool wantAction = false;
     void Awake()
     {
         GameData.InputClickEvent += OnClick;
@@ -77,34 +19,123 @@ public class InspectingController : MonoBehaviour
     // Cette fonction sera bindée dans Input Action
     internal void OnClick()
     {
-        // Vérifie si l'action en cours est "Inspecter"
-        if (GameData.action != ActionType.Inspect)
+        // Valide l'animation en cours
+        if (GameData.action == ActionType.Validate)
             return;
 
-        wantInspect = true;
+        // Vérifie si l'action en cours est "Inspecter", "Parler" ou "Actionner"
+        if (GameData.action != ActionType.Inspect && GameData.action != ActionType.Talk && GameData.action != ActionType.Activate)
+            return;
+
+        wantAction = true;
+    }
+
+    char lastStep = char.MinValue;
+
+    void Start()
+    {
+        lastStep = char.MinValue;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (wantInspect)
+        var g = GameGraph.Instance;
+
+        if (lastStep != g.graphStep)
         {
-            wantInspect = false;
+            char nextStep;
+
+            // Vérifie si la prochaine étape est une transition automatique
+            if (g.TryFindStep(g.graphStep, out var expression))
+            {
+                // Vérifie si la prochaine étape est une animation
+                if (g.TryGetWaitAnimation(expression, out nextStep, out var duration))
+                {
+                    // On passe à l'étape suivante
+                    g.graphStep = nextStep;
+                    return;
+                }
+                else if (g.TryGetNextStep(expression, out nextStep, out var nextExpression))
+                {
+                    // Dernière étape, on passe au graph suivant
+                    if (nextStep == 'Z' && g.graphIndex + 1 < g.graphs.Count)
+                    {
+                        g.graphText = g.graphs[++g.graphIndex];
+                        g.graphStep = 'A';
+                        return;
+                    }
+
+                    // Vérifie si la prochaine étape est un choix à plusieurs possibilités
+                    if (g.TryGetChoice(nextExpression))
+                    {
+                        // On passe à l'étape suivante
+                        g.graphStep = nextStep;
+                        return;
+                    }
+
+                    if (g.TryGetAnimation(nextExpression, out var animation))
+                    {
+                        GameData.ShowAnimation = animation;
+                        GameData.OnAnimationChange();
+                        g.graphStep = nextStep;
+                        return;
+                    }
+                }
+            }
+        }
+
+        // Execute la prochaine action utilisateur
+        if (wantAction)
+        {
+            char nextStep;
+
+            wantAction = false;
             // Le clic vient de l’UI (Button ou autre)
             if (HoverCursorFlag.HoverFlagType == HoverFlagType.UI)
                 return;
 
-
-            if (GameData.action == ActionType.Inspect)
+            if(g.TryFindAction(g.graphStep, GameData.action, HoverCursorFlag.HoverFlag, out var expression))
             {
-                if(TryFindAction(graphStep, GameData.action, HoverCursorFlag.HoverFlag, out var expression))
+                Debug.Log(g.graphText.Substring(expression.textStart, expression.textEnd - expression.textStart));
+
+                // examine le résultat de l'action
+                if (g.TryGetDialog(expression, out var dialog))
                 {
-                    Debug.Log(graphText.Substring(expression.textStart, expression.textEnd - expression.textStart));
-                    // examine le résultat de l'action
+                    GameData.ShowDialog = dialog;
+                    SceneTransition.ChangeUI("DialogUI");
+                }
+                else if (g.TryGetTransition(expression, out var scene))
+                {
+                    if(EnumExtensions.TryParseFromDescription<Scenes>(scene, true, out var sceneType))
+                        SceneTransition.SetTransition((Scenes)sceneType);
+                    else
+                    {
+                        Debug.LogError($"Impossible de déterminer la scène de transition ({scene}) de l'action {GameData.action} à l'étape {g.graphStep}");
+                        return;
+                    }
+                }
+                else
+                {
+                    Debug.LogError($"Impossible de déterminer l'action {GameData.action} à l'étape {g.graphStep}");
+                    return;
+                }
+
+                // Si l'étape actuelle a une suite alors on continue dans le graph
+                nextStep = g.graphText[expression.textStart];
+                if (g.HasNextStep(nextStep))
+                {
+                    g.graphStep = nextStep;
+                }
+                else
+                {
+                    // sinon, on recommence le graph au début
+                    // (généralement un dialogue sans suite mais pas la fin du graph)
+                    g.graphStep = 'A';
                 }
             }
 
-            switch (HoverCursorFlag.HoverFlag)
+            /*switch (HoverCursorFlag.HoverFlag)
             {
                 // Grenier
                 case "Porte":
@@ -310,7 +341,7 @@ public class InspectingController : MonoBehaviour
                     break;
                 case "Valis":
                     break;
-            }
+            }*/
         }
     }
 }

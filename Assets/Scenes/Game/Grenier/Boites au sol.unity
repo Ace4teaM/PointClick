@@ -219,58 +219,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HoverCursorFlag
   flagType: 1
   flag: NES
---- !u!1 &530946237
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 530946239}
-  - component: {fileID: 530946238}
-  m_Layer: 0
-  m_Name: InspectingController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &530946238
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 530946237}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2636f192a73375240b35eff683a66232, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
-  graphText: "graph TB\r\nA((S)) --> C{Actions}\r\n    C -->|Inspect PS4| D>Fred:
-    'Je peux sentir la marque de ce carton dans mon crane']\r\n    C -->|Inspect
-    NES| E>Fred: 'Non ! pas les tortues... pas les tortues !']\r\n    C -->|Inspect
-    Power Glove| H>Fred: 'Cette merde ne servira plus jamais']\r\n    C -->|Inspect
-    Boule de cristal| F>Fred: 'Ha... la belle \xE9poque...']\r\n    C -->|Inspect
-    Publicit\xE9 | G>Fred: 'Une publicit\xE9 ? Qu'est ce que \xE7a fait l\xE0 ?]
-    --> Z((F))\n"
-  graphStep: 67
---- !u!4 &530946239
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 530946237}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 937.28, y: 35.940002, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &681670040
 GameObject:
   m_ObjectHideFlags: 0
@@ -937,4 +885,3 @@ SceneRoots:
   - {fileID: 758963632}
   - {fileID: 1050808794}
   - {fileID: 681670041}
-  - {fileID: 530946239}
