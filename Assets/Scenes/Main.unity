@@ -166,11 +166,24 @@ MonoBehaviour:
   graphs:
   - "graph TB\r\nA((S)) -->B(Fred se l\xE8ve du canap\xE9)\r\n    B --> C{Actions}\r\n   
     C -->|Parler \xE0 Seb| D>Seb: Tu dois trouver Tintin au tibet pour la prochaine
-    vid\xE9o]\r\n    C -->|Inspect Biblioth\xE8que| E[Transition : Bibliotheque]\r\n   
-    E --> F{Actions}\r\n    F -->|Inspect bon jeu| G[Transition : Piece principale]\r\n   
-    F -->|Inspect Dragon's Lair| H>Fred: Mon Dieu ! Ce jeu est le diable incarn\xE9]\r\n   
-    F -->|Inspect Asterix| I>Fred: Bordel... Infogrames fait vraiement des jeux pourris]\r\n   
-    G --> Z((F))"
+    vid\xE9o]\r\n    C -->|Inspect Biblioth\xE8que| E[Transition: Biblioth\xE8que]\r\n   
+    E --> J>Fred: Je dois trouver Tintin au tibet]\r\n    J --> F{Actions}\r\n   
+    F -->|Inspect Tintin au tibet| G[Transition: Pi\xE8ce principale]\r\n    F -->|Inspect
+    Dragon's Lair| H>Fred: Mon Dieu ! Ce jeu est le diable incarn\xE9]\r\n    F -->|Inspect
+    Asterix| I>Fred: Bordel... Infogrames fait vraiement des jeux pourris]\r\n   
+    F -->|Inspect Final Fantasy VII| V>Fred: Surement le plus prenant des RPG de
+    ma g\xE9n\xE9ration]\r\n    F -->|Inspect Command & Conquer| K>Fred: J'adore
+    ce jeu]\r\n    F -->|Inspect Hexen II| L>Fred: Putain! j'ai pass\xE9 tellement
+    de temps sur ce jeu]\r\n    F -->|Inspect Half Life 2| M>Fred: Que de bon souvenir]\r\n   
+    F -->|Inspect Dune| N>Fred: Un pionnier du jeu vid\xE9o]\r\n    F -->|Inspect
+    Discworld II| O>Fred: Les Point&Click c'est l'age d'or des jeux vid\xE9os !]\r\n   
+    F -->|Inspect Age of Empires| P>Fred: Un mythe]\r\n    F -->|Inspect Alone in
+    the Dark| Q>Fred: Pas mal non ? C'est Fran\xE7ais !]\r\n    F -->|Inspect Sim
+    City 2000| R>Fred: J'ai pass\xE9 tellement de temps de ma vie dessus]\r\n   
+    F -->|Inspect Flashback| S>Fred: Chaque cat\xE9gorie de jeu a sa l\xE9gende]\r\n   
+    F -->|Inspect Lemmings| T>Fred: On savais invent\xE9 des concepts avant !]\r\n   
+    F -->|Inspect The Last of Us| U>Fred: Un des rares jeu r\xE9cent digne de ce
+    nom]\r\n    G --> Z((F))"
   - "graph TB\r\nA((S)) --> C{Actions}\r\n    C -->|Inspect PS4| D>Fred: J'ai la
     marque de ce carton dans mon crane]\r\n    C -->|Inspect NES| E>Fred: Non ! pas
     les tortues... pas les tortues !]\r\n    C -->|Inspect Power Glove| H>Fred: Cette
@@ -206,14 +219,27 @@ MonoBehaviour:
     F6 -->|Obtenez objet | F7[[Billet d'avion]] --> Z((F))\r\n    C -->|Inspecter
     Guichet 3 ou 4| H>Fred: 'Ce guichet est ferm\xE9']"
   graphIndex: 0
-  graphStep: 65
+  graphStep: 67
   graphText: "graph TB\r\nA((S)) -->B(Fred se l\xE8ve du canap\xE9)\r\n    B -->
     C{Actions}\r\n    C -->|Parler \xE0 Seb| D>Seb: Tu dois trouver Tintin au tibet
-    pour la prochaine vid\xE9o]\r\n    C -->|Inspect Biblioth\xE8que| E[Transition
-    : Bibliotheque]\r\n    E --> F{Actions}\r\n    F -->|Inspect bon jeu| G[Transition
-    : Piece principale]\r\n    F -->|Inspect Dragon's Lair| H>Fred: Mon Dieu ! Ce
-    jeu est le diable incarn\xE9]\r\n    F -->|Inspect Asterix| I>Fred: Bordel...
-    Infogrames fait vraiement des jeux pourris]\r\n    G --> Z((F))"
+    pour la prochaine vid\xE9o]\r\n    C -->|Inspect Biblioth\xE8que| E[Transition:
+    Biblioth\xE8que]\r\n    E --> J>Fred: Je dois trouver Tintin au tibet]\r\n   
+    J --> F{Actions}\r\n    F -->|Inspect Tintin au tibet| G[Transition: Pi\xE8ce
+    principale]\r\n    F -->|Inspect Dragon's Lair| H>Fred: Mon Dieu ! Ce jeu est
+    le diable incarn\xE9]\r\n    F -->|Inspect Asterix| I>Fred: Bordel... Infogrames
+    fait vraiement des jeux pourris]\r\n    F -->|Inspect Final Fantasy VII| V>Fred:
+    Surement le plus prenant des RPG de ma g\xE9n\xE9ration]\r\n    F -->|Inspect
+    Command & Conquer| K>Fred: J'adore ce jeu]\r\n    F -->|Inspect Hexen II| L>Fred:
+    Putain! j'ai pass\xE9 tellement de temps sur ce jeu]\r\n    F -->|Inspect Half
+    Life 2| M>Fred: Que de bon souvenir]\r\n    F -->|Inspect Dune| N>Fred: Un pionnier
+    du jeu vid\xE9o]\r\n    F -->|Inspect Discworld II| O>Fred: Les Point&Click c'est
+    l'age d'or des jeux vid\xE9os !]\r\n    F -->|Inspect Age of Empires| P>Fred:
+    Un mythe]\r\n    F -->|Inspect Alone in the Dark| Q>Fred: Pas mal non ? C'est
+    Fran\xE7ais !]\r\n    F -->|Inspect Sim City 2000| R>Fred: J'ai pass\xE9 tellement
+    de temps de ma vie dessus]\r\n    F -->|Inspect Flashback| S>Fred: Chaque cat\xE9gorie
+    de jeu a sa l\xE9gende]\r\n    F -->|Inspect Lemmings| T>Fred: On savais invent\xE9
+    des concepts avant !]\r\n    F -->|Inspect The Last of Us| U>Fred: Un des rares
+    jeu r\xE9cent digne de ce nom]\r\n    G --> Z((F))"
 --- !u!1001 &157614906
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -414,6 +440,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &879356048
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 879356049}
+  - component: {fileID: 879356050}
+  m_Layer: 0
+  m_Name: Animations
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &879356049
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 879356048}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &879356050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 879356048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fee37d44df83266499ec773a3c38bfbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!1 &1083558411 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1872574099001820018, guid: 9921d60645540124b80fdaddc6db3d37, type: 3}
@@ -657,4 +727,5 @@ SceneRoots:
   - {fileID: 2110915179}
   - {fileID: 329879907}
   - {fileID: 1888794666}
+  - {fileID: 879356049}
   - {fileID: 530946239}

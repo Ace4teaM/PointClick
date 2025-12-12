@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TMPro;
 using UnityEngine;
 
 public class Animations : MonoBehaviour
@@ -39,7 +40,54 @@ public class Animations : MonoBehaviour
         }
     }
 
-    void MoveTo(string playerName, string anchorName)
+    internal void Transition(Scenes scene)
+    {
+        tasks.Add(() => WaitForBoolAsync(
+            () =>
+            {
+                SceneTransition.SetTransition(scene);
+            },
+            () => SceneTransition.loading == false)
+        );
+    }
+
+    internal void ShowDialog(string dialog, Func<Task> delay)
+    {
+        var obj = GameObject.Find("Dialog");
+        if (obj == null)
+        {
+            Debug.LogError("Impossible de trouver l'objet 'Dialog' pour afficher le texte");
+            return;
+        }
+        var text = obj.GetComponentInChildren<TextMeshProUGUI>();
+        tasks.Add(() => WaitForBoolAsync(
+            () =>
+            {
+                text.text = dialog;
+            },
+            delay)
+        );
+    }
+
+    internal void HideDialog()
+    {
+        var obj = GameObject.Find("Dialog");
+        if (obj == null)
+        {
+            Debug.LogError("Impossible de trouver l'objet 'Dialog' pour afficher le texte");
+            return;
+        }
+        var text = obj.GetComponentInChildren<TextMeshProUGUI>();
+        tasks.Add(() => WaitForBoolAsync(
+            () =>
+            {
+                text.text = String.Empty;
+            },
+            () => true)
+        );
+    }
+
+    internal void MoveTo(string playerName, string anchorName)
     {
         var anchor = GameObject.Find(anchorName).GetComponentInChildren<Transform>();
         var player = GameObject.Find(playerName);
@@ -53,7 +101,7 @@ public class Animations : MonoBehaviour
         );
     }
 
-    void ChangeState(string playerName, string name, bool value)
+    internal void ChangeState(string playerName, string name, bool value)
     {
         var player = GameObject.Find(playerName);
         tasks.Add(() => WaitForBoolAsync(
@@ -65,7 +113,7 @@ public class Animations : MonoBehaviour
         );
     }
 
-    void ChangeState(string playerName, string name, float value, Func<Task> delay)
+    internal void ChangeState(string playerName, string name, float value, Func<Task> delay)
     {
         var player = GameObject.Find(playerName);
         tasks.Add(() => WaitForBoolAsync(
@@ -101,11 +149,13 @@ public class Animations : MonoBehaviour
     {
         
     }
-    public bool start = false;
+    
+    internal bool start = false;
+    internal bool animationInProgress = false;
 
     void Update()
     {
-        if (start)
+        if (start && animationInProgress == false)
         {
             RunAll();
             start = false;
@@ -114,9 +164,12 @@ public class Animations : MonoBehaviour
 
     private async void RunAll()
     {
+        animationInProgress = true;
         foreach (var f in tasks)
         {
             await f(); 
         }
+        tasks.Clear();
+        animationInProgress = false;
     }
 }

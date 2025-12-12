@@ -226,10 +226,11 @@ public class GameGraph : MonoBehaviour
     /// <param name="step">Etape à rechercher</param>
     /// <param name="expression">expression trouvée</param>
     /// <remarks>Retourne la première expression trouvée</remarks>
-    internal bool TryFindStep(char step, out GraphExpression expression)
+    /// <remarks>L'expression doit être automatique elle n'est pas suivi d'une --> |action|</remarks>
+    internal bool TryFindImmediateStep(char step, out GraphExpression expression)
     {
         expression = new GraphExpression();
-        var match = Regex.Match(graphText, $@"^\s*[{step}].*$", RegexOptions.Multiline);
+        var match = Regex.Match(graphText, $@"^\s*[{step}](:?\(\(S\)\))?\s*\-+\>\s*[A-z].*$", RegexOptions.Multiline);
         if (match.Success)
         {
             expression.textStart = match.Index;

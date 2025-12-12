@@ -1,16 +1,25 @@
+using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class InspectingController : MonoBehaviour
 {
     /// <summary>
-    /// Si true l'utiliseur a cliquer pour déplacer l'objet
+    /// true Si l'utiliseur a cliqué pendant l'animation pour demander de la passer
+    /// </summary>
+    private bool wantSkipAnimation = false;
+
+    /// <summary>
+    /// true Si l'utiliseur a cliqué pour déplacer l'objet
     /// Cette propriété est utilisée en décalage avec OnClick et Update pour permettre à Unity de calculer toutes les propriétés d'UI avant l'action (ie: EventSystem.current.IsPointerOverGameObject())
     /// </summary>
     private bool wantAction = false;
+
     void Awake()
     {
         GameData.InputClickEvent += OnClick;
     }
+
     void OnDestroy()
     {
         GameData.InputClickEvent -= OnClick;
@@ -19,6 +28,14 @@ public class InspectingController : MonoBehaviour
     // Cette fonction sera bindée dans Input Action
     internal void OnClick()
     {
+        // Pas de progression tant que les animations en cours ne sont pas terminées
+        var anim = GameObject.Find("Animations")?.GetComponent<Animations>();
+        if (anim?.animationInProgress == true)
+        {
+            wantSkipAnimation = true;
+            return;
+        }
+
         // Valide l'animation en cours
         if (GameData.action == ActionType.Validate)
             return;
@@ -30,7 +47,15 @@ public class InspectingController : MonoBehaviour
         wantAction = true;
     }
 
+    /// <summary>
+    /// Etape précédente
+    /// </summary>
     char lastStep = char.MinValue;
+
+    /// <summary>
+    /// Etape de la dernière action
+    /// </summary>
+    char prevActionStep = 'A';
 
     void Start()
     {
@@ -41,13 +66,27 @@ public class InspectingController : MonoBehaviour
     void Update()
     {
         var g = GameGraph.Instance;
+        var anim = GameObject.Find("Animations")?.GetComponent<Animations>();
 
+        // Essaie d'ignorer l'animation en cours
+        /*if(wantSkipAnimation && anim?.animationInProgress == true)
+        {
+            anim?.TrySkipAnimation();
+        }*/
+
+        // Pas de progression tant que les animations en cours ne sont pas terminées
+        if (anim?.animationInProgress == true)
+            return;
+
+        // Vérifie si la prochaine étape est une transition automatique
         if (lastStep != g.graphStep)
         {
             char nextStep;
+            
+            lastStep = g.graphStep;
 
-            // Vérifie si la prochaine étape est une transition automatique
-            if (g.TryFindStep(g.graphStep, out var expression))
+            // Obtient la prochaine étape
+            if (g.TryFindImmediateStep(g.graphStep, out var expression))
             {
                 // Vérifie si la prochaine étape est une animation
                 if (g.TryGetWaitAnimation(expression, out nextStep, out var duration))
@@ -66,11 +105,30 @@ public class InspectingController : MonoBehaviour
                         return;
                     }
 
+                    // Dialogue
+                    if (g.TryGetDialog(nextExpression, out var dialog))
+                    {
+                        //var obj = SceneUtils.GetObjectByName(GameData.CurrentSceneUI, "Animations");
+                        if(anim == null)
+                        {
+                            Debug.LogError($"Impossible de trouver l'objet d'animations 'Animations'");
+                        }
+                        else
+                        {
+                            anim.ShowDialog(dialog, () => Task.Delay(5000));
+                            anim.HideDialog();
+                            anim.start = true;
+                        }
+                        g.graphStep = nextStep;
+                        return;
+                    }
+
                     // Vérifie si la prochaine étape est un choix à plusieurs possibilités
                     if (g.TryGetChoice(nextExpression))
                     {
                         // On passe à l'étape suivante
                         g.graphStep = nextStep;
+                        prevActionStep = nextStep; // enregistre la dernière étape d'action pour restaurer si il n'y a pas de suite à l'étape
                         return;
                     }
 
@@ -89,7 +147,6 @@ public class InspectingController : MonoBehaviour
         if (wantAction)
         {
             char nextStep;
-
             wantAction = false;
             // Le clic vient de l’UI (Button ou autre)
             if (HoverCursorFlag.HoverFlagType == HoverFlagType.UI)
@@ -102,13 +159,17 @@ public class InspectingController : MonoBehaviour
                 // examine le résultat de l'action
                 if (g.TryGetDialog(expression, out var dialog))
                 {
-                    GameData.ShowDialog = dialog;
-                    SceneTransition.ChangeUI("DialogUI");
+                    anim.ShowDialog(dialog, () => Task.Delay(5000));
+                    anim.HideDialog();
+                    anim.start = true;
                 }
                 else if (g.TryGetTransition(expression, out var scene))
                 {
                     if(EnumExtensions.TryParseFromDescription<Scenes>(scene, true, out var sceneType))
-                        SceneTransition.SetTransition((Scenes)sceneType);
+                    {
+                        anim.Transition((Scenes)sceneType);
+                        anim.start = true;
+                    }
                     else
                     {
                         Debug.LogError($"Impossible de déterminer la scène de transition ({scene}) de l'action {GameData.action} à l'étape {g.graphStep}");
@@ -131,217 +192,9 @@ public class InspectingController : MonoBehaviour
                 {
                     // sinon, on recommence le graph au début
                     // (généralement un dialogue sans suite mais pas la fin du graph)
-                    g.graphStep = 'A';
+                    g.graphStep = prevActionStep;
                 }
             }
-
-            /*switch (HoverCursorFlag.HoverFlag)
-            {
-                // Grenier
-                case "Porte":
-                    SceneTransition.SetTransition(Scenes.BoitesAuSol);
-                    break;
-                case "Bibliothèque":
-                    SceneTransition.SetTransition(Scenes.Bibliotheque);
-                    break;
-                case "Canapé":
-                    break;
-                case "Seb":
-                    break;
-                    // Boites de jeux PC
-                case "Full Throttle":
-                    break;
-                case "Final Fantasy VII":
-                    break;
-                case "Sim City 2000":
-                    break;
-                case "Command & Conquer":
-                    break;
-                case "Serious Sam":
-                    break;
-                case "Carmagedon":
-                    break;
-                case "Thief":
-                    break;
-                case "Hexen II":
-                    break;
-                case "Halo":
-                    break;
-                case "C&C Red Alert":
-                    break;
-                case "Half Life 2":
-                    break;
-                case "StarCraft":
-                    break;
-                case "Blade Runner":
-                    break;
-                case "Riven":
-                    break;
-                case "Might and Magic VI":
-                    break;
-                case "Discworld II":
-                    break;
-                case "Alone In The Dark":
-                    break;
-                case "Diablo II":
-                    break;
-                case "Dune":
-                    break;
-                case "Oddworld":
-                    break;
-                case "Age Of Empire":
-                    break;
-                case "Dark Forces":
-                    break;
-                case "Little Big Adventure":
-                    break;
-                case "Fallout":
-                    break;
-                // Boites de jeux PS4
-                case "Uncharted 4":
-                    break;
-                case "The Last of Us":
-                    break;
-                case "God of War":
-                    break;
-                case "The Last of Us Part II":
-                    break;
-                case "Red Dead Redemption II":
-                    break;
-                case "Bloodborne":
-                    break;
-                case "Horizon: Zero Down":
-                    break;
-                case "Grand Theft Auto":
-                    break;
-                case "Marvel's Spider Man":
-                    break;
-                case "Metal Gear Solid V":
-                    break;
-                case "Batman: Arkham Knight":
-                    break;
-                case "NieR: Automata":
-                    break;
-                case "Depth Standing":
-                    break;
-                case "Detroit: Become Human":
-                    break;
-                case "The Last Guardian":
-                    break;
-                case "Dark Souls III":
-                    break;
-                case "Until Dawn":
-                    break;
-                case "Persona 5":
-                    break;
-                case "Ghost of Tsushima":
-                    break;
-                case "inFamous: Second Son":
-                    break;
-                case "Shadow of the Colosus":
-                    break;
-                case "Final Fantasy VII: Remake":
-                    break;
-                case "Resident Evil 2":
-                    break;
-                case "Life is Strange":
-                    break;
-                case "Assassin's Creed Origins":
-                    break;
-                case "Persona 5: Royal":
-                    break;
-                case "Dragon Age: Inquisition":
-                    break;
-                case "Assassin's Credd Unity":
-                    break;
-                case "Ratchet & Clank":
-                    break;
-                case "Dragon Quest XI":
-                    break;
-                case "Star Wars: Battlefield":
-                    break;
-                case "God of War III Remastered":
-                    break;
-                case "Wolfenstein: The New Order":
-                    break;
-                case "Doom Eternal":
-                    break;
-                case "Battlefield 4":
-                    break;
-                case "Diablo III":
-                    break;
-                case "Spyro Reignited Trilogy":
-                    break;
-                case "BioShock: The Collection":
-                    break;
-                case "The Elder Scrolls V":
-                    break;
-                case "Rise of the Tomb Raider":
-                    break;
-                case "Yakuza: Like a Dragon":
-                    break;
-                case "Eden Rising":
-                    break;
-                // Boites de jeux Sega
-                case "Flashback":
-                    break;
-                case "Jungle Strike":
-                    break;
-                case "Last Battle":
-                    break;
-                case "Roi Lion":
-                    break;
-                case "Lemmings":
-                    break;
-                case "Micromachines 2":
-                    break;
-                case "Mortal Kombat II":
-                    break;
-                case "Zool":
-                    break;
-                case "Wiz 'n' Liz":
-                    break;
-                case "Schtroumpfs":
-                    break;
-                case "King of the Monsters":
-                    break;
-                case "James Bond 007 The Duel":
-                    break;
-                case "G Loc Air Battle":
-                    break;
-                case "Fifa 97":
-                    break;
-                case "Marko's Magic Football":
-                    break;
-                case "Shining Force II":
-                    break;
-                case "Streets of Rage 3":
-                    break;
-                case "Shinobi III":
-                    break;
-                case "Golden Axe II":
-                    break;
-                case "Sonic the Hedgehog":
-                    break;
-                case "Golden Axe (import)":
-                    break;
-                case "Earthworm Jim 2":
-                    break;
-                case "Sonic the Hedgehog ":
-                    break;
-                case "Desert Strike":
-                    break;
-                case "NBA Jam":
-                    break;
-                case "Alien Storm":
-                    break;
-                case "After Burner II":
-                    break;
-                case "Captain America":
-                    break;
-                case "Valis":
-                    break;
-            }*/
         }
     }
 }

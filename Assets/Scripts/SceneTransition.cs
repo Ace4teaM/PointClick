@@ -21,6 +21,7 @@ public enum Scenes
 
 public class SceneTransition : MonoBehaviour
 {
+    internal static bool loading = false;
     internal static bool loadTransition = false;
     internal static float fadeInTimer = 0f;
     internal static float fadeOutTimer = 0f;
@@ -79,6 +80,8 @@ public class SceneTransition : MonoBehaviour
                 newCurrentSceneUI = "GameUI";
                 break;
         }
+
+        loading = true;
 
         loadTransition = true;
     }
@@ -142,7 +145,6 @@ public class SceneTransition : MonoBehaviour
                 yield return null;
         }
 
-
         if (transitionName != null)
         {
             yield return WaitAndAnimate(2f, t =>
@@ -156,6 +158,8 @@ public class SceneTransition : MonoBehaviour
 
         // Recharge la nouvelle UI
         yield return SceneManager.LoadSceneAsync(newCurrentSceneUI, LoadSceneMode.Additive);
+
+        loading = false;
 
         // NOTE: initialisé automatiquement par le script InitStates
         //GameData.CurrentSceneGame = newCurrentSceneGame;
