@@ -138,3 +138,12 @@ Pour se faire il faut se rendre dans la vue **Animation** et ajouter des événe
 
 La méthode appelée est programmée dans un **GameObject** nommé **SoundController** dédié au personnage.
 
+## Evénements et séquences
+
+l'organisation des animations et événements déclancheurs sont décrit dans une série de graphs au format Mermaid directement utilisable dans l'éditeur Unity.
+
+Les séquences sont décrites de facon textuels dans le document [Evenements et progressions](../../Evenements et progressions.md) puis copié/collé dans l'objet GameGraph comme ceci:
+
+![gamegraph](gamegraph.png)
+
+> Attention à respecter l'ordre car chaque fin de graph correspond au début du prochain.
