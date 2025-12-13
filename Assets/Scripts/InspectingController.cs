@@ -132,10 +132,42 @@ public class InspectingController : MonoBehaviour
                         return;
                     }
 
+                    // Vérifie si la prochaine étape est un changement d'état
+                    if (g.TryGetState(nextExpression, out var obj, out var state, out var val))
+                    {
+                        if(val is bool)
+                            anim.ChangeState(obj, state, (bool)val);
+                        else if(val is float)
+                            anim.ChangeState(obj, state, (float)val);
+                        else if(val is int)
+                            anim.ChangeState(obj, state, (int)val);
+                        else
+                            Debug.LogError($"Impossible de déterminer un type compatible pour la valeur du changement d'état {obj}.{state}={val}");
+                        anim.start = true;
+                        // On passe à l'étape suivante
+                        g.graphStep = nextStep;
+                        return;
+                    }
+
                     if (g.TryGetAnimation(nextExpression, out var animation))
                     {
                         GameData.ShowAnimation = animation;
                         GameData.OnAnimationChange();
+                        g.graphStep = nextStep;
+                        return;
+                    }
+
+                    if (g.TryGetTransition(nextExpression, out var scene))
+                    {
+                        if (EnumExtensions.TryParseFromDescription<Scenes>(scene, true, out var sceneType))
+                        {
+                            anim.Transition((Scenes)sceneType);
+                            anim.start = true;
+                        }
+                        else
+                        {
+                            Debug.LogError($"Impossible de déterminer la scène de transition ({scene}) de l'action {GameData.action} à l'étape {g.graphStep}");
+                        }
                         g.graphStep = nextStep;
                         return;
                     }

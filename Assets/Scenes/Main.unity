@@ -164,6 +164,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   graphs:
+  - "graph TB\r\nA((S)) --> C>Fred: Salut \xE0 tous, cette vid\xE9o est sponsoris\xE9
+    par Sud-VPN !]\r\n    C --> D[Fred.SatState=1]\r\n    D --> E>Fred: Regardez
+    ce que je viens de trouver, c'est navrant. Vous n'auriez pas pu d\xE9couvrir
+    autre chose non ? ]\r\n    E --> X[Fred.SatState=0]\r\n    X --> F>Fred: Je commence
+    cette semaine par une bonne r\xE9f\xE9rence franco-fran\xE7aise.]\r\n    F -->
+    Y>Fred: Quoi ? Attends, Moulin Sartre, les Duponts Duponts, c'est bon, c'est
+    parce qu'il a pas une baguette au b\xE9ret qu'il est pas fran\xE7ais, Tintin.
+    ]\r\n    Y --> G>Fred: Vous connaissez cet \xE9trange sentiment qu'il va se passer
+    quelque chose d'horrible, du genre en voyant la bo\xEEte ? ]\r\n    G --> H>Fred:
+    Mais si, si, vous le connaissez, c'est ce sentiment que vous allez jouer \xE0
+    une vraie horreur, un jeu de plateforme o\xF9 vous allez sans cesse tomber dans
+    le vide et mourir dans des endroits improbables. ]\r\n    H --> I>Fred: Eh bien,
+    putain, mon vieux, vous aviez raison ! Ce jeu est comme une esp\xE8ce de punition
+    cruelle que vous vous infligeriez. ]\r\n    I --> J>Fred: On dirait un concentr\xE9
+    de tout ce qu'il y a de pire dans les jeux de plateforme. ]\r\n    J --> L>Seb:
+    MAIS ATTENDS !]\r\n    L --> M>Seb: la boite que tu nous a montr\xE9 l\xE0...
+    c'est pas Tintin au Tibet ?!]\r\n    M --> N>Fred: mais Seb... tu sais bien que
+    ce jeu me donne des tensions dans la main]\r\n    N --> O>Seb: on a besoin de
+    cette sc\xE8ne, on reprendera une fois que tu l'aura retrouv\xE9]\r\n    O -->
+    P>Fred: OK Seb...]\r\n    P --> Q[Fred.IsSat=false]\r\n    Q --> Z((F))"
   - "graph TB\r\nA((S)) -->B(Fred se l\xE8ve du canap\xE9)\r\n    B --> C{Actions}\r\n   
     C -->|Parler \xE0 Seb| D>Seb: Tu dois trouver Tintin au tibet pour la prochaine
     vid\xE9o]\r\n    C -->|Inspect Biblioth\xE8que| E[Transition: Biblioth\xE8que]\r\n   
@@ -184,6 +204,10 @@ MonoBehaviour:
     F -->|Inspect Lemmings| T>Fred: On savais invent\xE9 des concepts avant !]\r\n   
     F -->|Inspect The Last of Us| U>Fred: Un des rares jeu r\xE9cent digne de ce
     nom]\r\n    G --> Z((F))"
+  - "graph TB\r\nA((S)) --> C(Les boites tombent sur Fred)\r\n    C --> D[Transition:
+    Boites au sol]\r\n    D --> Z((F))"
+  - "graph TB\r\nA((S)) --> C>Seb: Ca va Fred ?]\r\n    C --> D>Seb: Tu te sent bien
+    ?]\r\n    D --> Z((F))"
   - "graph TB\r\nA((S)) --> C{Actions}\r\n    C -->|Inspect PS4| D>Fred: J'ai la
     marque de ce carton dans mon crane]\r\n    C -->|Inspect NES| E>Fred: Non ! pas
     les tortues... pas les tortues !]\r\n    C -->|Inspect Power Glove| H>Fred: Cette
@@ -192,6 +216,26 @@ MonoBehaviour:
     ? Qu'est ce que \xE7a fait l\xE0 ?]\r\n    G --> I>Fred: Je me demande si...
     nannnn...]\r\n    C -->|Activate Publicit\xE9| J[Transition: Pi\xE8ce principale]\r\n   
     J --> Z((F))"
+  - "graph TB\r\nA((S)) --> C>Fred: H\xE9, regarde Seb, une vieille pub sur la Switch...]\r\n   
+    C -->D>Seb: Elle est pas si mal celle console, y'a eu des bons titres.]\r\n   
+    D -->E>Fred: Ouais mais elle sera bient\xF4t dans les placards]\r\n    E -->F>Seb:
+    T'as raison, la nouvelle Switch 2 va la remplacer. D'ailleurs faut qu'on se la
+    procure]\r\n    F -->G>Fred: Cette merde ?! Tu rigole y'a 3 jeux de sortie, pour
+    le prix je pr\xE9f\xE8re acheter la main gauche du Power Glove]\r\n    G -->H>Seb:
+    Ouais... n'emp\xEAche, faudra trouver quelques jeux pourris \xE0 tester sur la
+    premi\xE8re Switch.]\r\n    H -->I>Fred: T'as raison Seb.]\r\n    I --> Z((F))"
+  - "graph TB\r\nA((S)) --> B(Animation du tonnerre)\r\n    B --> C>Petite voix:
+    JDG... JDG... Tu dois sauver Nuntendo... La Switch est en grand danger.... JDG...
+    Tu es le seul \xE0 pouvoir la sauver....]\r\n    C --> D>Fred : Quoi ?!]\r\n   
+    D --> E>Petite voix: La finance Fred... la finance... Black'n Rock, Namura Asset
+    Management, Otoky Financial Group... Ils veulent toujours plus Fred... Ils veulent
+    toujours plus.]\r\n    E --> F>Fred: Et alors ?! c'est pas mon probl\xE8me !]\r\n   
+    F --> G>Petite voix: Il n'y aura plus de nouvelle g\xE9n\xE9ration de passionn\xE9
+    Fred... Les jeux pourris seront remplac\xE9 par les jeux g\xE9n\xE9riques cr\xE9\xE9
+    par IA. Le monde oubliera Fred.... Il oubliera comment cr\xE9er de vrai jeux...
+    Si tu ne fait rien, demain ce sera un jeu McFli&Clito qui sortira puis ensuit
+    TiboEnforme !!!]\r\n    G --> H>Fred : Nonnnnnnn !!!!!! Pas \xE7aaaa !!!!!]\r\n   
+    H --> I[Transition: A\xE9roport]\r\n    I --> Z((F))"
   - "graph TB\r\nA((S)) --> C{Actions}\r\n    C -->|Inspecter Porte des toilettes|
     I>Fred: 'Les toilettes... je n'ai pas envie']\r\n    C -->|Inspecter Guichet
     1| D>Fred: 'Je ne peux pas utiliser cette file, elle est d\xE9j\xE0 occup\xE9e']\r\n   
@@ -218,8 +262,8 @@ MonoBehaviour:
     Agent: 'Ho, il me reste une place sur le prochain vol qui d\xE9cole dans 30min']\r\n   
     F6 -->|Obtenez objet | F7[[Billet d'avion]] --> Z((F))\r\n    C -->|Inspecter
     Guichet 3 ou 4| H>Fred: 'Ce guichet est ferm\xE9']"
-  graphIndex: 1
-  graphStep: 71
+  graphIndex: 4
+  graphStep: 65
   graphText: "graph TB\r\nA((S)) --> C{Actions}\r\n    C -->|Inspect PS4| D>Fred:
     J'ai la marque de ce carton dans mon crane]\r\n    C -->|Inspect NES| E>Fred:
     Non ! pas les tortues... pas les tortues !]\r\n    C -->|Inspect Power Glove|

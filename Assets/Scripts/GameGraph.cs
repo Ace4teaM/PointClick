@@ -16,6 +16,37 @@ public class GameGraphEditor : Editor
 
         GameGraph myComp = (GameGraph)target;
 
+        if (myComp.graphs.Count > 0 && GUILayout.Button("Supprimer ce graph à la position " + myComp.graphIndex))
+        {
+            myComp.graphs.RemoveAt(myComp.graphIndex);
+            if (myComp.graphs.Count == 0)
+                myComp.graphText = String.Empty;
+            else
+            {
+                if (myComp.graphIndex > myComp.graphs.Count)
+                    myComp.graphIndex--;
+                myComp.graphText = myComp.graphs[myComp.graphIndex];
+            }
+
+            // Marque l'objet comme "dirty" pour que Unity sauvegarde la scène
+            EditorUtility.SetDirty(myComp);
+
+            // Force le redraw de l’inspector
+            Repaint();
+        }
+
+        if (myComp.graphs.Count > 0 && GUILayout.Button("Insérer un graph à la position " + myComp.graphIndex))
+        {
+            myComp.graphs.Insert(myComp.graphIndex, "graph TB\nA((S))-- > B[Action]\nB --> Z((F))");
+            myComp.graphText = myComp.graphs[myComp.graphIndex];
+
+            // Marque l'objet comme "dirty" pour que Unity sauvegarde la scène
+            EditorUtility.SetDirty(myComp);
+
+            // Force le redraw de l’inspector
+            Repaint();
+        }
+
         // Ajoute un bouton
         if (myComp.graphs.Count > 0 && GUILayout.Button("Insérer un graph à la position " + (myComp.graphIndex + 1)))
         {
@@ -285,6 +316,35 @@ public class GameGraph : MonoBehaviour
         step = char.MinValue;
         nextExpression.textStart = 0;
         nextExpression.textEnd = 0;
+        return false;
+    }
+    /// <summary>
+    /// Essayer de parser l'expression comme un changement d'état
+    /// </summary>
+    internal bool TryGetState(GraphExpression expression, out string objectName, out string stateName, out object stateValue)
+    {
+        var line = graphText.Substring(expression.textStart, expression.textEnd - expression.textStart).Trim();
+
+        var pattern = $@"^\s*[A-z]\[([A-z]+).([A-z]+)=(.*)\]$";
+        var match = Regex.Match(line, pattern, RegexOptions.Multiline);
+        if (match.Success)
+        {
+            objectName = match.Groups[1].Value;
+            stateName = match.Groups[2].Value;
+            stateValue = match.Groups[3].Value;
+            // essai de parser la valeur pour déterminer son type
+            if (bool.TryParse(match.Groups[3].Value, out var boolValue))
+                stateValue = boolValue;
+            else if (float.TryParse(match.Groups[3].Value, out var floatValue))
+                stateValue = floatValue;
+            else if (int.TryParse(match.Groups[3].Value, out var intValue))
+                stateValue = intValue;
+            return true;
+        }
+
+        objectName = null;
+        stateName = null;
+        stateValue = null;
         return false;
     }
     /// <summary>

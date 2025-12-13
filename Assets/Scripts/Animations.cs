@@ -109,7 +109,31 @@ public class Animations : MonoBehaviour
             {
                 player.GetComponentInChildren<Animator>().SetBool(name, value);
             },
-            () => player.GetComponentInChildren<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Sat_S"))
+            () => true)
+        );
+    }
+
+    internal void ChangeState(string playerName, string name, float value)
+    {
+        var player = GameObject.Find(playerName);
+        tasks.Add(() => WaitForBoolAsync(
+            () =>
+            {
+                player.GetComponentInChildren<Animator>().SetFloat(name, value);
+            },
+            () => true)
+        );
+    }
+
+    internal void ChangeState(string playerName, string name, int value)
+    {
+        var player = GameObject.Find(playerName);
+        tasks.Add(() => WaitForBoolAsync(
+            () =>
+            {
+                player.GetComponentInChildren<Animator>().SetInteger(name, value);
+            },
+            () => true)
         );
     }
 
@@ -133,12 +157,20 @@ public class Animations : MonoBehaviour
         {
             case "Fred se lève du canapé":
                 {
-                    MoveTo("Fred", "A_Bibliotheque");
-                    MoveTo("Fred", "A_Canape");
-                    ChangeState("Fred", "IsSat", true);
-                    ChangeState("Fred", "SatState", 2f, () => Task.Delay(3000));
                     ChangeState("Fred", "IsSat", false);
+                    MoveTo("Fred", "A_Canape");
                     start = true;
+                }
+                break;
+            case "Les boites tombent sur Fred":
+                {
+                    GameObject.Find("Fred").transform.position = GameObject.Find("A_Bibliotheque").transform.position;
+                    ChangeState("Fred", "IsDizzy", true);
+                    start = true;
+                }
+                break;
+            case "Animation du tonnerre":
+                {
                 }
                 break;
         }
