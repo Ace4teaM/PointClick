@@ -164,6 +164,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   graphs:
+  - 'graph TB
+
+    A((S))-- > B[Action]
+
+    B --> Z((F))'
   - "graph TB\r\nA((S)) --> X[Transition: Pi\xE8ce principale 'Introduction']\r\n   
     X --> C>Fred: Salut \xE0 tous, cette vid\xE9o est sponsoris\xE9 par Sud-VPN !]\r\n   
     C --> D[Fred.SatState=1]\r\n    D --> E>Fred: Regardez ce que je viens de trouver,
@@ -265,27 +270,11 @@ MonoBehaviour:
     Guichet 3 ou 4| H>Fred: 'Ce guichet est ferm\xE9']"
   graphIndex: 0
   graphStep: 65
-  graphText: "graph TB\r\nA((S)) --> X[Transition: Pi\xE8ce principale 'Introduction']\r\n   
-    X --> C>Fred: Salut \xE0 tous, cette vid\xE9o est sponsoris\xE9 par Sud-VPN !]\r\n   
-    C --> D[Fred.SatState=1]\r\n    D --> E>Fred: Regardez ce que je viens de trouver,
-    c'est navrant. Vous n'auriez pas pu d\xE9couvrir autre chose non ? ]\r\n    E
-    --> R[Fred.SatState=0]\r\n    R --> F>Fred: Je commence cette semaine par une
-    bonne r\xE9f\xE9rence franco-fran\xE7aise.]\r\n    F --> Y>Fred: Quoi ? Attends,
-    Moulin Sartre, les Duponts Duponts, c'est bon, c'est parce qu'il a pas une baguette
-    au b\xE9ret qu'il est pas fran\xE7ais, Tintin. ]\r\n    Y --> G>Fred: Vous connaissez
-    cet \xE9trange sentiment qu'il va se passer quelque chose d'horrible, du genre
-    en voyant la bo\xEEte ? ]\r\n    G --> H>Fred: Mais si, si, vous le connaissez,
-    c'est ce sentiment que vous allez jouer \xE0 une vraie horreur, un jeu de plateforme
-    o\xF9 vous allez sans cesse tomber dans le vide et mourir dans des endroits improbables.
-    ]\r\n    H --> I>Fred: Eh bien, putain, mon vieux, vous aviez raison ! Ce jeu
-    est comme une esp\xE8ce de punition cruelle que vous vous infligeriez. ]\r\n   
-    I --> J>Fred: On dirait un concentr\xE9 de tout ce qu'il y a de pire dans les
-    jeux de plateforme. ]\r\n    J --> L>Seb: MAIS ATTENDS !]\r\n    L --> M>Seb:
-    la boite que tu nous a montr\xE9 l\xE0... c'est pas Tintin au Tibet ?!]\r\n   
-    M --> N>Fred: mais Seb... tu sais bien que ce jeu me donne des tensions dans
-    la main]\r\n    N --> O>Seb: on a besoin de cette sc\xE8ne, on reprendera une
-    fois que tu l'aura retrouv\xE9]\r\n    O --> P>Fred: OK Seb...]\r\n    P -->
-    Q[Fred.IsSat=false]\r\n    Q --> Z((F))"
+  graphText: 'graph TB
+
+    A((S))-- > B[Action]
+
+    B --> Z((F))'
 --- !u!1001 &157614906
 PrefabInstance:
   m_ObjectHideFlags: 0

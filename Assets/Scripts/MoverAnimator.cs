@@ -17,7 +17,7 @@ public class MoverAnimator : MonoBehaviour
     }
 
     /// <summary>
-    /// Obtient la direction la plus proche
+    /// Obtient la direction la plus proche en fonction de l'angle du vecteur
     /// </summary>
     /// <param name="targetDirection"></param>
     /// <returns></returns>
@@ -46,14 +46,14 @@ public class MoverAnimator : MonoBehaviour
     #region Gizmo
     [SerializeField] public float gizmoSize = 1.0f;
     private static  Vector3[] gizmoDirections = { 
-        new Vector3(0,1,0).normalized,//N
-        new Vector3(0,-1,0).normalized,//S
+        new Vector3(0,-1,0).normalized,//N
+        new Vector3(0,1,0).normalized,//S
         new Vector3(1,0,0).normalized,//E
         new Vector3(-1,0,0).normalized,//W
-        new Vector3(1,1,0).normalized,//NE
-        new Vector3(1,-1,0).normalized,//SE
-        new Vector3(-1,1,0).normalized,//NW
-        new Vector3(-1,-1,0).normalized,//SW
+        new Vector3(1,-1,0).normalized,//NE
+        new Vector3(1,1,0).normalized,//SE
+        new Vector3(-1,-1,0).normalized,//NW
+        new Vector3(-1,1,0).normalized,//SW
     };
 
     private void OnDrawGizmos()
