@@ -45,7 +45,18 @@ public class Animations : MonoBehaviour
         tasks.Add(() => WaitForBoolAsync(
             () =>
             {
-                SceneTransition.SetTransition(scene);
+                SceneTransition.SetTransition(scene, null);
+            },
+            () => SceneTransition.loading == false)
+        );
+    }
+
+    internal void Transition(Scenes scene, string initialStates)
+    {
+        tasks.Add(() => WaitForBoolAsync(
+            () =>
+            {
+                SceneTransition.SetTransition(scene, initialStates);
             },
             () => SceneTransition.loading == false)
         );

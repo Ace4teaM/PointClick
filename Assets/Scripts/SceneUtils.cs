@@ -22,11 +22,11 @@ public static class SceneUtils
 
         foreach (var root in roots)
         {
-            // 🔍 Cherche dans l'objet lui-même
+            // Cherche dans l'objet lui-même
             if (root.name == objectName)
                 return root;
 
-            // 🔍 Cherche dans ses enfants (même désactivés)
+            // Cherche dans ses enfants (même désactivés)
             GameObject result = FindInChildren(root.transform, objectName);
             if (result != null)
                 return result;

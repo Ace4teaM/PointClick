@@ -4,6 +4,9 @@ using UnityEngine.SceneManagement;
 
 public class InspectingController : MonoBehaviour
 {
+    public GameGraph gameGraph;
+    public Animations animations;
+
     /// <summary>
     /// true Si l'utiliseur a cliqué pendant l'animation pour demander de la passer
     /// </summary>
@@ -29,7 +32,7 @@ public class InspectingController : MonoBehaviour
     internal void OnClick()
     {
         // Pas de progression tant que les animations en cours ne sont pas terminées
-        var anim = GameObject.Find("Animations")?.GetComponent<Animations>();
+        var anim = animations;
         if (anim?.animationInProgress == true)
         {
             wantSkipAnimation = true;
@@ -65,8 +68,8 @@ public class InspectingController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var g = GameGraph.Instance;
-        var anim = GameObject.Find("Animations")?.GetComponent<Animations>();
+        var g = gameGraph;
+        var anim = animations;
 
         // Essaie d'ignorer l'animation en cours
         /*if(wantSkipAnimation && anim?.animationInProgress == true)
@@ -157,11 +160,11 @@ public class InspectingController : MonoBehaviour
                         return;
                     }
 
-                    if (g.TryGetTransition(nextExpression, out var scene))
+                    if (g.TryGetTransition(nextExpression, out var scene, out var initialStates))
                     {
                         if (EnumExtensions.TryParseFromDescription<Scenes>(scene, true, out var sceneType))
                         {
-                            anim.Transition((Scenes)sceneType);
+                            anim.Transition((Scenes)sceneType, initialStates);
                             anim.start = true;
                         }
                         else
@@ -204,11 +207,11 @@ public class InspectingController : MonoBehaviour
                     anim.HideDialog();
                     anim.start = true;
                 }
-                else if (g.TryGetTransition(expression, out var scene))
+                else if (g.TryGetTransition(expression, out var scene, out var initialStates))
                 {
                     if(EnumExtensions.TryParseFromDescription<Scenes>(scene, true, out var sceneType))
                     {
-                        anim.Transition((Scenes)sceneType);
+                        anim.Transition((Scenes)sceneType, initialStates);
                         anim.start = true;
                     }
                     else

@@ -138,13 +138,8 @@ public class GraphTextDrawer : PropertyDrawer
 }
 public class GraphIndexAttribute : PropertyAttribute
 {
-    public int minLines;
-    public int maxLines;
-
-    public GraphIndexAttribute(int minLines = 3, int maxLines = 3)
+    public GraphIndexAttribute()
     {
-        this.minLines = minLines;
-        this.maxLines = maxLines;
     }
 }
 
@@ -190,32 +185,15 @@ public class GraphIndexDrawer : PropertyDrawer
         }
 
     }
-
-    public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
-    {
-        var attr = (GraphIndexAttribute)attribute;
-
-        int lines = Mathf.Max(attr.minLines, attr.maxLines);
-        return EditorGUIUtility.singleLineHeight * lines * 1.2f;
-    }
 }
 #endif
 
 public class GameGraph : MonoBehaviour
 {
-    public static GameGraph Instance;
-
-    private void Awake()
+    public class InitialStates
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        public string GameScene;
+        public string UIScene;
     }
 
     /// <summary>
@@ -426,32 +404,77 @@ public class GameGraph : MonoBehaviour
     /// </summary>
     /// <param name="expression">Expression donné</param>
     /// <param name="dialog">Nom de la scène</param>
-    internal bool TryGetTransition(GraphExpression expression, out string scene)
+    internal bool TryGetTransition(GraphExpression expression, out string scene, out string initialStates)
     {
-        scene = String.Empty;
+        var line = graphText.Substring(expression.textStart, expression.textEnd - expression.textStart).Trim();
 
-        var prefixe = "Transition: ";
-
-        if (char.IsLetter(graphText[expression.textStart]) && graphText[expression.textStart + 1] == '[' && graphText.Substring(expression.textStart + 2).StartsWith(prefixe, true, System.Globalization.CultureInfo.InvariantCulture))
+        var pattern = $@"^[A-z]\[\s*Transition\s*:\s*(?:([^']+)|([^']+)\'([^']+)\')\]$";
+        var match = Regex.Match(line, pattern, RegexOptions.Multiline);
+        if (match.Success)
         {
-            var start = expression.textStart + 2 + prefixe.Length;
-            var length = expression.textEnd - start;
-            scene = graphText.Substring(start, length - 2); // - ']\r'
+            if (String.IsNullOrEmpty(match.Groups[1].Value))
+            {
+                scene = match.Groups[2].Value.Trim();
+                initialStates = match.Groups[3].Value.Trim();
+            }
+            else
+            {
+                scene = match.Groups[1].Value.Trim();
+                initialStates = null;
+            }
             return true;
         }
 
+        scene = String.Empty;
+        initialStates = String.Empty;
         return false;
     }
 
+    protected virtual void Awake()
+    {
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    protected virtual void Start()
     {
         
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         
+    }
+}
+
+public class GlobalGameGraph : GameGraph
+{
+    public static GameGraph Instance;
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    protected override void Start()
+    {
+        base.Start();
+    }
+
+    // Update is called once per frame
+    protected override void Update()
+    {
+        base.Update();
     }
 }

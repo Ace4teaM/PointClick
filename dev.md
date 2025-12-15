@@ -100,6 +100,24 @@ Certains objets on besoins d'être relier à des objets de la scène `Main`, les
 
 Les données persistantes entre les scènes sont contenu dans le `GameObject` nommé `Persistant` il est contenu dans la scène Main qui est constamment chargé. Les autres scènes sont ouvertes en plus de la scène principale.
 
+### Etats initial
+
+Lorsqu'une scène est chargé dynamiquement vous pouvez spécifier les états intial des objets dans le Script `InitStates`.
+
+Choisir l'état initiale permet de représenter la même scène dans un état différent: par exemple pour placer les perssonages, activer des objets, ...
+
+L'état initial est complémentaire au **Graph** du jeu, c'est à ce moment que vous pouvez choisir le nom de l'état souhaité.
+
+Vous pouvez également choisir l'état dans l'éditeur pour visualiser la scène avec le slider **Index**:
+
+![](initstates.png)
+
+**Elements**
+
+Détermine les éléments à sauvegarder/restaurer.
+
+Vous pouvez créer les assets des éléments depuis le menu `Assets/Game/...`
+
 ## Build
 
 Toutes les scènes faisant partie du **build final** doit se trouver dans la liste des scènes accessibles depuis le menu **File > Build Profiles**.
