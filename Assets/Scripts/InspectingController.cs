@@ -2,6 +2,9 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Controlleur réalisant le lien entre le Graph du jeu et les animations de la scène en cours
+/// </summary>
 public class InspectingController : MonoBehaviour
 {
     public GameGraph gameGraph;

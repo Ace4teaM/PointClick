@@ -12,7 +12,7 @@ public enum HoverFlagType
 /// <summary>
 /// Implémentation globale pour définir l'objet se trouvant sous le curseur
 /// </summary>
-public class HoverCursorFlag : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class HoverCursorFlag : MonoBehaviour
 {
     public static HoverFlagType HoverFlagType = HoverFlagType.None;
     public static string HoverFlag = string.Empty;
@@ -22,14 +22,14 @@ public class HoverCursorFlag : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
     public static event Action<HoverFlagType, string> OnFlagChanged;
 
-    public void OnPointerEnter(PointerEventData eventData)
+    internal void Apply()
     {
         HoverFlag = flag;
         HoverFlagType = flagType;
         OnFlagChanged?.Invoke(HoverFlagType, HoverFlag);
     }
 
-    public void OnPointerExit(PointerEventData eventData)
+    internal static void UnApply()
     {
         HoverFlag = string.Empty;
         HoverFlagType = HoverFlagType.None;

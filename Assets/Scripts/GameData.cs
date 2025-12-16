@@ -21,6 +21,11 @@ public static class GameData
     public static event Action InputClickEvent;
 
     /// <summary>
+    /// Evénement move
+    /// </summary>
+    public static event Action InputMoveEvent;
+
+    /// <summary>
     /// Evénement dialogue
     /// </summary>
     public static event Action<string> OnDialogChanged;
@@ -69,5 +74,9 @@ public static class GameData
     internal static void OnInputClick()
     {
         InputClickEvent?.Invoke();
+    }
+    internal static void OnInputMove()
+    {
+        InputMoveEvent?.Invoke();
     }
 }

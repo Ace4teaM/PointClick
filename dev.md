@@ -14,9 +14,19 @@ Gestion des binding sur les inputs (clavier/souris/joystick,...)
 
 ![](inputs.png)
 
-Attacher la méthode `OnClick` à l'objet `MouseClickController`
+Configurer les inputs de position
+
+![](inputs_mouse_position.png)
+
+et Click
+
+![](inputs_mouse_click.png)
+
+Attacher la méthode `OnClick` et `Navigate`
 
 ![](input_binding.png)
+
+Attacher à l'objet  `PlayerInputsManager`
 
 ![](input_binding2.png)
 

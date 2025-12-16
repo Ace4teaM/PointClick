@@ -20,4 +20,9 @@ public class PlayerInputsManager : MonoBehaviour
         }
     }
 
+    // Cette fonction sera bindée dans Input Action
+    public void OnMove(InputAction.CallbackContext context)
+    {
+        GameData.OnInputMove();
+    }
 }
