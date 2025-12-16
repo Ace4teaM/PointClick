@@ -358,6 +358,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 666093cb21812b4459232ea20bd1c784, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  dialogColors: {fileID: 11400000, guid: 6f623f268fbc94241884ad95ce2589a4, type: 2}
 --- !u!102 &294394117
 TextMesh:
   serializedVersion: 3
@@ -661,6 +662,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   sceneType: 1
+  elements: []
+  defaultStates: 
+  states:
+    raw: 
 --- !u!4 &700109866
 Transform:
   m_ObjectHideFlags: 0
@@ -897,6 +902,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 666093cb21812b4459232ea20bd1c784, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  dialogColors: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

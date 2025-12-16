@@ -10,6 +10,10 @@ public class Animations : MonoBehaviour
 {
     List<Func<Task>> tasks = new List<Func<Task>>();
 
+    private static int readTimeByWordInMs = 300;
+    private static int readTimeMinMs = 1000 * 2;
+    private static int readTimeMaxMs = 1000 * 10;
+
     void Awake()
     {
         GameData.OnAnimationChanged += OnAnimate;
@@ -62,19 +66,20 @@ public class Animations : MonoBehaviour
         );
     }
 
-    internal void ShowDialog(string dialog, Func<Task> delay)
+    internal void ShowDialog(string dialog, Func<Task> delay = null)
     {
-        var obj = GameObject.Find("Dialog");
-        if (obj == null)
+        // estime le temps en fonction du nombre de mots (10s max, 2s mini)
+        if (delay == null)
         {
-            Debug.LogError("Impossible de trouver l'objet 'Dialog' pour afficher le texte");
-            return;
+            var duration = Math.Max(readTimeMinMs, Math.Min(readTimeMaxMs, readTimeByWordInMs * dialog.Count(c => c == ' ')));
+            delay = () => Task.Delay(duration);
         }
-        var text = obj.GetComponentInChildren<TextMeshProUGUI>();
+
         tasks.Add(() => WaitForBoolAsync(
             () =>
             {
-                text.text = dialog;
+                GameData.ShowDialog = dialog;
+                GameData.OnDialogChange();
             },
             delay)
         );
@@ -82,17 +87,11 @@ public class Animations : MonoBehaviour
 
     internal void HideDialog()
     {
-        var obj = GameObject.Find("Dialog");
-        if (obj == null)
-        {
-            Debug.LogError("Impossible de trouver l'objet 'Dialog' pour afficher le texte");
-            return;
-        }
-        var text = obj.GetComponentInChildren<TextMeshProUGUI>();
         tasks.Add(() => WaitForBoolAsync(
             () =>
             {
-                text.text = String.Empty;
+                GameData.ShowDialog = String.Empty;
+                GameData.OnDialogChange();
             },
             () => true)
         );

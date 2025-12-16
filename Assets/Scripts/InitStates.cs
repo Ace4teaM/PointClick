@@ -212,6 +212,7 @@ public class InitStates : MonoBehaviour
     /// <summary>
     /// Liste des éléments à serialiser
     /// </summary>
+    [Tooltip("Indique les éléments et leurs états qui seront sauvegardés")]
     public Element[] elements;
 
     /// <summary>

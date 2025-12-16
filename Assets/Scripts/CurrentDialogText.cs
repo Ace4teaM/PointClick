@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -5,6 +6,8 @@ using UnityEngine;
 public class CurrentDialogText : MonoBehaviour
 {
     private TextMeshProUGUI textMesh;
+
+    public DialogColors dialogColors;
 
     private void Awake()
     {
@@ -24,13 +27,25 @@ public class CurrentDialogText : MonoBehaviour
         GameData.OnDialogChanged -= CurrentDialogText_OnDialogChanged;
     }
 
-    void Start()
+    void SetDialog(string text)
     {
-    }
-
-    void Update()
-    {
-
+        var i = text.IndexOf(':');
+        if(i != -1 && i > 0)
+        {
+            var nom = text.Substring(0, i);
+            var color = dialogColors.GetColor(nom);
+            if (color != null)
+            {
+                textMesh.color = color.color;
+                textMesh.outlineColor = color.outline;
+            }
+            else
+            {
+                textMesh.color = Color.white;
+                textMesh.outlineColor = Color.black;
+            }
+        }
+        textMesh.text = text;
     }
 
     void OnDestroy()
@@ -40,6 +55,6 @@ public class CurrentDialogText : MonoBehaviour
 
     private void CurrentDialogText_OnDialogChanged(string text)
     {
-        textMesh.text = text;
+        SetDialog(text);
     }
 }

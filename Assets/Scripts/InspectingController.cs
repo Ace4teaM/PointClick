@@ -120,7 +120,7 @@ public class InspectingController : MonoBehaviour
                         }
                         else
                         {
-                            anim.ShowDialog(dialog, () => Task.Delay(5000));
+                            anim.ShowDialog(dialog);
                             anim.HideDialog();
                             anim.start = true;
                         }
@@ -205,7 +205,7 @@ public class InspectingController : MonoBehaviour
                 // examine le résultat de l'action
                 if (g.TryGetDialog(expression, out var dialog))
                 {
-                    anim.ShowDialog(dialog, () => Task.Delay(5000));
+                    anim.ShowDialog(dialog);
                     anim.HideDialog();
                     anim.start = true;
                 }

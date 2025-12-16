@@ -254,13 +254,20 @@ MonoBehaviour:
     Agent: 'Ho, il me reste une place sur le prochain vol qui d\xE9cole dans 30min']\r\n   
     F6 -->|Obtenez objet | F7[[Billet d'avion]] --> Z((F))\r\n    C -->|Inspecter
     Guichet 3 ou 4| H>Fred: 'Ce guichet est ferm\xE9']"
-  graphIndex: 0
+  graphIndex: 7
   graphStep: 65
-  graphText: 'graph TB
-
-    A((S))-- > B[Action]
-
-    B --> Z((F))'
+  graphText: "graph TB\r\nA((S)) --> B(Animation du tonnerre)\r\n    B --> C>Petite
+    voix: JDG... JDG... Tu dois sauver Nuntendo... La Switch est en grand danger....
+    JDG... Tu es le seul \xE0 pouvoir la sauver....]\r\n    C --> D>Fred : Quoi ?!]\r\n   
+    D --> E>Petite voix: La finance Fred... la finance... Black'n Rock, Namura Asset
+    Management, Otoky Financial Group... Ils veulent toujours plus Fred... Ils veulent
+    toujours plus.]\r\n    E --> F>Fred: Et alors ?! c'est pas mon probl\xE8me !]\r\n   
+    F --> G>Petite voix: Il n'y aura plus de nouvelle g\xE9n\xE9ration de passionn\xE9
+    Fred... Les jeux pourris seront remplac\xE9 par les jeux g\xE9n\xE9riques cr\xE9\xE9
+    par IA. Le monde oubliera Fred.... Il oubliera comment cr\xE9er de vrai jeux...
+    Si tu ne fait rien, demain ce sera un jeu McFli&Clito qui sortira puis ensuit
+    TiboEnforme !!!]\r\n    G --> H>Fred : Nonnnnnnn !!!!!! Pas \xE7aaaa !!!!!]\r\n   
+    H --> I[Transition: A\xE9roport]\r\n    I --> Z((F))"
 --- !u!1001 &157614906
 PrefabInstance:
   m_ObjectHideFlags: 0
