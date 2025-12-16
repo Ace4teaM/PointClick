@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
@@ -9,6 +10,7 @@ using UnityEngine;
 public class Animations : MonoBehaviour
 {
     List<Func<Task>> tasks = new List<Func<Task>>();
+    CancellationTokenSource cancel = new CancellationTokenSource();
 
     private static int readTimeByWordInMs = 300;
     private static int readTimeMinMs = 1000 * 2;
@@ -23,23 +25,32 @@ public class Animations : MonoBehaviour
         GameData.OnAnimationChanged -= OnAnimate;
     }
 
-    public async Task WaitForBoolAsync(Action exec, Func<bool> condition)
+    public void TrySkipAnimation()
+    {
+        cancel.Cancel();
+    }
+
+    public async Task WaitForBoolAsync(Action exec, Func<bool> condition, bool cancelable)
     {
         exec();
         // Attend que la condition soit vraie
         while (!condition())
         {
+            if (cancelable && cancel.IsCancellationRequested)
+                break;
             await Task.Delay(10); // petite pause pour éviter de bloquer le CPU
         }
     }
 
-    public async Task WaitForBoolAsync(Action exec, Func<Task> condition)
+    public async Task WaitForBoolAsync(Action exec, Func<Task> condition, bool cancelable)
     {
         exec();
         var task = condition();
         // Attend que la condition soit vraie
         while (!task.IsCompleted)
         {
+            if (cancelable && cancel.IsCancellationRequested)
+                break;
             await Task.Delay(10); // petite pause pour éviter de bloquer le CPU
         }
     }
@@ -51,7 +62,8 @@ public class Animations : MonoBehaviour
             {
                 SceneTransition.SetTransition(scene, null);
             },
-            () => SceneTransition.loading == false)
+            () => SceneTransition.loading == false
+            , false)
         );
     }
 
@@ -62,7 +74,8 @@ public class Animations : MonoBehaviour
             {
                 SceneTransition.SetTransition(scene, initialStates);
             },
-            () => SceneTransition.loading == false)
+            () => SceneTransition.loading == false
+            , false)
         );
     }
 
@@ -81,7 +94,8 @@ public class Animations : MonoBehaviour
                 GameData.ShowDialog = dialog;
                 GameData.OnDialogChange();
             },
-            delay)
+            delay,
+            true)
         );
     }
 
@@ -93,7 +107,8 @@ public class Animations : MonoBehaviour
                 GameData.ShowDialog = String.Empty;
                 GameData.OnDialogChange();
             },
-            () => true)
+            () => true, 
+            false)
         );
     }
 
@@ -107,7 +122,8 @@ public class Animations : MonoBehaviour
                 var path = GameObject.Find("MovingController").GetComponentInChildren<MovingController>().MakePath(anchor.position);
                 player.GetComponentInChildren<MoverAnimator>().SetDestinations(path);
             },
-            () => player.GetComponentInChildren<MoverAnimator>().IsFinish)
+            () => player.GetComponentInChildren<MoverAnimator>().IsFinish,
+            false)
         );
     }
 
@@ -119,7 +135,8 @@ public class Animations : MonoBehaviour
             {
                 player.GetComponentInChildren<Animator>().SetBool(name, value);
             },
-            () => true)
+            () => true,
+            false)
         );
     }
 
@@ -131,7 +148,8 @@ public class Animations : MonoBehaviour
             {
                 player.GetComponentInChildren<Animator>().SetFloat(name, value);
             },
-            () => true)
+            () => true,
+            false)
         );
     }
 
@@ -143,7 +161,8 @@ public class Animations : MonoBehaviour
             {
                 player.GetComponentInChildren<Animator>().SetInteger(name, value);
             },
-            () => true)
+            () => true,
+            false)
         );
     }
 
@@ -156,7 +175,8 @@ public class Animations : MonoBehaviour
                 player.GetComponentInChildren<Animator>().SetFloat(name, value);
                 delay();
             },
-            delay)
+            delay,
+            false)
         );
     }
 
@@ -209,7 +229,11 @@ public class Animations : MonoBehaviour
         animationInProgress = true;
         foreach (var f in tasks)
         {
-            await f(); 
+            await f();
+
+            // si une annulation a eu lieu, on restore l'instance
+            if (cancel.IsCancellationRequested)
+                cancel = new CancellationTokenSource();
         }
         tasks.Clear();
         animationInProgress = false;

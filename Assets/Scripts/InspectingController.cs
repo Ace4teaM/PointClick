@@ -75,10 +75,11 @@ public class InspectingController : MonoBehaviour
         var anim = animations;
 
         // Essaie d'ignorer l'animation en cours
-        /*if(wantSkipAnimation && anim?.animationInProgress == true)
+        if(wantSkipAnimation && anim?.animationInProgress == true)
         {
             anim?.TrySkipAnimation();
-        }*/
+            wantSkipAnimation = false;
+        }
 
         // Pas de progression tant que les animations en cours ne sont pas terminées
         if (anim?.animationInProgress == true)
