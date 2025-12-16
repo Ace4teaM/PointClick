@@ -114,7 +114,6 @@ public class InspectingController : MonoBehaviour
                     // Dialogue
                     if (g.TryGetDialog(nextExpression, out var dialog))
                     {
-                        //var obj = SceneUtils.GetObjectByName(GameData.CurrentSceneUI, "Animations");
                         if (anim == null)
                         {
                             Debug.LogError($"Impossible de trouver l'objet d'animations 'Animations'");

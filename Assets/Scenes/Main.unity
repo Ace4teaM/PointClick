@@ -195,21 +195,7 @@ MonoBehaviour:
     vid\xE9o]\r\n    C -->|Inspect Biblioth\xE8que| E[Transition: Biblioth\xE8que]\r\n   
     E --> J>Fred: Je dois trouver Tintin au tibet]\r\n    J --> F{Actions}\r\n   
     F -->|Inspect Tintin au Tibet| G[Transition: Pi\xE8ce principale 'Assomm\xE9']\r\n   
-    F -->|Inspect Dragon's Lair| H>Fred: Mon Dieu ! Ce jeu est le diable incarn\xE9]\r\n   
-    F -->|Inspect Asterix| I>Fred: Bordel... Infogrames fait vraiement des jeux pourris]\r\n   
-    F -->|Inspect Final Fantasy VII| V>Fred: Surement le plus prenant des RPG de
-    ma g\xE9n\xE9ration]\r\n    F -->|Inspect Command & Conquer| K>Fred: J'adore
-    ce jeu]\r\n    F -->|Inspect Hexen II| L>Fred: Putain! j'ai pass\xE9 tellement
-    de temps sur ce jeu]\r\n    F -->|Inspect Half Life 2| M>Fred: Que de bon souvenir]\r\n   
-    F -->|Inspect Dune| N>Fred: Un pionnier du jeu vid\xE9o]\r\n    F -->|Inspect
-    Discworld II| O>Fred: Les Point&Click c'est l'age d'or des jeux vid\xE9os !]\r\n   
-    F -->|Inspect Age of Empires| P>Fred: Un mythe]\r\n    F -->|Inspect Alone in
-    the Dark| Q>Fred: Pas mal non ? C'est Fran\xE7ais !]\r\n    F -->|Inspect Sim
-    City 2000| R>Fred: J'ai pass\xE9 tellement de temps de ma vie dessus]\r\n   
-    F -->|Inspect Flashback| S>Fred: Chaque cat\xE9gorie de jeu a sa l\xE9gende]\r\n   
-    F -->|Inspect Lemmings| T>Fred: On savais invent\xE9 des concepts avant !]\r\n   
-    F -->|Inspect The Last of Us| U>Fred: Un des rares jeu r\xE9cent digne de ce
-    nom]\r\n    G --> Z((F))"
+    G --> Z((F))"
   - "graph TB\r\nA((S)) --> C(Les boites tombent sur Fred)\r\n    C --> D[Transition:
     Boites au sol]\r\n    D --> Z((F))"
   - "graph TB\r\nA((S)) --> C>Seb: Ca va Fred ?]\r\n    C --> D>Seb: Tu te sent bien

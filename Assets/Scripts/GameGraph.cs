@@ -368,16 +368,17 @@ public class GameGraph : MonoBehaviour
     /// <param name="dialog">Texte du dialogue</param>
     internal bool TryGetDialog(GraphExpression expression, out string dialog)
     {
-        dialog = String.Empty;
+        var line = graphText.Substring(expression.textStart, expression.textEnd - expression.textStart).Trim();
 
-        if (char.IsLetter(graphText[expression.textStart]) && graphText[expression.textStart + 1] == '>')
+        var pattern = $@"^\s*[A-z]>(.*)]$";
+        var match = Regex.Match(line, pattern, RegexOptions.Multiline);
+        if (match.Success)
         {
-            var start = expression.textStart + 2;
-            var length = expression.textEnd - start;
-            dialog = graphText.Substring(start, length - 2); // - ']\r'
+            dialog = match.Groups[1].Value;
             return true;
         }
 
+        dialog = String.Empty;
         return false;
     }
     /// <summary>
@@ -387,16 +388,17 @@ public class GameGraph : MonoBehaviour
     /// <param name="anim">Nom de l'animation</param>
     internal bool TryGetAnimation(GraphExpression expression, out string anim)
     {
-        anim = String.Empty;
+        var line = graphText.Substring(expression.textStart, expression.textEnd - expression.textStart).Trim();
 
-        if (char.IsLetter(graphText[expression.textStart]) && graphText[expression.textStart + 1] == '(')
+        var pattern = $@"^\s*[A-z]\((.*)\)$";
+        var match = Regex.Match(line, pattern, RegexOptions.Multiline);
+        if (match.Success)
         {
-            var start = expression.textStart + 2;
-            var length = expression.textEnd - start;
-            anim = graphText.Substring(start, length - 2); // - ')\r'
+            anim = match.Groups[1].Value;
             return true;
         }
 
+        anim = String.Empty;
         return false;
     }
     /// <summary>

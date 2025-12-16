@@ -228,6 +228,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   sceneType: 1
+  elements: []
+  defaultStates: 
+  states:
+    raw: 
 --- !u!4 &308101960
 Transform:
   m_ObjectHideFlags: 0
@@ -255,7 +259,6 @@ GameObject:
   - component: {fileID: 649740156}
   - component: {fileID: 649740155}
   - component: {fileID: 649740154}
-  - component: {fileID: 649740153}
   - component: {fileID: 649740152}
   m_Layer: 5
   m_Name: Dialog
@@ -295,28 +298,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 666093cb21812b4459232ea20bd1c784, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
---- !u!102 &649740153
-TextMesh:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 649740150}
-  m_Text: 
-  m_OffsetZ: 0
-  m_CharacterSize: 1
-  m_LineSpacing: 1
-  m_Anchor: 0
-  m_Alignment: 0
-  m_TabSize: 4
-  m_FontSize: 0
-  m_FontStyle: 0
-  m_RichText: 1
-  m_Font: {fileID: 0}
-  m_Color:
-    serializedVersion: 2
-    rgba: 4294967295
 --- !u!23 &649740154
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -385,7 +366,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Information
+  m_text: Dialog
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d78ac25ba34faaa4faa583ac40512751, type: 2}
   m_sharedMaterial: {fileID: 6899093294311683663, guid: d78ac25ba34faaa4faa583ac40512751, type: 2}
@@ -1029,28 +1010,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1933641620}
   m_CullTransparentMesh: 1
---- !u!102 &482440932816589457
-TextMesh:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 759920270008490455}
-  m_Text: 
-  m_OffsetZ: 0
-  m_CharacterSize: 1
-  m_LineSpacing: 1
-  m_Anchor: 0
-  m_Alignment: 0
-  m_TabSize: 4
-  m_FontSize: 0
-  m_FontStyle: 0
-  m_RichText: 1
-  m_Font: {fileID: 0}
-  m_Color:
-    serializedVersion: 2
-    rgba: 4294967295
 --- !u!1 &759920270008490455
 GameObject:
   m_ObjectHideFlags: 0
@@ -1064,7 +1023,6 @@ GameObject:
   - component: {fileID: 1600343330410409007}
   - component: {fileID: 7277456788378260947}
   - component: {fileID: 2020555007822939912}
-  - component: {fileID: 482440932816589457}
   m_Layer: 5
   m_Name: Information
   m_TagString: Untagged
