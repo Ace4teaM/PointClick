@@ -511,6 +511,50 @@ PolygonCollider2D:
       - {x: -1.1437511, y: -1.3211429}
       - {x: -1.1427834, y: 1.0534322}
   m_UseDelaunayMesh: 0
+--- !u!1 &118886636
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 118886638}
+  - component: {fileID: 118886637}
+  m_Layer: 0
+  m_Name: Animations
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &118886637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 118886636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fee37d44df83266499ec773a3c38bfbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+--- !u!4 &118886638
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 118886636}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &142304472
 GameObject:
   m_ObjectHideFlags: 0
@@ -2868,6 +2912,148 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &613971938
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 613971940}
+  - component: {fileID: 613971939}
+  m_Layer: 0
+  m_Name: InteractingController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &613971939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613971938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bfc55dc4e4b07249a7e2aa355dd7b66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  interactingArea:
+  - {fileID: 1829790988}
+  - {fileID: 804842261}
+  - {fileID: 562315666}
+  - {fileID: 1231283115}
+  - {fileID: 1775853497}
+  - {fileID: 100128158}
+  - {fileID: 980044994}
+  - {fileID: 382131089}
+  - {fileID: 1824526430}
+  - {fileID: 453280968}
+  - {fileID: 1471112687}
+  - {fileID: 116359802}
+  - {fileID: 2014438477}
+  - {fileID: 1678052435}
+  - {fileID: 1386243619}
+  - {fileID: 684382553}
+  - {fileID: 1726958825}
+  - {fileID: 1481497546}
+  - {fileID: 1250300632}
+  - {fileID: 851417746}
+  - {fileID: 1880735915}
+  - {fileID: 215204190}
+  - {fileID: 649842517}
+  - {fileID: 1726255127}
+  - {fileID: 1589927506}
+  - {fileID: 956463129}
+  - {fileID: 805170249}
+  - {fileID: 770882897}
+  - {fileID: 1365694700}
+  - {fileID: 1282097242}
+  - {fileID: 856043906}
+  - {fileID: 1599367055}
+  - {fileID: 1436090661}
+  - {fileID: 603692352}
+  - {fileID: 1696674813}
+  - {fileID: 1511660473}
+  - {fileID: 1232600191}
+  - {fileID: 883836496}
+  - {fileID: 1354626875}
+  - {fileID: 1585033463}
+  - {fileID: 1919023295}
+  - {fileID: 1368828993}
+  - {fileID: 1597648392}
+  - {fileID: 304595577}
+  - {fileID: 151345725}
+  - {fileID: 1648202746}
+  - {fileID: 1793390220}
+  - {fileID: 1698676943}
+  - {fileID: 1357342351}
+  - {fileID: 1197072670}
+  - {fileID: 195075743}
+  - {fileID: 472201488}
+  - {fileID: 1822389981}
+  - {fileID: 216538027}
+  - {fileID: 711437990}
+  - {fileID: 395110607}
+  - {fileID: 516934407}
+  - {fileID: 1029929297}
+  - {fileID: 784495247}
+  - {fileID: 1692246766}
+  - {fileID: 1239243359}
+  - {fileID: 265526329}
+  - {fileID: 534422008}
+  - {fileID: 1473207379}
+  - {fileID: 1173387042}
+  - {fileID: 518119202}
+  - {fileID: 411704057}
+  - {fileID: 1704912498}
+  - {fileID: 55000707}
+  - {fileID: 675853179}
+  - {fileID: 2030387715}
+  - {fileID: 1321567919}
+  - {fileID: 1031980256}
+  - {fileID: 948773421}
+  - {fileID: 421911137}
+  - {fileID: 943284643}
+  - {fileID: 361894688}
+  - {fileID: 1176298149}
+  - {fileID: 858935787}
+  - {fileID: 552709868}
+  - {fileID: 142304475}
+  - {fileID: 447610565}
+  - {fileID: 2139986855}
+  - {fileID: 1252807130}
+  - {fileID: 1957481749}
+  - {fileID: 37551915}
+  - {fileID: 1802227684}
+  - {fileID: 1356713087}
+  - {fileID: 1778621612}
+  - {fileID: 1893940138}
+  - {fileID: 1462604805}
+  - {fileID: 1412290863}
+  - {fileID: 404773700}
+  - {fileID: 1854483471}
+  - {fileID: 585383154}
+  - {fileID: 1745127596}
+  - {fileID: 1169583420}
+--- !u!4 &613971940
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613971938}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.42000008, y: 0.07999992, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &649842514
 GameObject:
   m_ObjectHideFlags: 0
@@ -3260,6 +3446,83 @@ PolygonCollider2D:
       - {x: 0.09450722, y: -0.849633}
       - {x: 0.094655514, y: 0.8809978}
   m_UseDelaunayMesh: 0
+--- !u!1 &757185917
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 757185919}
+  - component: {fileID: 757185918}
+  m_Layer: 0
+  m_Name: GameGraph
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &757185918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 757185917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d9b00c4e62376a47b24c844da72e15c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameGraph
+  graphs:
+  - "graph TB\nA((S)) --> F{Actions}\n    F -->|Inspect Dragon's Lair| H>Fred: Mon
+    Dieu ! Ce jeu est le diable incarn\xE9]\n    F -->|Inspect Asterix| I>Fred: Bordel...
+    Infogrames fait vraiement des jeux pourris]\n    F -->|Inspect Final Fantasy
+    VII| V>Fred: Surement le plus prenant des RPG de ma g\xE9n\xE9ration]\n    F
+    -->|Inspect Command & Conquer| K>Fred: J'adore ce jeu]\n    F -->|Inspect Hexen
+    II| L>Fred: Putain! j'ai pass\xE9 tellement de temps sur ce jeu]\n    F -->|Inspect
+    Half Life 2| M>Fred: Que de bon souvenir]\n    F -->|Inspect Dune| N>Fred: Un
+    pionnier du jeu vid\xE9o]\n    F -->|Inspect Discworld II| O>Fred: Les Point&Click
+    c'est l'age d'or des jeux vid\xE9os !]\n    F -->|Inspect Age of Empires| P>Fred:
+    Un mythe]\n    F -->|Inspect Alone in the Dark| Q>Fred: Pas mal non ? C'est Fran\xE7ais
+    !]\n    F -->|Inspect Sim City 2000| R>Fred: J'ai pass\xE9 tellement de temps
+    de ma vie dessus]\n    F -->|Inspect Flashback| S>Fred: Chaque cat\xE9gorie de
+    jeu a sa l\xE9gende]\n    F -->|Inspect Lemmings| T>Fred: On savais invent\xE9
+    des concepts avant !]\n    F -->|Inspect The Last of Us| U>Fred: Un des rares
+    jeu r\xE9cent digne de ce nom]\n    G --> Z((F))"
+  graphIndex: 0
+  graphStep: 65
+  graphText: "graph TB\nA((S)) --> F{Actions}\n    F -->|Inspect Dragon's Lair| H>Fred:
+    Mon Dieu ! Ce jeu est le diable incarn\xE9]\n    F -->|Inspect Asterix| I>Fred:
+    Bordel... Infogrames fait vraiement des jeux pourris]\n    F -->|Inspect Final
+    Fantasy VII| V>Fred: Surement le plus prenant des RPG de ma g\xE9n\xE9ration]\n   
+    F -->|Inspect Command & Conquer| K>Fred: J'adore ce jeu]\n    F -->|Inspect Hexen
+    II| L>Fred: Putain! j'ai pass\xE9 tellement de temps sur ce jeu]\n    F -->|Inspect
+    Half Life 2| M>Fred: Que de bon souvenir]\n    F -->|Inspect Dune| N>Fred: Un
+    pionnier du jeu vid\xE9o]\n    F -->|Inspect Discworld II| O>Fred: Les Point&Click
+    c'est l'age d'or des jeux vid\xE9os !]\n    F -->|Inspect Age of Empires| P>Fred:
+    Un mythe]\n    F -->|Inspect Alone in the Dark| Q>Fred: Pas mal non ? C'est Fran\xE7ais
+    !]\n    F -->|Inspect Sim City 2000| R>Fred: J'ai pass\xE9 tellement de temps
+    de ma vie dessus]\n    F -->|Inspect Flashback| S>Fred: Chaque cat\xE9gorie de
+    jeu a sa l\xE9gende]\n    F -->|Inspect Lemmings| T>Fred: On savais invent\xE9
+    des concepts avant !]\n    F -->|Inspect The Last of Us| U>Fred: Un des rares
+    jeu r\xE9cent digne de ce nom]\n    G --> Z((F))"
+--- !u!4 &757185919
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 757185917}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &770882894
 GameObject:
   m_ObjectHideFlags: 0
@@ -6328,6 +6591,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   sceneType: 0
+  elements: []
+  defaultStates: 
+  states:
+    raw: 
 --- !u!4 &1391687323
 Transform:
   m_ObjectHideFlags: 0
@@ -8823,6 +9090,52 @@ PolygonCollider2D:
       - {x: 0.28113127, y: -0.849633}
       - {x: 0.28127956, y: 1.009704}
   m_UseDelaunayMesh: 0
+--- !u!1 &1822336032
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1822336034}
+  - component: {fileID: 1822336033}
+  m_Layer: 0
+  m_Name: InspectingController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1822336033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1822336032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2636f192a73375240b35eff683a66232, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  gameGraph: {fileID: 757185918}
+  animations: {fileID: 118886637}
+--- !u!4 &1822336034
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1822336032}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 937.28, y: 35.940002, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1822389978
 GameObject:
   m_ObjectHideFlags: 0
@@ -9906,5 +10219,9 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1391687323}
+  - {fileID: 757185919}
+  - {fileID: 118886638}
+  - {fileID: 1822336034}
   - {fileID: 607962601}
+  - {fileID: 613971940}
   - {fileID: 1736935870}
