@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -5,6 +6,7 @@ using UnityEngine;
 /// <summary>
 /// Déplace un point à l'écran en fonction de la destination donné
 /// </summary>
+[ExecuteAlways]// pour afficher le scaling dynamique dans l'éditeur
 public class MoverAnimator : MonoBehaviour
 {
     private SpriteRenderer spriteRenderer;
@@ -84,6 +86,14 @@ public class MoverAnimator : MonoBehaviour
 
     public float speed = 5f;
 
+    /// <summary>
+    /// Point représentant l'horizon et le seuil du stage
+    /// La position est récupérée et copiée dans minY et maxY
+    /// </summary>
+    public Transform maxPoint, minPoint;
+    public double maxScale, minScale;
+    private double maxY, minY;
+
     public float destinationThreshold = 0.005f;
 
     private bool hasDestination = false;
@@ -135,13 +145,37 @@ public class MoverAnimator : MonoBehaviour
         return destination;
     }
 
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+    }
+
     void Update()
     {
+        // Si définit, la taille et la vitesse du personnage est adapté à sa distance à la caméra (axe Y)
+        // Si non définit, cette variable est négligeable (par exemple vue du dessus ou pas de profondeur)
+        double scaleFactor = 1.0;
+        if (maxPoint != null && minPoint != null)
+        {
+            maxY = maxPoint.position.y;
+            minY = minPoint.position.y;
+
+            // calcule le scaling du personnage en fonction de la profondeur de champ
+            double scaleLength = Math.Abs(maxY - minY);
+            scaleFactor = 1.0 - ((walkingPoint.position.y - maxY) / scaleLength);
+            double scaleValue = minScale + ((maxScale - minScale) * scaleFactor);
+            walkingPoint.localScale = new Vector3((float)scaleValue, (float)scaleValue, (float)scaleValue);
+        }
+
+        // Si en mode éditeur inutile de gérer la suite
+        if (!Application.isPlaying)
+            return;
+
         // Déplacement
         if (hasDestination)
         {
             // incrémente la position actuelle vers la destination
-            walkingPoint.position = Vector3.MoveTowards(walkingPoint.position, destination, speed * Time.deltaTime);
+            walkingPoint.position = Vector3.MoveTowards(walkingPoint.position, destination, (float)(speed * scaleFactor) * Time.deltaTime);
 
             // obtient la direction la plus proche du vecteur de destination
             direction = GetClosestDirection((destination - walkingPoint.position).normalized);
@@ -209,11 +243,6 @@ public class MoverAnimator : MonoBehaviour
         {
             spriteRenderer.flipX = direction == Direction.W || direction == Direction.N || direction == Direction.NW || direction == Direction.SW;
         }
-    }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
     }
 
     // Initialisation

@@ -16,7 +16,11 @@ public enum Scenes
     [Description("Boites au sol")]
     BoitesAuSol,
     [Description("Pièce principale")]
-    PiecePrincipale
+    PiecePrincipale,
+    [Description("Agence entrée")]
+    AgenceEntree,
+    [Description("Aéroport")]
+    Aeroport
 }
 
 public class SceneTransition : MonoBehaviour
@@ -79,6 +83,14 @@ public class SceneTransition : MonoBehaviour
                 break;
             case Scenes.PiecePrincipale:
                 newCurrentSceneGame = "Piece Principale";
+                newCurrentSceneUI = "GameUI";
+                break;
+            case Scenes.AgenceEntree:
+                newCurrentSceneGame = "Agence Entree";
+                newCurrentSceneUI = "GameUI";
+                break;
+            case Scenes.Aeroport:
+                newCurrentSceneGame = "Aeroport";
                 newCurrentSceneUI = "GameUI";
                 break;
         }
