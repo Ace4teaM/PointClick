@@ -18,6 +18,7 @@ public class HoverCursorText : MonoBehaviour
     void Start()
     {
         HoverCursorFlag.OnFlagChanged += HoverCursorFlag_OnFlagChanged;
+        GameData.OnSelectedItemChanged += GameData_OnSelectedItemChanged;
     }
 
     void Update()
@@ -28,11 +29,29 @@ public class HoverCursorText : MonoBehaviour
     void OnDestroy()
     {
         HoverCursorFlag.OnFlagChanged -= HoverCursorFlag_OnFlagChanged;
+        GameData.OnSelectedItemChanged -= GameData_OnSelectedItemChanged;
+    }
+
+    void RefreshText()
+    {
+        if (GameData.SelectedInventoryItem != InventoryItem.Empty)
+        {
+            if(HoverCursorFlag.HoverFlagType != HoverFlagType.None)
+                textMesh.text = $"{GameData.action} {GameData.SelectedInventoryItem.label} avec {HoverCursorFlag.HoverFlag}";
+            else
+                textMesh.text = $"{GameData.action} {GameData.SelectedInventoryItem.label} avec ...";
+        }
+        else
+            textMesh.text = HoverCursorFlag.HoverFlag;
     }
 
     private void HoverCursorFlag_OnFlagChanged(HoverFlagType type, string flag)
     {
-        if(GameData.action != ActionType.Move)
-            textMesh.text = flag;
+        RefreshText();
+    }
+
+    private void GameData_OnSelectedItemChanged(InventoryItem obj)
+    {
+        RefreshText();
     }
 }

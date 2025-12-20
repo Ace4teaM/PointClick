@@ -916,8 +916,8 @@ Transform:
   m_GameObject: {fileID: 650576862}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.09, y: -3.01, z: 0}
-  m_LocalScale: {x: 5.28022, y: 5.28022, z: 5.28022}
+  m_LocalPosition: {x: -3.85, y: -4.17, z: 0}
+  m_LocalScale: {x: 7.67033, y: 7.67033, z: 7.67033}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 734505872456020753}
@@ -2054,7 +2054,7 @@ Transform:
   m_GameObject: {fileID: 8336528519910120299}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.027, y: 0.229, z: 0}
+  m_LocalPosition: {x: -0.009, y: 0.229, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2161,12 +2161,39 @@ MonoBehaviour:
   gizmoSize: 0.19
   destination: {x: 0, y: 0, z: 0}
   reverseSpriteRenderer: 1
-  speed: 2
+  speed: 3.6904726
+  fspeed: 1.3333334
+  maxSpeed: 4
+  minSpeed: 0.4
   maxPoint: {fileID: 886542017}
   minPoint: {fileID: 1232352339}
   maxScale: 8
   minScale: 0.5
   destinationThreshold: 0.005
+  speedCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!4 &5331691509861276060
 Transform:
   m_ObjectHideFlags: 0

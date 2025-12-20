@@ -7,7 +7,7 @@ public class Persistant : MonoBehaviour
 {
     public static Persistant Instance;
 
-    // Exemple de variables globales
+    // noms des items de l'inventaire
     public string[] inventoryItems = new string[4];
 
     private void Awake()

@@ -5,28 +5,39 @@ using System;
 /// </summary>
 public static class GameData
 {
+    //Item sélectionné
+    public static InventoryItem SelectedInventoryItem = InventoryItem.Empty;
+
+    // Items de l'inventaire
+    public static InventoryItem[] InventoryItems = new InventoryItem[4]{
+        InventoryItem.Empty,
+        InventoryItem.Empty,
+        InventoryItem.Empty,
+        InventoryItem.Empty
+    };
+
     /// <summary>
     /// Action actuelle du curseur
     /// </summary>
     public static ActionType action;
 
     /// <summary>
-    /// Evénement si action change
+    /// Le choix de l'action en cours a changé
     /// </summary>
     public static event Action<ActionType> OnActionChanged;
 
     /// <summary>
-    /// Evénement click
+    /// Evénement click de la souris
     /// </summary>
     public static event Action InputClickEvent;
 
     /// <summary>
-    /// Evénement move
+    /// Le curseur a bougé
     /// </summary>
     public static event Action InputMoveEvent;
 
     /// <summary>
-    /// Evénement dialogue
+    /// Le texte du dialogue en cours a changé
     /// </summary>
     public static event Action<string> OnDialogChanged;
 
@@ -34,6 +45,16 @@ public static class GameData
     /// Evénement animation
     /// </summary>
     public static event Action<string> OnAnimationChanged;
+
+    /// <summary>
+    /// Les items dans l'inventaire ont changés
+    /// </summary>
+    public static event Action<InventoryItem[]> OnInventoryChanged;
+
+    /// <summary>
+    /// L'item sélectionné a changé
+    /// </summary>
+    public static event Action<InventoryItem> OnSelectedItemChanged;
 
     /// <summary>
     /// Nom de la scène utilisée pour la prochaine transition
@@ -55,6 +76,16 @@ public static class GameData
     /// Nom de l'aniamtion en cours
     /// </summary>
     public static string ShowAnimation;
+
+    internal static void OnSelectedItemChange()
+    {
+        OnSelectedItemChanged?.Invoke(SelectedInventoryItem);
+    }
+
+    internal static void OnInventoryChange()
+    {
+        OnInventoryChanged?.Invoke(InventoryItems);
+    }
 
     internal static void OnDialogChange()
     {

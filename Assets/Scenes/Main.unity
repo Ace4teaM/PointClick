@@ -358,6 +358,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a218ad646fab2f41b89b954a2f2cbe7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  GameItems:
+  - {fileID: 11400000, guid: 10d7ed3958b3bc747bf80f5f1572985d, type: 2}
+  - {fileID: 11400000, guid: 91ef036d6c0680144b1b2175e7daad80, type: 2}
+  - {fileID: 11400000, guid: 6ebe0a3e509d6bb4fa1e2043f165169c, type: 2}
+  - {fileID: 11400000, guid: 1f87316ffb1ca534baae2e8df04c78e0, type: 2}
 --- !u!4 &329879907
 Transform:
   m_ObjectHideFlags: 0

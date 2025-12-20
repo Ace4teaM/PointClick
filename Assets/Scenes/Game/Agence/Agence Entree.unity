@@ -541,8 +541,8 @@ Transform:
   m_GameObject: {fileID: 650576862}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.14, y: -2.23, z: 0}
-  m_LocalScale: {x: 0.6750973, y: 0.6750973, z: 0.6750973}
+  m_LocalPosition: {x: 5.15, y: -2.21, z: 0}
+  m_LocalScale: {x: 0.67120624, y: 0.67120624, z: 0.67120624}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 734505872456020753}
@@ -1372,7 +1372,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MovingCollider
   walkingArea:
   - {fileID: 347322533}
-  - {fileID: 0}
   walkingPath: {fileID: 573825827}
   moverAnimator: {fileID: 5161938315556451194}
   moveOffset: 0.1
@@ -1420,12 +1419,38 @@ MonoBehaviour:
   gizmoSize: 0.19
   destination: {x: 0, y: 0, z: 0}
   reverseSpriteRenderer: 1
-  speed: 2
+  speed: 0.8684825
+  maxSpeed: 1
+  minSpeed: 0.8
   maxPoint: {fileID: 1380200757}
   minPoint: {fileID: 183881954}
   maxScale: 1
   minScale: 0.5
   destinationThreshold: 0.005
+  speedCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!4 &5331691509861276060
 Transform:
   m_ObjectHideFlags: 0

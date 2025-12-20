@@ -84,7 +84,15 @@ public class MoverAnimator : MonoBehaviour
 
     public bool reverseSpriteRenderer = true;
 
-    public float speed = 5f;
+    /// <summary>
+    /// Il s'agit de la vitesse calculée par interpolation de minSpeed et maxSpeed
+    /// </summary>
+    [Tooltip("Vitesse calculée par interpolation de minSpeed et maxSpeed")]
+    public float speed;
+    [Tooltip("Vitesse du personnage lorsque qu'il se trouve au plus proche du point Max Point")]
+    public double maxSpeed = 5f;
+    [Tooltip("Vitesse du personnage lorsque qu'il se trouve au plus proche du point Min Point")]
+    public double minSpeed = 5f;
 
     /// <summary>
     /// Point représentant l'horizon et le seuil du stage
@@ -99,6 +107,12 @@ public class MoverAnimator : MonoBehaviour
     private bool hasDestination = false;
 
     internal bool IsFinish => hasDestination == false;
+
+    void OnEnable()
+    {
+        if (minSpeed > maxSpeed)
+            Debug.LogWarning($"Min Speed {minSpeed} doit être plus grand que Max Speed {maxSpeed}");
+    }
 
     /// <summary>
     /// Définit le point de destination
@@ -149,10 +163,10 @@ public class MoverAnimator : MonoBehaviour
     void Start()
     {
     }
-
+    public AnimationCurve speedCurve;
     void Update()
     {
-        // Si définit, la taille et la vitesse du personnage est adapté à sa distance à la caméra (axe Y)
+        // Si définit, la taille et la vitesse du personnage est adaptée par rapport à la distance avec la caméra (axe Y)
         // Si non définit, cette variable est négligeable (par exemple vue du dessus ou pas de profondeur)
         double scaleFactor = 1.0;
         if (maxPoint != null && minPoint != null)
@@ -162,10 +176,14 @@ public class MoverAnimator : MonoBehaviour
 
             // calcule le scaling du personnage en fonction de la profondeur de champ
             double scaleLength = Math.Abs(maxY - minY);
-            scaleFactor = 1.0 - ((walkingPoint.position.y - maxY) / scaleLength);
+            scaleFactor = 1.0 - ((walkingPoint.position.y - maxY) / scaleLength); // todo : scaleFactor n'est pas linéaire il dépend de l'angle de la caméra 
             double scaleValue = minScale + ((maxScale - minScale) * scaleFactor);
             walkingPoint.localScale = new Vector3((float)scaleValue, (float)scaleValue, (float)scaleValue);
         }
+
+        // utilise interpolation courbée pour la vitesse
+        // (plus réaliste qu'un interpolation linéaire)
+        speed = Mathf.Lerp((float)minSpeed, (float)maxSpeed, speedCurve.Evaluate((float)scaleFactor));
 
         // Si en mode éditeur inutile de gérer la suite
         if (!Application.isPlaying)
@@ -175,7 +193,7 @@ public class MoverAnimator : MonoBehaviour
         if (hasDestination)
         {
             // incrémente la position actuelle vers la destination
-            walkingPoint.position = Vector3.MoveTowards(walkingPoint.position, destination, (float)(speed * scaleFactor) * Time.deltaTime);
+            walkingPoint.position = Vector3.MoveTowards(walkingPoint.position, destination, speed * Time.deltaTime);
 
             // obtient la direction la plus proche du vecteur de destination
             direction = GetClosestDirection((destination - walkingPoint.position).normalized);
