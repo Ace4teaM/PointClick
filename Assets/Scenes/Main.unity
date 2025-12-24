@@ -190,32 +190,35 @@ MonoBehaviour:
     la main]\r\n    N --> O>Seb: on a besoin de cette sc\xE8ne, on reprendera une
     fois que tu l'aura retrouv\xE9]\r\n    O --> P>Fred: OK Seb...]\r\n    P -->
     Q[Fred.IsSat=false]\r\n    Q --> Z((F))"
-  - "graph TB\r\nA((S)) --> B(Fred se l\xE8ve du canap\xE9)\r\n    B --> C{Actions}\r\n   
+  - "graph TB\r\nA((S)) --> B>Alors que Fred et Seb tournent leur prochaine vid\xE9o,
+    nul n'aurait pu se douter quelle l'histoire les attendait...]\r\n    B --> C>Nous
+    sommes en 2025 et une nouvelle...enfin ancienne...console s'appr\xEAte \xE0 rentrer
+    tranquillement dans l'univers des consoles R\xE9tro...]\r\n    C --> Z((F))"
+  - "graph TB\r\nA((S)) --> B(Fred se l\xE8ve du canap\xE9)\r\n    B --> H>Fred :
+    Et maintenant... Allons chercher ce jeu pourrit...]\r\n    H --> C{Actions}\r\n   
     C -->|Parler \xE0 Seb| D>Seb: Tu dois trouver Tintin au tibet pour la prochaine
-    vid\xE9o]\r\n    C -->|Inspect Biblioth\xE8que| E[Transition: Biblioth\xE8que]\r\n   
+    vid\xE9o]\r\n    C -->|Utiliser Biblioth\xE8que| E[Transition: Biblioth\xE8que]\r\n   
     E --> J>Fred: Je dois trouver Tintin au tibet]\r\n    J --> F{Actions}\r\n   
-    F -->|Inspect Tintin au Tibet| G[Transition: Pi\xE8ce principale 'Assomm\xE9']\r\n   
-    G --> Z((F))"
+    F -->|Inspecter Tintin au Tibet| G>Fred: C'est lui, prenons cette boite et finissons
+    en]\n    F -->|Int\xE9ragir avec Tintin au Tibet| K[Transition: Pi\xE8ce principale
+    'Assomm\xE9']\r\n    K --> Z((F))"
   - "graph TB\r\nA((S)) --> C(Les boites tombent sur Fred)\r\n    C --> D[Transition:
     Boites au sol]\r\n    D --> Z((F))"
   - "graph TB\r\nA((S)) --> C>Seb: Ca va Fred ?]\r\n    C --> D>Seb: Tu te sent bien
     ?]\r\n    D --> Z((F))"
-  - "graph TB\r\nA((S)) --> C{Actions}\r\n    C -->|Inspect PS4| D>Fred: J'ai la
-    marque de ce carton dans mon crane]\r\n    C -->|Inspect NES| E>Fred: Non ! pas
-    les tortues... pas les tortues !]\r\n    C -->|Inspect Power Glove| H>Fred: Cette
-    merde ne servira plus jamais]\r\n    C -->|Inspect Boule de cristal| F>Fred:
-    Ha... la belle \xE9poque...]\r\n    C -->|Inspect Publicit\xE9| G>Fred: Une publicit\xE9
-    ? Qu'est ce que \xE7a fait l\xE0 ?]\r\n    G --> I>Fred: Je me demande si...
-    nannnn...]\r\n    C -->|Activate Publicit\xE9| J[Transition: Pi\xE8ce principale]\r\n   
-    J --> Z((F))"
+  - "graph TB\r\nA((S)) --> C{Actions}\n    C -->|Inspecter Publicit\xE9| G>Fred:
+    Une publicit\xE9 ? Qu'est ce que \xE7a fait l\xE0 ?]\r\n    G --> I>Fred: Je
+    me demande si... nannnn...]\r\n    C -->|Int\xE9ragir avec Publicit\xE9| J[Transition:
+    Pi\xE8ce principale]\r\n    J --> Z((F))"
   - "graph TB\r\nA((S)) --> C>Fred: H\xE9, regarde Seb, une vieille pub sur la Switch...]\r\n   
-    C -->D>Seb: Elle est pas si mal celle console, y'a eu des bons titres.]\r\n   
-    D -->E>Fred: Ouais mais elle sera bient\xF4t dans les placards]\r\n    E -->F>Seb:
-    T'as raison, la nouvelle Switch 2 va la remplacer. D'ailleurs faut qu'on se la
-    procure]\r\n    F -->G>Fred: Cette merde ?! Tu rigole y'a 3 jeux de sortie, pour
-    le prix je pr\xE9f\xE8re acheter la main gauche du Power Glove]\r\n    G -->H>Seb:
-    Ouais... n'emp\xEAche, faudra trouver quelques jeux pourris \xE0 tester sur la
-    premi\xE8re Switch.]\r\n    H -->I>Fred: T'as raison Seb.]\r\n    I --> Z((F))"
+    C --> D>Seb: Elle est pas si mal celle console, y'a eu des bons titres.]\r\n   
+    D --> E>Fred: Ouais c'est vrai... mais elle sera bient\xF4t dans les placards]\r\n   
+    E --> F>Seb: T'as raison, la nouvelle Switch 2 va la remplacer. D'ailleurs faut
+    qu'on se la procure]\r\n    F --> G>Fred: Cette merde ?! Tu rigole y'a 3 jeux
+    de sortie, pour le prix je pr\xE9f\xE8re acheter la main gauche du Power Glove]\r\n   
+    G --> H>Seb: Ouais... n'emp\xEAche, faudra trouver quelques jeux pourris \xE0
+    tester sur la premi\xE8re Switch.]\r\n    H --> I>Fred: T'as raison Seb.]\r\n   
+    I --> Z((F))"
   - "graph TB\r\nA((S)) --> B(Animation du tonnerre)\r\n    B --> C>Petite voix:
     JDG... JDG... Tu dois sauver Nuntendo... La Switch est en grand danger.... JDG...
     Tu es le seul \xE0 pouvoir la sauver....]\r\n    C --> D>Fred : Quoi ?!]\r\n   
@@ -228,39 +231,48 @@ MonoBehaviour:
     Si tu ne fait rien, demain ce sera un jeu McFli&Clito qui sortira puis ensuit
     TiboEnforme !!!]\r\n    G --> H>Fred : Nonnnnnnn !!!!!! Pas \xE7aaaa !!!!!]\r\n   
     H --> I[Transition: A\xE9roport]\r\n    I --> Z((F))"
-  - "graph TB\r\nA((S)) --> C{Actions}\r\n    C -->|Inspecter Porte des toilettes|
-    I>Fred: 'Les toilettes... je n'ai pas envie']\r\n    C -->|Inspecter Guichet
-    1| D>Fred: 'Je ne peux pas utiliser cette file, elle est d\xE9j\xE0 occup\xE9e']\r\n   
-    C -->|Inspecter Guichet 2| E>Fred: 'Ce guichet est libre mais l'Agent semble
-    d\xE9rang\xE9 par quelque chose]\r\n    C -->|Inspecter Pot de fleur| K2>Fred:
-    'Tr\xE8s jolie plante, on dirait que quelque chose brille \xE0 l'interieur]\r\n   
-    C -->|Actionner Pot de fleur| K[[Vous obtenez : Pi\xE8ces de monnaie]]\r\n   
-    C -->|Parler au magasin| D3>Fred: 'Bonjour !', Caissier: 'Bonjour monsieur, que
-    d\xE9sirez vous ? Je suis d\xE9sol\xE9 mais je ne prends pas la carte de cr\xE9dit,
-    uniquement la monnaie']\r\n    C -->|Actionner sur Magasin| D2>Caissier: 'D\xE9sol\xE9
-    monsieur mais si vous n'avez pas d'argent je ne peux rien vous vendre]\r\n   
-    C -->|Utiliser pi\xE8ces de monnaie sur magasin| J>Caissier: 'Faites votre choix...']\r\n   
-    J -->|Animation| J1[Afficher les \xE9l\xE9ments achetables]\r\n    J1 -->|Choix
-    Magazine Elle&Lui| J2>Fred:'Je n'ai pas besoin de ca !']\r\n    J1 -->|Choix
-    Paquet de bonbons| J3>Fred:'C'est fou le prix de ce paquet de N&M's]\r\n    J1
-    -->|Choix M\xE9dicament| J4[[Vous obtenez : M\xE9dicament]]\r\n    C -->|Parler
-    Guichet 2| F>Fred: 'Bonjour ! Je souhaiterai...', Agent: 'D\xE9sol\xE9 monsieur
-    ! Je dois m'absenter quelques instants]\r\n    F -->|Animation| F2[L'Agent part
-    imm\xE9diatement au toilettes, on entend des bruits \xE0 travers la porte]\r\n   
-    F2 -->|Inspecter Porte des toilettes| F3>Agent: 'C'est occup\xE9 !]\r\n    F2
-    -->|Donner M\xE9dicament sur Porte des toilettes | F4>Fred: 'Prenez ce m\xE9dicament',
-    Agent: 'Merci monsieur !']\r\n    F4 -->|Animation | F5[L'Agent retourne au guichet]\r\n   
-    F5 -->|Parler Guichet 2| F6>Fred: 'Bonjour ! Je souhaiterai un billet pour Osaka',
+  - "graph TB\r\nA((S)) --> C{Actions}\r\n    C -->|Utiliser Pot de fleur| K>Fred:
+    Quelle chance ! j'ai trouv\xE9 un peu de monnaie]\r\n    K --> L[[Vous obtenez
+    : Pi\xE8ces de monnaie]]\r\n    C -->|Parler au magasin| N>Fred: Bonjour !]\r\n   
+    N --> O>Caissier: Bonjour monsieur. Je suis d\xE9sol\xE9 mais je ne prends pas
+    la carte de cr\xE9dit, uniquement la monnaie, que d\xE9sirez vous ?]\r\n    C
+    -->|Utiliser pi\xE8ces de monnaies sur magasin| J>Caissier: 'Faites votre choix...']\r\n   
+    J -->|Animation| Q[Afficher les \xE9l\xE9ments achetables]\r\n    Q -->|Choix
+    Magazine Elle&Lui| R>Fred:'Je n'ai pas besoin de ca !']\r\n    Q -->|Choix Paquet
+    de bonbons| S>Fred:'C'est fou le prix de ce paquet de N&M's]\r\n    Q -->|Choix
+    M\xE9dicament| T[[Vous obtenez : M\xE9dicament]]\r\n    C -->|Parler \xE0 Guichet
+    2| F>Fred: 'Bonjour ! Je souhaiterai...', Agent: 'D\xE9sol\xE9 monsieur ! Je
+    dois m'absenter quelques instants]\r\n    F -->|Animation| U[L'Agent part imm\xE9diatement
+    au toilettes, on entend des bruits \xE0 travers la porte]\r\n    U -->|Utiliser
+    Toilettes| V>Agent: 'C'est occup\xE9 !]\r\n    U -->|Utiliser M\xE9dicament sur
+    Porte des toilettes | W>Fred: 'Prenez ce m\xE9dicament', Agent: 'Merci monsieur
+    !']\r\n    W -->|Animation | X[L'Agent retourne au guichet]\r\n    X -->|Parler
+    \xE0 Guichet n\xB02| Y>Fred: 'Bonjour ! Je souhaiterai un billet pour Osaka',
     Agent: 'Ho, il me reste une place sur le prochain vol qui d\xE9cole dans 30min']\r\n   
-    F6 -->|Obtenez objet | F7[[Billet d'avion]] --> Z((F))\r\n    C -->|Inspecter
-    Guichet 3 ou 4| H>Fred: 'Ce guichet est ferm\xE9']"
-  graphIndex: 0
+    Y -->|Obtenez objet | F7[[Billet d'avion]] --> Z((F))"
+  - "graph TB\nA((S)) --> C{Actions}\n    C -->|D\xE9placer vers Porte embarquement|
+    D[Transition: Carte du monde]\n    D --> Z((F))"
+  graphIndex: 9
   graphStep: 65
-  graphText: 'graph TB
-
-    A((S))-- > B[Action]
-
-    B --> Z((F))'
+  graphText: "graph TB\r\nA((S)) --> C{Actions}\r\n    C -->|Utiliser Pot de fleur|
+    K>Fred: Quelle chance ! j'ai trouv\xE9 un peu de monnaie]\r\n    K --> L[[Vous
+    obtenez : Pi\xE8ces de monnaie]]\r\n    C -->|Parler au magasin| N>Fred: Bonjour
+    !]\r\n    N --> O>Caissier: Bonjour monsieur. Je suis d\xE9sol\xE9 mais je ne
+    prends pas la carte de cr\xE9dit, uniquement la monnaie, que d\xE9sirez vous
+    ?]\r\n    C -->|Utiliser pi\xE8ces de monnaies sur magasin| J>Caissier: 'Faites
+    votre choix...']\r\n    J -->|Animation| Q[Afficher les \xE9l\xE9ments achetables]\r\n   
+    Q -->|Choix Magazine Elle&Lui| R>Fred:'Je n'ai pas besoin de ca !']\r\n    Q
+    -->|Choix Paquet de bonbons| S>Fred:'C'est fou le prix de ce paquet de N&M's]\r\n   
+    Q -->|Choix M\xE9dicament| T[[Vous obtenez : M\xE9dicament]]\r\n    C -->|Parler
+    \xE0 Guichet 2| F>Fred: 'Bonjour ! Je souhaiterai...', Agent: 'D\xE9sol\xE9 monsieur
+    ! Je dois m'absenter quelques instants]\r\n    F -->|Animation| U[L'Agent part
+    imm\xE9diatement au toilettes, on entend des bruits \xE0 travers la porte]\r\n   
+    U -->|Utiliser Toilettes| V>Agent: 'C'est occup\xE9 !]\r\n    U -->|Utiliser
+    M\xE9dicament sur Porte des toilettes | W>Fred: 'Prenez ce m\xE9dicament', Agent:
+    'Merci monsieur !']\r\n    W -->|Animation | X[L'Agent retourne au guichet]\r\n   
+    X -->|Parler \xE0 Guichet n\xB02| Y>Fred: 'Bonjour ! Je souhaiterai un billet
+    pour Osaka', Agent: 'Ho, il me reste une place sur le prochain vol qui d\xE9cole
+    dans 30min']\r\n    Y -->|Obtenez objet | F7[[Billet d'avion]] --> Z((F))"
 --- !u!1001 &157614906
 PrefabInstance:
   m_ObjectHideFlags: 0

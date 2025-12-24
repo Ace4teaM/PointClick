@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 /// <summary>
-/// Controlleur réalisant permettant de déterminer l'objet en interaction avec le curseur
+/// Controlleur permettant de déterminer l'objet en interaction avec le curseur
 /// </summary>
 public class InteractingController : MonoBehaviour
 {

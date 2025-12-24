@@ -12,17 +12,20 @@ public class CursorManager : MonoBehaviour
     public Texture2D inspectCursor;
     public Texture2D talkCursor;
     public Texture2D actionCursor;
+    public Texture2D interactCursor;
 
     public Vector2 uiHotspot;
     public Vector2 moveHotspot;
     public Vector2 inspectHotspot;
     public Vector2 talkHotspot;
     public Vector2 actionHotspot;
+    public Vector2 interactHotspot;
 
     public void SetMove() => Cursor.SetCursor(moveCursor, moveHotspot, CursorMode.Auto);
     public void SetInspect() => Cursor.SetCursor(inspectCursor, inspectHotspot, CursorMode.Auto);
     public void SetTalk() => Cursor.SetCursor(talkCursor, talkHotspot, CursorMode.Auto);
     public void SetAction() => Cursor.SetCursor(actionCursor, actionHotspot, CursorMode.Auto);
+    public void SetInteract() => Cursor.SetCursor(interactCursor, interactHotspot, CursorMode.Auto);
 
     void Awake()
     {
@@ -68,6 +71,9 @@ public class CursorManager : MonoBehaviour
                     break;
                 case ActionType.Activate:
                     Cursor.SetCursor(actionCursor, actionHotspot, CursorMode.Auto);
+                    break;
+                case ActionType.Interact:
+                    Cursor.SetCursor(interactCursor, interactHotspot, CursorMode.Auto);
                     break;
             }
         }

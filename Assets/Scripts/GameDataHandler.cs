@@ -20,6 +20,13 @@ public class GameDataHandler : MonoBehaviour
         GameData.OnActionChange();
     }
 
+    public void EnableInteract()
+    {
+        GameData.SelectedInventoryItem = InventoryItem.Empty;
+        GameData.action = ActionType.Interact;
+        GameData.OnActionChange();
+    }
+
     public void EnableTalk()
     {
         GameData.SelectedInventoryItem = InventoryItem.Empty;

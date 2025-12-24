@@ -6591,6 +6591,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   sceneType: 0
+  ui: 2
   elements: []
   defaultStates: 
   states:

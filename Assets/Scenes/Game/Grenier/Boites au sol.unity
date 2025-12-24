@@ -119,6 +119,50 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &8858941
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8858943}
+  - component: {fileID: 8858942}
+  m_Layer: 0
+  m_Name: Animations
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &8858942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8858941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fee37d44df83266499ec773a3c38bfbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+--- !u!4 &8858943
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8858941}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &224656970
 GameObject:
   m_ObjectHideFlags: 0
@@ -256,6 +300,63 @@ Transform:
   - {fileID: 1411471853}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &739346364
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 739346366}
+  - component: {fileID: 739346365}
+  m_Layer: 0
+  m_Name: SceneGraph
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &739346365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 739346364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d9b00c4e62376a47b24c844da72e15c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameGraph
+  graphs:
+  - "graph TB\r\nA((S)) --> C{Actions}\r\n    C -->|Inspecter PS4| D>Fred: J'ai la
+    marque de ce carton dans mon crane]\r\n    C -->|Inspecter NES| E>Fred: Non !
+    pas les tortues... pas les tortues !]\r\n    C -->|Inspecter Power Glove| H>Fred:
+    Cette merde ne servira plus jamais]\r\n    C -->|Inspecter Boule de cristal|
+    F>Fred: Ha... la belle \xE9poque...]\r\n "
+  graphIndex: 0
+  graphStep: 65
+  graphText: "graph TB\r\nA((S)) --> C{Actions}\r\n    C -->|Inspecter PS4| D>Fred:
+    J'ai la marque de ce carton dans mon crane]\r\n    C -->|Inspecter NES| E>Fred:
+    Non ! pas les tortues... pas les tortues !]\r\n    C -->|Inspecter Power Glove|
+    H>Fred: Cette merde ne servira plus jamais]\r\n    C -->|Inspecter Boule de cristal|
+    F>Fred: Ha... la belle \xE9poque...]\r\n "
+--- !u!4 &739346366
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 739346364}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &758963630
 GameObject:
   m_ObjectHideFlags: 0
@@ -286,6 +387,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   sceneType: 0
+  ui: 2
+  defaultAction: 2
   elements: []
   defaultStates: 
   states:
@@ -799,6 +902,52 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HoverCursorFlag
   flagType: 1
   flag: Power Glove
+--- !u!1 &1637090030
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1637090032}
+  - component: {fileID: 1637090031}
+  m_Layer: 0
+  m_Name: InspectingController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1637090031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1637090030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2636f192a73375240b35eff683a66232, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  gameGraph: {fileID: 739346365}
+  animations: {fileID: 8858942}
+--- !u!4 &1637090032
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1637090030}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 937.28, y: 35.940002, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1758425624
 GameObject:
   m_ObjectHideFlags: 0
@@ -938,6 +1087,9 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 758963632}
+  - {fileID: 8858943}
+  - {fileID: 739346366}
+  - {fileID: 1637090032}
   - {fileID: 1050808794}
   - {fileID: 1758425626}
   - {fileID: 681670041}

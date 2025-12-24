@@ -34,15 +34,22 @@ public class HoverCursorText : MonoBehaviour
 
     void RefreshText()
     {
+        var action = EnumExtensions.GetDescription(GameData.action);
+
         if (GameData.SelectedInventoryItem != InventoryItem.Empty)
         {
-            if(HoverCursorFlag.HoverFlagType != HoverFlagType.None)
-                textMesh.text = $"{GameData.action} {GameData.SelectedInventoryItem.label} avec {HoverCursorFlag.HoverFlag}";
+            if (HoverCursorFlag.HoverFlagType != HoverFlagType.None)
+                textMesh.text = $"{action} {GameData.SelectedInventoryItem.label} sur {HoverCursorFlag.HoverFlag}";
             else
-                textMesh.text = $"{GameData.action} {GameData.SelectedInventoryItem.label} avec ...";
+                textMesh.text = $"{action} {GameData.SelectedInventoryItem.label} sur ...";
         }
         else
-            textMesh.text = HoverCursorFlag.HoverFlag;
+        {
+            if (HoverCursorFlag.HoverFlagType != HoverFlagType.None)
+                textMesh.text = $"{action} {HoverCursorFlag.HoverFlag}";
+            else
+                textMesh.text = action;
+        }
     }
 
     private void HoverCursorFlag_OnFlagChanged(HoverFlagType type, string flag)

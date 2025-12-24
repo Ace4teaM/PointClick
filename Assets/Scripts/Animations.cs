@@ -55,7 +55,7 @@ public class Animations : MonoBehaviour
         }
     }
 
-    internal void Transition(Scenes scene)
+    internal void Transition(string scene)
     {
         tasks.Add(() => WaitForBoolAsync(
             () =>
@@ -67,7 +67,7 @@ public class Animations : MonoBehaviour
         );
     }
 
-    internal void Transition(Scenes scene, string initialStates)
+    internal void Transition(string scene, string initialStates)
     {
         tasks.Add(() => WaitForBoolAsync(
             () =>
@@ -188,13 +188,13 @@ public class Animations : MonoBehaviour
             case "Fred se lève du canapé":
                 {
                     ChangeState("Fred", "IsSat", false);
-                    MoveTo("Fred", "A_Canape");
+                    MoveTo("Fred", "Canapé");
                     start = true;
                 }
                 break;
             case "Les boites tombent sur Fred":
                 {
-                    GameObject.Find("Fred").transform.position = GameObject.Find("A_Bibliotheque").transform.position;
+                    GameObject.Find("Fred").transform.position = GameObject.Find("Bibliothèque").transform.position;
                     ChangeState("Fred", "IsDizzy", true);
                     start = true;
                 }

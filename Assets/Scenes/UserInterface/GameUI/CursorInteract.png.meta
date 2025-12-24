@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: d115df182f408ce48a5bdd2977a0f569
+guid: 39d15a80ff227d84b90df032067f622a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8076314371300339422
-    second: WALK_S_3_0
+      213: 2647900865496991714
+    second: CursorInteract_0
+  - first:
+      213: -1554412850083694904
+    second: CursorInteract_1
+  - first:
+      213: -3094125572451817505
+    second: CursorInteract_2
+  - first:
+      213: -5408010382229288114
+    second: CursorInteract_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -24,7 +33,7 @@ TextureImporter:
     heightScale: 0.25
     normalMapFilter: 0
     flipGreenChannel: 0
-  isReadable: 0
+  isReadable: 1
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
@@ -48,16 +57,16 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 0
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 1400
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
-  textureType: 8
+  textureType: 7
   textureShape: 1
   singleChannelComponent: 0
   flipbookRows: 1
@@ -126,23 +135,89 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: WALK_S_3_0
+      name: CursorInteract_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 4
         y: 0
-        width: 512
-        height: 1024
+        width: 408
+        height: 415
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 221d2449eda2bef80800000000000000
-      internalID: -8076314371300339422
+      spriteID: 2e7c568decb3fb420800000000000000
+      internalID: 2647900865496991714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CursorInteract_1
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 410
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c6757c9fbd9d6ae0800000000000000
+      internalID: -1554412850083694904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CursorInteract_2
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 410
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd7ae8b6f257f05d0800000000000000
+      internalID: -3094125572451817505
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CursorInteract_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 352
+        width: 8
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4b4991d533e2f4b0800000000000000
+      internalID: -5408010382229288114
       vertices: []
       indices: 
       edges: []
@@ -151,7 +226,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 481cb30aacd9bca4ca0d712695790800
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -161,7 +236,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      WALK_S_3_0: -8076314371300339422
+      CursorInteract_0: 2647900865496991714
+      CursorInteract_1: -1554412850083694904
+      CursorInteract_2: -3094125572451817505
+      CursorInteract_3: -5408010382229288114
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

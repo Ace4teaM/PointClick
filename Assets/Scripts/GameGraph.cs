@@ -227,7 +227,7 @@ public class GameGraph : MonoBehaviour
     /// </summary>
     internal bool HasNextStep(char step)
     {
-        return Regex.IsMatch(graphText, $@"^\s*[{step}].*$", RegexOptions.Multiline);
+        return Regex.IsMatch(graphText, $@"^\s*[{step}].*$", RegexOptions.Multiline | RegexOptions.IgnoreCase);
     }
     /// <summary>
     /// Recherche l'étape correspondante dans le texte du graph
@@ -239,7 +239,7 @@ public class GameGraph : MonoBehaviour
     internal bool TryFindImmediateStep(char step, out GraphExpression expression)
     {
         expression = new GraphExpression();
-        var match = Regex.Match(graphText, $@"^\s*[{step}](:?\(\(S\)\))?\s*\-+\>\s*[A-z].*$", RegexOptions.Multiline);
+        var match = Regex.Match(graphText, $@"^\s*[{step}](:?\(\(S\)\))?\s*\-+\>\s*[A-z].*$", RegexOptions.Multiline | RegexOptions.IgnoreCase);
         if (match.Success)
         {
             expression.textStart = match.Index;
@@ -257,9 +257,31 @@ public class GameGraph : MonoBehaviour
     /// <param name="expression">Expression trouvée</param>
     internal bool TryFindAction(char step, ActionType action, string actionName, out GraphExpression expression)
     {
+        string _action = EnumExtensions.GetDescription(action);
         expression = new GraphExpression();
-        var pattern = $@"^\s*[{step}]\s*\-+\>\s*\|\s*{action}\s+{actionName}\s*\|\s*(.*)$";
-        var match = Regex.Match(graphText, pattern, RegexOptions.Multiline);
+        var pattern = $@"^\s*[{step}]\s*\-+\>\s*\|\s*{_action}\s+{actionName}\s*\|\s*(.*)$";
+        var match = Regex.Match(graphText, pattern, RegexOptions.Multiline | RegexOptions.IgnoreCase);
+        if (match.Success)
+        {
+            expression.textStart = match.Groups[1].Index;
+            expression.textEnd = match.Groups[1].Index + match.Groups[1].Length;
+            return true;
+        }
+        return false;
+    }
+    /// <summary>
+    /// Recherche l'étape correspondante à l'action donnée en argument
+    /// </summary>
+    /// <param name="step">Etape à rechercher</param>
+    /// <param name="inventoryItem">Nom de l'item</param>
+    /// <param name="objectName">Nom de l'objet à rechercher</param>
+    /// <param name="expression">Expression trouvée</param>
+    internal bool TryFindUseAction(char step, string inventoryItem, string objectName, out GraphExpression expression)
+    {
+        var action = EnumExtensions.GetDescription(ActionType.Activate);
+        expression = new GraphExpression();
+        var pattern = $@"^\s*[{step}]\s*\-+\>\s*\|\s*{action}\s+{inventoryItem}\s+sur\s+{objectName}\s*\|\s*(.*)$";
+        var match = Regex.Match(graphText, pattern, RegexOptions.Multiline | RegexOptions.IgnoreCase);
         if (match.Success)
         {
             expression.textStart = match.Groups[1].Index;
@@ -279,7 +301,7 @@ public class GameGraph : MonoBehaviour
         var line = graphText.Substring(expression.textStart, expression.textEnd - expression.textStart);
 
         var pattern = $@"^\s*[A-z](:?\(\(S\)\))?\s*\-+\>\s*(:?\|.*\|)?\s*([A-z])(.*)$";
-        var match = Regex.Match(line, pattern, RegexOptions.Multiline);
+        var match = Regex.Match(line, pattern, RegexOptions.Multiline | RegexOptions.IgnoreCase);
         if (match.Success)
         {
             var start = expression.textStart + match.Groups[3].Index;
@@ -304,7 +326,7 @@ public class GameGraph : MonoBehaviour
         var line = graphText.Substring(expression.textStart, expression.textEnd - expression.textStart).Trim();
 
         var pattern = $@"^\s*[A-z]\[([A-z]+).([A-z]+)=(.*)\]$";
-        var match = Regex.Match(line, pattern, RegexOptions.Multiline);
+        var match = Regex.Match(line, pattern, RegexOptions.Multiline | RegexOptions.IgnoreCase);
         if (match.Success)
         {
             objectName = match.Groups[1].Value;
@@ -349,7 +371,7 @@ public class GameGraph : MonoBehaviour
         var line = graphText.Substring(expression.textStart, expression.textEnd - expression.textStart);
 
         var pattern = $@"^\s*[A-z]\s*\-+\>\s*\|Wait\s*(\d)sec\|\s*([A-z])(.*)$";
-        var match = Regex.Match(line, pattern, RegexOptions.Multiline);
+        var match = Regex.Match(line, pattern, RegexOptions.Multiline | RegexOptions.IgnoreCase);
         if (match.Success)
         {
             duration = double.Parse(match.Groups[1].Value);
@@ -371,7 +393,7 @@ public class GameGraph : MonoBehaviour
         var line = graphText.Substring(expression.textStart, expression.textEnd - expression.textStart).Trim();
 
         var pattern = $@"^\s*[A-z]>(.*)]$";
-        var match = Regex.Match(line, pattern, RegexOptions.Multiline);
+        var match = Regex.Match(line, pattern, RegexOptions.Multiline | RegexOptions.IgnoreCase);
         if (match.Success)
         {
             dialog = match.Groups[1].Value;
@@ -391,7 +413,7 @@ public class GameGraph : MonoBehaviour
         var line = graphText.Substring(expression.textStart, expression.textEnd - expression.textStart).Trim();
 
         var pattern = $@"^\s*[A-z]\((.*)\)$";
-        var match = Regex.Match(line, pattern, RegexOptions.Multiline);
+        var match = Regex.Match(line, pattern, RegexOptions.Multiline | RegexOptions.IgnoreCase);
         if (match.Success)
         {
             anim = match.Groups[1].Value;
@@ -411,7 +433,7 @@ public class GameGraph : MonoBehaviour
         var line = graphText.Substring(expression.textStart, expression.textEnd - expression.textStart).Trim();
 
         var pattern = $@"^[A-z]\[\s*Transition\s*:\s*(?:([^']+)|([^']+)\'([^']+)\')\]$";
-        var match = Regex.Match(line, pattern, RegexOptions.Multiline);
+        var match = Regex.Match(line, pattern, RegexOptions.Multiline | RegexOptions.IgnoreCase);
         if (match.Success)
         {
             if (String.IsNullOrEmpty(match.Groups[1].Value))

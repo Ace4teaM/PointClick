@@ -46,8 +46,8 @@ public class InspectingController : MonoBehaviour
         if (GameData.action == ActionType.Validate)
             return;
 
-        // Vérifie si l'action en cours est "Inspecter", "Parler" ou "Actionner"
-        if (GameData.action != ActionType.Inspect && GameData.action != ActionType.Talk && GameData.action != ActionType.Activate)
+        // Vérifie si l'action en cours est "Intéragir", "Déplacer", "Inspecter", "Parler" ou "Actionner"
+        if (GameData.action != ActionType.Interact && GameData.action != ActionType.Move && GameData.action != ActionType.Inspect && GameData.action != ActionType.Talk && GameData.action != ActionType.Activate)
             return;
 
         wantAction = true;
@@ -165,15 +165,8 @@ public class InspectingController : MonoBehaviour
 
                     if (g.TryGetTransition(nextExpression, out var scene, out var initialStates))
                     {
-                        if (EnumExtensions.TryParseFromDescription<Scenes>(scene, true, out var sceneType))
-                        {
-                            anim.Transition((Scenes)sceneType, initialStates);
-                            anim.start = true;
-                        }
-                        else
-                        {
-                            Debug.LogError($"Impossible de déterminer la scène de transition ({scene}) de l'action {GameData.action} à l'étape {g.graphStep}");
-                        }
+                        anim.Transition(scene, initialStates);
+                        anim.start = true;
                         g.graphStep = nextStep;
                         return;
                     }
@@ -199,9 +192,21 @@ public class InspectingController : MonoBehaviour
             if (HoverCursorFlag.HoverFlagType == HoverFlagType.UI)
                 return;
 
-            if(g.TryFindAction(g.graphStep, GameData.action, HoverCursorFlag.HoverFlag, out var expression))
+            GameGraph.GraphExpression expression;
+            if(
+                // utilisation d'un item sur un objet
+                (GameData.SelectedInventoryItem != null && g.TryFindUseAction(g.graphStep, GameData.SelectedInventoryItem.label, HoverCursorFlag.HoverFlag, out expression))
+                ||
+                // ou action sur un objet
+                (GameData.SelectedInventoryItem == null && g.TryFindAction(g.graphStep, GameData.action, HoverCursorFlag.HoverFlag, out expression)))
             {
                 Debug.Log(g.graphText.Substring(expression.textStart, expression.textEnd - expression.textStart));
+
+                // d'abord on se déplace vers l'objet
+                if (GameData.action == ActionType.Talk || GameData.action == ActionType.Activate)
+                {
+                    anim.MoveTo("Fred", HoverCursorFlag.HoverFlag);
+                }
 
                 // examine le résultat de l'action
                 if (g.TryGetDialog(expression, out var dialog))
@@ -212,16 +217,8 @@ public class InspectingController : MonoBehaviour
                 }
                 else if (g.TryGetTransition(expression, out var scene, out var initialStates))
                 {
-                    if(EnumExtensions.TryParseFromDescription<Scenes>(scene, true, out var sceneType))
-                    {
-                        anim.Transition((Scenes)sceneType, initialStates);
-                        anim.start = true;
-                    }
-                    else
-                    {
-                        Debug.LogError($"Impossible de déterminer la scène de transition ({scene}) de l'action {GameData.action} à l'étape {g.graphStep}");
-                        return;
-                    }
+                    anim.Transition(scene, initialStates);
+                    anim.start = true;
                 }
                 else
                 {
@@ -233,7 +230,12 @@ public class InspectingController : MonoBehaviour
                 nextStep = g.graphText[expression.textStart];
                 if (g.HasNextStep(nextStep))
                 {
+                    // on continue dans le graph
                     g.graphStep = nextStep;
+
+                    // Déselectionne l'objet
+                    GameData.SelectedInventoryItem = null;
+                    GameData.OnSelectedItemChange();
                 }
                 else
                 {

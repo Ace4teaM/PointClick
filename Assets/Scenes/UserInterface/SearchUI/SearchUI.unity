@@ -584,7 +584,7 @@ PrefabInstance:
       objectReference: {fileID: 1203306612}
     - target: {fileID: 1580151502655614782, guid: 909a08d07172bb245a4a7e503a9a75eb, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: EnableActivate
+      value: EnableInteract
       objectReference: {fileID: 0}
     - target: {fileID: 1580151502655614782, guid: 909a08d07172bb245a4a7e503a9a75eb, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -592,7 +592,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1741865360226177407, guid: 909a08d07172bb245a4a7e503a9a75eb, type: 3}
       propertyPath: m_text
-      value: Actionner
+      value: "Int\xE9ragir"
       objectReference: {fileID: 0}
     - target: {fileID: 1741865360226177407, guid: 909a08d07172bb245a4a7e503a9a75eb, type: 3}
       propertyPath: m_fontAsset
@@ -612,7 +612,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3530050227959320894, guid: 909a08d07172bb245a4a7e503a9a75eb, type: 3}
       propertyPath: type
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1254,11 +1254,13 @@ MonoBehaviour:
   inspectCursor: {fileID: 2800000, guid: d78acf74d41ffdc419fa91124d3c4a2d, type: 3}
   talkCursor: {fileID: 2800000, guid: 42a9efb8a9bc0424eb67aefade37ebe3, type: 3}
   actionCursor: {fileID: 2800000, guid: a6b744f3dfe211c468d01129ac60f8e9, type: 3}
+  interactCursor: {fileID: 2800000, guid: 39d15a80ff227d84b90df032067f622a, type: 3}
   uiHotspot: {x: 0, y: 0}
   moveHotspot: {x: 0, y: 0}
   inspectHotspot: {x: 0, y: 0}
   talkHotspot: {x: 0, y: 0}
   actionHotspot: {x: 0, y: 0}
+  interactHotspot: {x: 0, y: 0}
 --- !u!222 &8175718317241120327
 CanvasRenderer:
   m_ObjectHideFlags: 0

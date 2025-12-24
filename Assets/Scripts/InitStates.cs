@@ -202,6 +202,10 @@ public class InitStates : MonoBehaviour
     }
     public SceneType sceneType;
 
+    public UiType ui;
+
+    public ActionType defaultAction;
+
     [Serializable]
     public class Element
     {
@@ -294,7 +298,7 @@ public class InitStates : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
-        // Stoke le nom de l'objet
+        // Stock le nom de l'objet
         switch (sceneType)
         {
             case SceneType.GameScene:
@@ -303,6 +307,26 @@ public class InitStates : MonoBehaviour
             case SceneType.UIScene:
                 GameData.CurrentSceneUI = gameObject.scene.name;
                 break;
+        }
+
+        // Initialise l'UI associée
+        if (SceneType.GameScene == sceneType)
+        {
+            switch (ui)
+            {
+                case UiType.None:
+                    SceneTransition.ChangeUI(null);
+                    break;
+                case UiType.Game:
+                    SceneTransition.ChangeUI("GameUI");
+                    break;
+                case UiType.Search:
+                    SceneTransition.ChangeUI("SearchUI");
+                    break;
+            }
+
+            GameData.action = defaultAction;
+            GameData.OnActionChange();
         }
     }
 

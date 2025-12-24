@@ -2,26 +2,6 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Description = System.ComponentModel.DescriptionAttribute;
-
-/// <summary>
-/// Demande la transition de la scène
-/// </summary>
-/// <param name="name">Nom de la nouvelle scène</param>
-/// <remarks>Les descriptions sont utilisées pour parser les actions du flow-graph</remarks>
-public enum Scenes
-{
-    [Description("Bibliothèque")]
-    Bibliotheque,
-    [Description("Boites au sol")]
-    BoitesAuSol,
-    [Description("Pièce principale")]
-    PiecePrincipale,
-    [Description("Agence entrée")]
-    AgenceEntree,
-    [Description("Aéroport")]
-    Aeroport
-}
 
 public class SceneTransition : MonoBehaviour
 {
@@ -61,39 +41,15 @@ public class SceneTransition : MonoBehaviour
         loadTransition = true;
     }
 
-    internal static void SetTransition(Scenes scene, string initialStates)
+    internal static void SetTransition(string scene, string initialStates)
     {
         if (loadTransition == true)
             return;
            
-        newCurrentSceneGame = GameData.CurrentSceneGame;
+        newCurrentSceneGame = scene;
         newCurrentSceneUI = GameData.CurrentSceneUI;
         newInitialStates = initialStates;
         GameData.TransitionScene = "CircleTransition";
-
-        switch (scene)
-        {
-            case Scenes.Bibliotheque:
-                newCurrentSceneGame = "Bibliotheque";
-                newCurrentSceneUI = "SearchUI";
-                break;
-            case Scenes.BoitesAuSol:
-                newCurrentSceneGame = "Boites au sol";
-                newCurrentSceneUI = "SearchUI";
-                break;
-            case Scenes.PiecePrincipale:
-                newCurrentSceneGame = "Piece Principale";
-                newCurrentSceneUI = "GameUI";
-                break;
-            case Scenes.AgenceEntree:
-                newCurrentSceneGame = "Agence Entree";
-                newCurrentSceneUI = "GameUI";
-                break;
-            case Scenes.Aeroport:
-                newCurrentSceneGame = "Aeroport";
-                newCurrentSceneUI = "GameUI";
-                break;
-        }
 
         loading = true;
 
@@ -137,7 +93,8 @@ public class SceneTransition : MonoBehaviour
         fadeInTimer = 0f;
 
         // Décharge l'UI (même si la nouvelle est identique)
-        yield return SceneManager.UnloadSceneAsync(oldCurrentSceneUI);
+        if (oldCurrentSceneUI != null)
+            yield return SceneManager.UnloadSceneAsync(oldCurrentSceneUI);
 
         // Charge la scène de transition
         if (transitionName != null)
@@ -181,7 +138,8 @@ public class SceneTransition : MonoBehaviour
         }
 
         // Recharge la nouvelle UI
-        yield return SceneManager.LoadSceneAsync(newCurrentSceneUI, LoadSceneMode.Additive);
+        if (newCurrentSceneUI != null)
+            yield return SceneManager.LoadSceneAsync(newCurrentSceneUI, LoadSceneMode.Additive);
 
         loading = false;
 

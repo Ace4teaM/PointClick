@@ -18,17 +18,29 @@ EditorBuildSettings:
     path: Assets/Scenes/UserInterface/SearchUI/SearchUI.unity
     guid: 4b598bc676c6ec945bf7de5589228c07
   - enabled: 1
-    path: Assets/Scenes/Game/Grenier/Piece Principale.unity
+    path: Assets/Scenes/UserInterface/DialogUI/DialogUI.unity
+    guid: 35b6736f4a1d36f448f34ef2a760c394
+  - enabled: 1
+    path: "Assets/Scenes/Game/Grenier/Pi\xE8ce Principale.unity"
     guid: d6485020b11ddef47b32c50138e69312
   - enabled: 1
     path: Assets/Scenes/Game/Grenier/Boites au sol.unity
     guid: 939678cab3c734b43a59308c71f89dc2
   - enabled: 1
-    path: Assets/Scenes/Game/Grenier/Bibliotheque.unity
+    path: "Assets/Scenes/Game/Grenier/Biblioth\xE8que.unity"
     guid: 9c5d217409d4c3e4ea03b65ec1b1e8c5
   - enabled: 1
     path: Assets/Scenes/Transitions/CircleTransform/CircleTransition.unity
     guid: fd0d32630a9938a46ad1571ab3c1251e
+  - enabled: 1
+    path: "Assets/Scenes/Game/Agence/Agence Entr\xE9e.unity"
+    guid: fbf3d3f9f2574e24f9e2959d5d30c92d
+  - enabled: 1
+    path: "Assets/Scenes/Game/Aeroport/A\xE9roport.unity"
+    guid: 24a6c2fca336ad8459a039d02971caf3
+  - enabled: 1
+    path: "Assets/Cin\xE9matiques/Carte du monde/Carte du monde.unity"
+    guid: c20a90623333485438a9cf28dfafbf27
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
