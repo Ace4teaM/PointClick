@@ -35,6 +35,20 @@ public class GameGraphEditor : Editor
             myComp.graphText = enumerator.Current;
         }
 
+        EditorGUILayout.LabelField("Graph Step");
+        GUI.SetNextControlName("Graph Step");
+        var step = EditorGUILayout.TextField(myComp.graphStep.ToString());
+        if (step.Length > 0 && step != myComp.graphStep.ToString())
+        {
+            myComp.graphStep = char.ToUpper(step[0]);
+
+            // Marque l'objet comme "dirty" pour que Unity sauvegarde la scène
+            EditorUtility.SetDirty(myComp);
+
+            // Force le redraw de l’inspector
+            Repaint();
+        }
+
         EditorGUILayout.LabelField("Graph Content");
         GUI.SetNextControlName("Graph Content");
         var text = EditorGUILayout.TextArea(myComp.graphText, GUILayout.Height(300));
@@ -139,8 +153,11 @@ public class GameGraph : MonoBehaviour
     [HideInInspector]
     public List<string> graphs = new List<string>();
 
+    [SerializeField, HideInInspector]
     internal int graphIndex = 0;
+    [SerializeField, HideInInspector]
     internal char graphStep = 'A';
+    [SerializeField, HideInInspector]
     internal string graphText = string.Empty;
 
     internal struct GraphExpression
@@ -383,12 +400,12 @@ public class GameGraph : MonoBehaviour
 
     protected virtual void Awake()
     {
+        graphText = graphs[graphIndex];
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected virtual void Start()
     {
-        
     }
 
     // Update is called once per frame
