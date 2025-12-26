@@ -9,6 +9,9 @@ using UnityEditor;
 [CustomEditor(typeof(GameGraph))]
 public class GameGraphEditor : Editor
 {
+    bool hadTextFocusLastFrame = false;
+    bool textModified = false;
+
     public override void OnInspectorGUI()
     {
         // Dessine l’inspecteur par défaut
@@ -16,14 +19,51 @@ public class GameGraphEditor : Editor
 
         GameGraph myComp = (GameGraph)target;
 
+        EditorGUILayout.LabelField("Graph Index");
+        GUI.SetNextControlName("Graph Index");
+        var index = EditorGUILayout.IntSlider(myComp.graphIndex, 0, myComp.graphs.Count - 1);
+        if (index != myComp.graphIndex)
+        {
+            myComp.graphIndex = index;
+
+            var enumerator = myComp.graphs.GetEnumerator();
+            enumerator.MoveNext();
+            for (int i = 0; i < index; i++)
+                enumerator.MoveNext();
+
+            myComp.graphStep = 'A';
+            myComp.graphText = enumerator.Current;
+        }
+
+        EditorGUILayout.LabelField("Graph Content");
+        GUI.SetNextControlName("Graph Content");
+        var text = EditorGUILayout.TextArea(myComp.graphText, GUILayout.Height(300));
+        if (String.Compare(text, myComp.graphText, true) != 0)
+        {
+            myComp.graphs[myComp.graphIndex] = text;
+            myComp.graphText = text;
+            textModified = true;
+        }
+        // Perte du focus
+        bool hasTextFocus = GUI.GetNameOfFocusedControl() == "Content";
+        if (hadTextFocusLastFrame && !hasTextFocus && textModified)
+        {
+            textModified = false;
+        }
+
+        hadTextFocusLastFrame = hasTextFocus;
+
         if (myComp.graphs.Count > 0 && GUILayout.Button("Supprimer ce graph à la position " + myComp.graphIndex))
         {
             myComp.graphs.RemoveAt(myComp.graphIndex);
             if (myComp.graphs.Count == 0)
+            {
                 myComp.graphText = String.Empty;
+                myComp.graphIndex = 0;
+            }
             else
             {
-                if (myComp.graphIndex > myComp.graphs.Count)
+                if (myComp.graphIndex >= myComp.graphs.Count)
                     myComp.graphIndex--;
                 myComp.graphText = myComp.graphs[myComp.graphIndex];
             }
@@ -74,118 +114,6 @@ public class GameGraphEditor : Editor
         }
     }
 }
-
-public class GraphTextAttribute : PropertyAttribute
-{
-    public int minLines;
-    public int maxLines;
-
-    public GraphTextAttribute(int minLines = 3, int maxLines = 3)
-    {
-        this.minLines = minLines;
-        this.maxLines = maxLines;
-    }
-}
-
-[CustomPropertyDrawer(typeof(GraphTextAttribute))]
-public class GraphTextDrawer : PropertyDrawer
-{
-    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
-    {
-        var comp = property.serializedObject.targetObject as GameGraph;
-
-        if (comp.graphs.Count > 0)
-        {
-            EditorGUI.BeginProperty(position, label, property);
-
-            position = EditorGUI.PrefixLabel(position, label);
-
-            EditorGUI.BeginChangeCheck();
-
-            property.stringValue = EditorGUI.TextArea(position, property.stringValue);
-
-            if (EditorGUI.EndChangeCheck())
-            {
-                // Accéder au serializedObject parent
-                var serializedObj = property.serializedObject;
-
-                // Trouver le SerializedProperty graphIndex
-                var graphIndexProp = serializedObj.FindProperty("graphIndex");
-
-                // Trouver le SerializedProperty graphs
-                var graphsProp = serializedObj.FindProperty("graphs");
-
-                if (graphsProp != null && graphIndexProp != null)
-                {
-                    graphsProp.GetArrayElementAtIndex(graphIndexProp.intValue).stringValue = property.stringValue;
-                }
-
-                // Appliquer les changements
-                serializedObj.ApplyModifiedProperties();
-            }
-
-            EditorGUI.EndProperty();
-        }
-    }
-
-    public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
-    {
-        var attr = (GraphTextAttribute)attribute;
-
-        int lines = Mathf.Max(attr.minLines, attr.maxLines);
-        return EditorGUIUtility.singleLineHeight * lines * 1.2f;
-    }
-}
-public class GraphIndexAttribute : PropertyAttribute
-{
-    public GraphIndexAttribute()
-    {
-    }
-}
-
-
-[CustomPropertyDrawer(typeof(GraphIndexAttribute))]
-public class GraphIndexDrawer : PropertyDrawer
-{
-    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
-    {
-        var comp = property.serializedObject.targetObject as GameGraph;
-
-        if (comp.graphs.Count > 0)
-        {
-            EditorGUI.BeginProperty(position, label, property);
-
-            position = EditorGUI.PrefixLabel(position, label);
-
-            EditorGUI.BeginChangeCheck();
-
-            property.intValue = EditorGUI.IntSlider(position, property.intValue, 0, comp.graphs.Count - 1);
-
-            if (EditorGUI.EndChangeCheck() && property.intValue != comp.graphIndex)
-            {
-                // Accéder au serializedObject parent
-                var serializedObj = property.serializedObject;
-
-                // Trouver le SerializedProperty graphText
-                var graphTextProp = serializedObj.FindProperty("graphText");
-
-                // Trouver le SerializedProperty graphs
-                var graphsProp = serializedObj.FindProperty("graphs");
-
-                if (graphsProp != null && graphTextProp != null)
-                {
-                    graphTextProp.stringValue = graphsProp.GetArrayElementAtIndex(property.intValue).stringValue;
-                }
-
-                // Appliquer les changements
-                serializedObj.ApplyModifiedProperties();
-            }
-
-            EditorGUI.EndProperty();
-        }
-
-    }
-}
 #endif
 
 public class GameGraph : MonoBehaviour
@@ -210,11 +138,10 @@ public class GameGraph : MonoBehaviour
     /// </example>
     [HideInInspector]
     public List<string> graphs = new List<string>();
-    [GraphIndex]
-    public int graphIndex = 0;
-    public char graphStep = 'A';
-    [GraphText(3, 15)]
-    public string graphText = string.Empty;
+
+    internal int graphIndex = 0;
+    internal char graphStep = 'A';
+    internal string graphText = string.Empty;
 
     internal struct GraphExpression
     {
