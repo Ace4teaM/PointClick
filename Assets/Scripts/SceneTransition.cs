@@ -34,6 +34,9 @@ public class SceneTransition : MonoBehaviour
         if (loadTransition == true)
             return;
 
+        if (GameData.CurrentSceneUI == sceneUI)
+            return;
+
         newCurrentSceneGame = GameData.CurrentSceneGame;
         newCurrentSceneUI = sceneUI;
         GameData.TransitionScene = null;
@@ -45,7 +48,7 @@ public class SceneTransition : MonoBehaviour
     {
         if (loadTransition == true)
             return;
-           
+
         newCurrentSceneGame = scene;
         newCurrentSceneUI = GameData.CurrentSceneUI;
         newInitialStates = initialStates;

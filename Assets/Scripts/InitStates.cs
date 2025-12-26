@@ -308,7 +308,11 @@ public class InitStates : MonoBehaviour
                 GameData.CurrentSceneUI = gameObject.scene.name;
                 break;
         }
+    }
 
+    // Update is called once per frame
+    void Start()
+    {
         // Initialise l'UI associée
         if (SceneType.GameScene == sceneType)
         {
@@ -328,11 +332,5 @@ public class InitStates : MonoBehaviour
             GameData.action = defaultAction;
             GameData.OnActionChange();
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
