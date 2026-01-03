@@ -79,7 +79,7 @@ public class MovingController : MonoBehaviour
             return;
 
         // Le clic vient de l’UI (Button ou autre)
-        if (HoverCursorFlag.HoverFlagType == HoverFlagType.UI)
+        if (HoverCursorFlagStates.HoverFlagType == HoverFlagType.UI || HoverCursorFlagStates.HoverFlagType == HoverFlagType.GameItem)
             return;
 
         Vector2 mousePos = Mouse.current.position.ReadValue();

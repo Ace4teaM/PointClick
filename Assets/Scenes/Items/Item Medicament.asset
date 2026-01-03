@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 390b6dbc823d76541b87008069b3a137, type: 3}
   m_Name: Item Medicament
   m_EditorClassIdentifier: Assembly-CSharp::InventoryItem
-  label: Medicaments
+  label: "M\xE9dicament"
   description: "Une boite de m\xE9dicaments contre le mal de ventre"
   sprite: {fileID: 8425733213155446171, guid: f73312c48e31a3a46b95379c6fff08db, type: 3}

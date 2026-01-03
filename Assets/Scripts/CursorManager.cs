@@ -52,7 +52,7 @@ public class CursorManager : MonoBehaviour
     private void UpdateCursor()
     {
         // Le curseur se trouve sur un élément de l’UI (Button ou autre)
-        if (HoverCursorFlag.HoverFlagType == HoverFlagType.UI)
+        if (HoverCursorFlagStates.HoverFlagType == HoverFlagType.UI || HoverCursorFlagStates.HoverFlagType == HoverFlagType.GameItem)
         {
             Cursor.SetCursor(uiCursor, uiHotspot, CursorMode.Auto);
         }
@@ -85,15 +85,15 @@ public class CursorManager : MonoBehaviour
         UpdateCursor();
     }
 
-    HoverFlagType lastHoverType = HoverCursorFlag.HoverFlagType;
+    HoverFlagType lastHoverType = HoverCursorFlagStates.HoverFlagType;
     
     void Update()
     {
         // Le curseur se trouve sur un élément de l’UI (Button ou autre)
-        if (lastHoverType != HoverCursorFlag.HoverFlagType)
+        if (lastHoverType != HoverCursorFlagStates.HoverFlagType)
         {
             UpdateCursor();
-            lastHoverType = HoverCursorFlag.HoverFlagType;
+            lastHoverType = HoverCursorFlagStates.HoverFlagType;
         }
     }
 }

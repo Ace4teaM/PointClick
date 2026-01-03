@@ -114,8 +114,15 @@ public class Animations : MonoBehaviour
 
     internal void MoveTo(string playerName, string anchorName)
     {
-        var anchor = GameObject.Find(anchorName).GetComponentInChildren<Transform>();
+        var anchor = GameObject.Find(anchorName)?.GetComponentInChildren<Transform>();
         var player = GameObject.Find(playerName);
+
+        if (anchor == null)
+            throw new Exception($"Object name '{anchorName}' not found in game objects");
+
+        if (player == null)
+            throw new Exception($"Player name '{playerName}' not found in game objects");
+
         tasks.Add(() => WaitForBoolAsync(
             () =>
             {
@@ -130,6 +137,10 @@ public class Animations : MonoBehaviour
     internal void ChangeState(string playerName, string name, bool value)
     {
         var player = GameObject.Find(playerName);
+
+        if (player == null)
+            throw new Exception($"Player name '{playerName}' not found in game objects");
+
         tasks.Add(() => WaitForBoolAsync(
             () =>
             {
@@ -143,6 +154,10 @@ public class Animations : MonoBehaviour
     internal void ChangeState(string playerName, string name, float value)
     {
         var player = GameObject.Find(playerName);
+
+        if (player == null)
+            throw new Exception($"Player name '{playerName}' not found in game objects");
+
         tasks.Add(() => WaitForBoolAsync(
             () =>
             {
@@ -156,6 +171,10 @@ public class Animations : MonoBehaviour
     internal void ChangeState(string playerName, string name, int value)
     {
         var player = GameObject.Find(playerName);
+
+        if (player == null)
+            throw new Exception($"Player name '{playerName}' not found in game objects");
+
         tasks.Add(() => WaitForBoolAsync(
             () =>
             {
@@ -169,6 +188,10 @@ public class Animations : MonoBehaviour
     internal void ChangeState(string playerName, string name, float value, Func<Task> delay)
     {
         var player = GameObject.Find(playerName);
+
+        if (player == null)
+            throw new Exception($"Player name '{playerName}' not found in game objects");
+
         tasks.Add(() => WaitForBoolAsync(
             () =>
             {
@@ -203,7 +226,46 @@ public class Animations : MonoBehaviour
                 {
                 }
                 break;
+            case "Afficher les éléments achetables":
+                {
+                    GameData.ShowDialogChoices = new string[]{
+                        "Magazine Elle&Lui",
+                        "Paquet de bonbons",
+                        "Médicament",
+                        "Retour"
+                    };
+                    SceneTransition.ChangeUI("DialogUI");
+                }
+                break;
+            case "L'Agent part immédiatement au toilettes, on entend des bruits à travers la porte":
+                {
+                }
+                break;
+            default:
+                throw new Exception($"Impossible de déterminer l'animation nommée: '{animationName}'");
         }
+    }
+
+    /// <summary>
+    /// Déclenche une animation
+    /// </summary>
+    /// <param name="objectName">Nom de l'objet possèdant un composant 'Animator'</param>
+    /// <param name="triggerName">Nom du trigger de l'animation</param>
+    internal void TriggerAnimator(string objectName, string triggerName)
+    {
+        var obj = GameObject.Find(objectName);
+
+        if (obj == null)
+            return;
+
+        tasks.Add(() => WaitForBoolAsync(
+            () =>
+            {
+                obj.GetComponentInChildren<Animator>().SetTrigger(triggerName);
+            },
+            () => true/*player.GetComponentInChildren<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Entry") == false*/,
+            false)
+        );
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

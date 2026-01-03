@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 [Serializable]
 public class InventoryItem : ScriptableObject
 {
-    public static InventoryItem Empty;
+    public static InventoryItem Empty; // initialisé par BootGame
     /// <summary>
     /// Nom de l'objet
     /// </summary>
@@ -24,7 +24,7 @@ public class InventoryItem : ScriptableObject
 
     void Awake()
     {
-        if (this != Empty && sprite != null)
+        if (sprite != null)
         {
             image = new Image();
             image.sprite = sprite;

@@ -72,4 +72,28 @@ public class GameDataHandler : MonoBehaviour
             GameData.OnSelectedItemChange();
         }
     }
+    public void ClickChoice1()
+    {
+        if (GameData.ShowDialogChoices.Length >= 1)
+        {
+            GameData.SelectedChoice = GameData.ShowDialogChoices[0];
+            GameData.OnSelectedChoiceChange();
+        }
+    }
+    public void ClickChoice2()
+    {
+        if (GameData.ShowDialogChoices.Length >= 2)
+        {
+            GameData.SelectedChoice = GameData.ShowDialogChoices[1];
+            GameData.OnSelectedChoiceChange();
+        }
+    }
+    public void ClickChoice3()
+    {
+        if (GameData.ShowDialogChoices.Length >= 3)
+        {
+            GameData.SelectedChoice = GameData.ShowDialogChoices[2];
+            GameData.OnSelectedChoiceChange();
+        }
+    }
 }

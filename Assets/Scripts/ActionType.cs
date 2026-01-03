@@ -16,5 +16,7 @@ public enum ActionType
     [Description("Utiliser")]
     Activate,
     [Description("Intéragir avec")]
-    Interact
+    Interact,
+    [Description("Choisir")]
+    Choice
 }

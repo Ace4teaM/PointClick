@@ -398,6 +398,48 @@ public class GameGraph : MonoBehaviour
         return false;
     }
 
+    /// <summary>
+    /// Essayer de parser l'expression comme : obtenir un item
+    /// </summary>
+    /// <param name="expression">Expression donné</param>
+    /// <param name="item">Nom de l'item</param>
+    internal bool TryGetItem(GraphExpression expression, out string item)
+    {
+        var line = graphText.Substring(expression.textStart, expression.textEnd - expression.textStart).Trim();
+
+        var pattern = $@"^[A-z]\[\[\s*([^!]+)\]\]$";
+        var match = Regex.Match(line, pattern, RegexOptions.Multiline | RegexOptions.IgnoreCase);
+        if (match.Success)
+        {
+            item = match.Groups[1].Value.Trim();
+            return true;
+        }
+
+        item = String.Empty;
+        return false;
+    }
+
+    /// <summary>
+    /// Essayer de parser l'expression comme : perdre un item
+    /// </summary>
+    /// <param name="expression">Expression donné</param>
+    /// <param name="item">Nom de l'item</param>
+    internal bool TryLoseItem(GraphExpression expression, out string item)
+    {
+        var line = graphText.Substring(expression.textStart, expression.textEnd - expression.textStart).Trim();
+
+        var pattern = $@"^[A-z]\[\[\s*\!\s*(.+)\]\]$";
+        var match = Regex.Match(line, pattern, RegexOptions.Multiline | RegexOptions.IgnoreCase);
+        if (match.Success)
+        {
+            item = match.Groups[1].Value.Trim();
+            return true;
+        }
+
+        item = String.Empty;
+        return false;
+    }
+
     protected virtual void Awake()
     {
         graphText = graphs[graphIndex];

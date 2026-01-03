@@ -12,12 +12,12 @@ public class HoverCursorText : MonoBehaviour
     private void Awake()
     {
         textMesh = GetComponent<TextMeshProUGUI>();
-        textMesh.text = HoverCursorFlag.HoverFlag;
+        textMesh.text = HoverCursorFlagStates.HoverFlag;
     }
 
     void Start()
     {
-        HoverCursorFlag.OnFlagChanged += HoverCursorFlag_OnFlagChanged;
+        HoverCursorFlagStates.OnFlagChanged += HoverCursorFlag_OnFlagChanged;
         GameData.OnSelectedItemChanged += GameData_OnSelectedItemChanged;
     }
 
@@ -28,7 +28,7 @@ public class HoverCursorText : MonoBehaviour
 
     void OnDestroy()
     {
-        HoverCursorFlag.OnFlagChanged -= HoverCursorFlag_OnFlagChanged;
+        HoverCursorFlagStates.OnFlagChanged -= HoverCursorFlag_OnFlagChanged;
         GameData.OnSelectedItemChanged -= GameData_OnSelectedItemChanged;
     }
 
@@ -38,17 +38,23 @@ public class HoverCursorText : MonoBehaviour
 
         if (GameData.SelectedInventoryItem != InventoryItem.Empty)
         {
-            if (HoverCursorFlag.HoverFlagType != HoverFlagType.None)
-                textMesh.text = $"{action} {GameData.SelectedInventoryItem.label} sur {HoverCursorFlag.HoverFlag}";
+            if (HoverCursorFlagStates.HoverFlagType == HoverFlagType.GameObject)
+                textMesh.text = $"{action} {GameData.SelectedInventoryItem.label} sur {HoverCursorFlagStates.HoverFlag}";
             else
                 textMesh.text = $"{action} {GameData.SelectedInventoryItem.label} sur ...";
         }
         else
         {
-            if (HoverCursorFlag.HoverFlagType != HoverFlagType.None)
-                textMesh.text = $"{action} {HoverCursorFlag.HoverFlag}";
+            if (HoverCursorFlagStates.HoverFlagType == HoverFlagType.GameObject)
+                textMesh.text = $"{action} {HoverCursorFlagStates.HoverFlag}";
+            else if (HoverCursorFlagStates.HoverFlagType == HoverFlagType.GameItem && GameData.action == ActionType.Activate)
+                textMesh.text = $"{action} {HoverCursorFlagStates.HoverFlag}";
+            else if (HoverCursorFlagStates.HoverFlagType == HoverFlagType.GameItem)
+                textMesh.text = $"{HoverCursorFlagStates.HoverFlag}";
+            else if (HoverCursorFlagStates.HoverFlagType == HoverFlagType.UI)
+                textMesh.text = $"{HoverCursorFlagStates.HoverFlag}";
             else
-                textMesh.text = action;
+                textMesh.text = $"{action} ...";
         }
     }
 

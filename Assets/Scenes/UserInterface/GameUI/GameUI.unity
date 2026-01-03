@@ -339,6 +339,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   sceneType: 1
+  ui: 0
+  defaultAction: 0
   elements: []
   defaultStates: 
   states:
@@ -1266,6 +1268,7 @@ GameObject:
   - component: {fileID: 1388496988}
   - component: {fileID: 1388496987}
   - component: {fileID: 1388496992}
+  - component: {fileID: 1388496993}
   m_Layer: 5
   m_Name: InventoryCase (4)
   m_TagString: Untagged
@@ -1387,6 +1390,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1388496993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1388496985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8e6569b129b26b47a518a642485c7be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HoverCursorFlagItem
+  itemIndex: 3
 --- !u!1 &1410675393
 GameObject:
   m_ObjectHideFlags: 0
@@ -1621,6 +1637,7 @@ GameObject:
   - component: {fileID: 1487471568}
   - component: {fileID: 1487471567}
   - component: {fileID: 1487471572}
+  - component: {fileID: 1487471573}
   m_Layer: 5
   m_Name: InventoryCase (3)
   m_TagString: Untagged
@@ -1742,6 +1759,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1487471573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1487471565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8e6569b129b26b47a518a642485c7be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HoverCursorFlagItem
+  itemIndex: 2
 --- !u!1 &1498692439
 GameObject:
   m_ObjectHideFlags: 0
@@ -1844,6 +1874,7 @@ GameObject:
   - component: {fileID: 1671569301}
   - component: {fileID: 1671569300}
   - component: {fileID: 1671569305}
+  - component: {fileID: 1671569306}
   m_Layer: 5
   m_Name: InventoryCase (2)
   m_TagString: Untagged
@@ -1965,6 +1996,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1671569306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1671569298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8e6569b129b26b47a518a642485c7be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HoverCursorFlagItem
+  itemIndex: 1
 --- !u!1 &1781574343
 GameObject:
   m_ObjectHideFlags: 0
@@ -2113,6 +2157,7 @@ GameObject:
   - component: {fileID: 1870865521}
   - component: {fileID: 1870865520}
   - component: {fileID: 1870865525}
+  - component: {fileID: 1870865526}
   m_Layer: 5
   m_Name: InventoryCase (1)
   m_TagString: Untagged
@@ -2234,6 +2279,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1870865526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1870865518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8e6569b129b26b47a518a642485c7be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HoverCursorFlagItem
+  itemIndex: 0
 --- !u!224 &1882521852 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 298464247283600440, guid: 909a08d07172bb245a4a7e503a9a75eb, type: 3}
@@ -3177,11 +3235,13 @@ MonoBehaviour:
   inspectCursor: {fileID: 2800000, guid: d78acf74d41ffdc419fa91124d3c4a2d, type: 3}
   talkCursor: {fileID: 2800000, guid: 42a9efb8a9bc0424eb67aefade37ebe3, type: 3}
   actionCursor: {fileID: 2800000, guid: a6b744f3dfe211c468d01129ac60f8e9, type: 3}
+  interactCursor: {fileID: 0}
   uiHotspot: {x: 0, y: 0}
   moveHotspot: {x: 0, y: 0}
   inspectHotspot: {x: 0, y: 0}
   talkHotspot: {x: 0, y: 0}
   actionHotspot: {x: 0, y: 0}
+  interactHotspot: {x: 0, y: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

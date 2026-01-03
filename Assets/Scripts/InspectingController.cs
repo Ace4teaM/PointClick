@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -46,8 +47,8 @@ public class InspectingController : MonoBehaviour
         if (GameData.action == ActionType.Validate)
             return;
 
-        // Vérifie si l'action en cours est "Intéragir", "Déplacer", "Inspecter", "Parler" ou "Actionner"
-        if (GameData.action != ActionType.Interact && GameData.action != ActionType.Move && GameData.action != ActionType.Inspect && GameData.action != ActionType.Talk && GameData.action != ActionType.Activate)
+        // Vérifie si aucune action
+        if (GameData.action == ActionType.None)
             return;
 
         wantAction = true;
@@ -170,6 +171,28 @@ public class InspectingController : MonoBehaviour
                         g.graphStep = nextStep;
                         return;
                     }
+
+                    if (g.TryGetItem(nextExpression, out var item))
+                    {
+                        GameData.AddItem(item);
+                        GameData.OnInventoryChange();
+                        anim.TriggerAnimator("Inventory","Show");
+                        anim.start = true;
+                        g.graphStep = nextStep;
+                        return;
+                    }
+
+                    if (g.TryLoseItem(nextExpression, out var itemLose))
+                    {
+                        GameData.RemoveItem(itemLose);
+                        GameData.OnInventoryChange();
+                        anim.TriggerAnimator("Inventory", "Show");
+                        anim.start = true;
+                        g.graphStep = nextStep;
+                        return;
+                    }
+
+                    throw new Exception("Etape non gérée");
                 }
             }
             // si il n'y a pas de prochaine étape, on recommence l'action précédente
@@ -188,24 +211,25 @@ public class InspectingController : MonoBehaviour
         {
             char nextStep;
             wantAction = false;
+
             // Le clic vient de l’UI (Button ou autre)
-            if (HoverCursorFlag.HoverFlagType == HoverFlagType.UI)
+            if (HoverCursorFlagStates.HoverFlagType == HoverFlagType.UI)
                 return;
 
             GameGraph.GraphExpression expression;
             if(
                 // utilisation d'un item sur un objet
-                (GameData.SelectedInventoryItem != null && g.TryFindUseAction(g.graphStep, GameData.SelectedInventoryItem.label, HoverCursorFlag.HoverFlag, out expression))
+                (GameData.SelectedInventoryItem != null && g.TryFindUseAction(g.graphStep, GameData.SelectedInventoryItem.label, HoverCursorFlagStates.HoverFlag, out expression))
                 ||
                 // ou action sur un objet
-                (GameData.SelectedInventoryItem == null && g.TryFindAction(g.graphStep, GameData.action, HoverCursorFlag.HoverFlag, out expression)))
+                (GameData.SelectedInventoryItem == null && g.TryFindAction(g.graphStep, GameData.action, HoverCursorFlagStates.HoverFlag, out expression)))
             {
                 Debug.Log(g.graphText.Substring(expression.textStart, expression.textEnd - expression.textStart));
 
                 // d'abord on se déplace vers l'objet
                 if (GameData.action == ActionType.Talk || GameData.action == ActionType.Activate)
                 {
-                    anim.MoveTo("Fred", HoverCursorFlag.HoverFlag);
+                    anim.MoveTo("Fred", HoverCursorFlagStates.HoverFlag);
                 }
 
                 // examine le résultat de l'action
@@ -219,6 +243,16 @@ public class InspectingController : MonoBehaviour
                 {
                     anim.Transition(scene, initialStates);
                     anim.start = true;
+                }
+                else if (g.TryGetItem(expression, out var item))
+                {
+                    GameData.AddItem(item);
+                    GameData.OnInventoryChange();
+                }
+                else if (g.TryLoseItem(expression, out var itemLose))
+                {
+                    GameData.RemoveItem(itemLose);
+                    GameData.OnInventoryChange();
                 }
                 else
                 {
