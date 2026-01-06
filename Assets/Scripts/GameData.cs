@@ -10,15 +10,10 @@ public static class GameData
     internal static InventoryItem[] GameItems;
 
     //Item sélectionné
-    public static InventoryItem SelectedInventoryItem = InventoryItem.Empty;
+    public static InventoryItem SelectedInventoryItem;
 
     // Items dans l'inventaire
-    public static InventoryItem[] InventoryItems = new InventoryItem[4]{
-        InventoryItem.Empty,
-        InventoryItem.Empty,
-        InventoryItem.Empty,
-        InventoryItem.Empty
-    };
+    public static InventoryItem[] InventoryItems;
 
     /// <summary>
     /// Action actuelle du curseur
@@ -136,6 +131,9 @@ public static class GameData
     /// <param name="item"></param>
     internal static void AddItem(string itemName)
     {
+        // s'assure que l'item n'est pas déjà dans l'inventaire
+        RemoveItem(itemName);
+
         var index = Array.IndexOf(InventoryItems, InventoryItem.Empty);
         if (index == -1)
             throw new Exception($"No space in inventory to store item '{itemName}'");

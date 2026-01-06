@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Text.RegularExpressions;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -263,6 +264,39 @@ public class GameGraph : MonoBehaviour
         return false;
     }
     /// <summary>
+    /// Essayer de parser l'expression comme un jalon de passage
+    /// </summary>
+    internal bool TryGetBreakpoint(GraphExpression expression, out char[] expectedSteps)
+    {
+        expectedSteps = Array.Empty<char>();
+
+        var line = graphText.Substring(expression.textStart, expression.textEnd - expression.textStart).Trim();
+
+        var pattern = $@"^\s*(?:([A-z]\(\([A-z]\)\))|([A-z]))$";
+        var match = Regex.Match(line, pattern, RegexOptions.Multiline | RegexOptions.IgnoreCase);
+        if (match.Success)
+        {
+            // identifiant de la prochaine étape
+            char nextStep = match.Groups[1].Value.Length > 0 ? match.Groups[1].Value[0] : match.Groups[2].Value[0];
+
+            // vérifie si la prochaine étape est un jalon
+            var jalonPattern = $@"{nextStep}(\(\([A-z]\)\))";
+            var jalon = Regex.Match(graphText, jalonPattern, RegexOptions.Multiline | RegexOptions.IgnoreCase);
+            if (jalon.Success == false)
+                return false;
+
+            // recherche toutes les étapes pointant sur ce jalon
+            var steps = Regex.Matches(graphText, $@"^\s*[A-z]\s*\-+\>\s*{nextStep}", RegexOptions.Multiline | RegexOptions.IgnoreCase);
+            if (steps.Count == 0)
+                return false;
+
+            expectedSteps = steps.Select(p=>p.Value.Trim()[0]).ToArray();
+            return true;
+        }
+
+        return false;
+    }
+    /// <summary>
     /// Essayer de parser l'expression comme un changement d'état
     /// </summary>
     internal bool TryGetState(GraphExpression expression, out string objectName, out string stateName, out object stateValue)
@@ -356,7 +390,7 @@ public class GameGraph : MonoBehaviour
     {
         var line = graphText.Substring(expression.textStart, expression.textEnd - expression.textStart).Trim();
 
-        var pattern = $@"^\s*[A-z]\((.*)\)$";
+        var pattern = $@"^\s*[A-z]\(([\p{{L}}\s',\.]+)\)$"; // \p{L}  = All letter characters. This includes the Lu, Ll, Lt, Lm, and Lo characters.
         var match = Regex.Match(line, pattern, RegexOptions.Multiline | RegexOptions.IgnoreCase);
         if (match.Success)
         {
@@ -457,6 +491,7 @@ public class GameGraph : MonoBehaviour
     }
 }
 
+[DefaultExecutionOrder(-1000)] // s'execute en premier (Valeur négative = plus tôt, Valeur positive = plus tard)
 public class GlobalGameGraph : GameGraph
 {
     public static GameGraph Instance;

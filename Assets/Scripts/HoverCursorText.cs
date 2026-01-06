@@ -9,16 +9,17 @@ public class HoverCursorText : MonoBehaviour
 {
     private TextMeshProUGUI textMesh;
 
-    private void Awake()
+    void Awake()
     {
         textMesh = GetComponent<TextMeshProUGUI>();
         textMesh.text = HoverCursorFlagStates.HoverFlag;
+
+        HoverCursorFlagStates.OnFlagChanged += HoverCursorFlag_OnFlagChanged;
+        GameData.OnSelectedItemChanged += GameData_OnSelectedItemChanged;
     }
 
     void Start()
     {
-        HoverCursorFlagStates.OnFlagChanged += HoverCursorFlag_OnFlagChanged;
-        GameData.OnSelectedItemChanged += GameData_OnSelectedItemChanged;
     }
 
     void Update()

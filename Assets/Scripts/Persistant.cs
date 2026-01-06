@@ -3,6 +3,7 @@ using UnityEngine;
 /// <summary>
 /// Singleton contenant les données de jeu persistants entre les scènes
 /// </summary>
+[DefaultExecutionOrder(-1000)] // s'execute en premier (Valeur négative = plus tôt, Valeur positive = plus tard)
 public class Persistant : MonoBehaviour
 {
     public static Persistant Instance;

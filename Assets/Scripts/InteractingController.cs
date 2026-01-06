@@ -48,26 +48,29 @@ public class InteractingController : MonoBehaviour
             ///
             /// Détecte d'abord un élément de l'UI (screen space)
             ///
-            int uiLayerMask = LayerMask.GetMask("UI");
-            int uiLayerIndex = LayerMask.NameToLayer("UI");
-
-            PointerEventData pointerData = new PointerEventData(EventSystem.current)
+            if (EventSystem.current != null)
             {
-                position = Mouse.current.position.ReadValue()
-            };
+                int uiLayerMask = LayerMask.GetMask("UI");
+                int uiLayerIndex = LayerMask.NameToLayer("UI");
 
-            List<RaycastResult> results = new List<RaycastResult>();
-            EventSystem.current.RaycastAll(pointerData, results);
-
-            foreach (var r in results)
-            {
-                if (r.gameObject.layer == uiLayerIndex)
+                PointerEventData pointerData = new PointerEventData(EventSystem.current)
                 {
-                    var hover = r.gameObject.GetComponentInParent<IHoverCursorFlag>();
-                    if (hover != null)
+                    position = Mouse.current.position.ReadValue()
+                };
+
+                List<RaycastResult> results = new List<RaycastResult>();
+                EventSystem.current.RaycastAll(pointerData, results);
+
+                foreach (var r in results)
+                {
+                    if (r.gameObject.layer == uiLayerIndex)
                     {
-                        hover.Apply();
-                        return;
+                        var hover = r.gameObject.GetComponentInParent<IHoverCursorFlag>();
+                        if (hover != null)
+                        {
+                            hover.Apply();
+                            return;
+                        }
                     }
                 }
             }

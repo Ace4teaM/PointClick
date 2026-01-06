@@ -1,7 +1,6 @@
 using System;
-using System.Threading.Tasks;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Controlleur réalisant le lien entre le Graph du jeu et les animations de la scène en cours
@@ -64,6 +63,12 @@ public class InspectingController : MonoBehaviour
     /// </summary>
     char prevActionStep = 'A';
 
+    /// <summary>
+    /// Etape du dernier Jalon, initialement (S)
+    /// </summary>
+    char prevBreakpointStep = 'A';
+    HashSet<char> validateBreakpointSteps = new HashSet<char>();
+
     void Start()
     {
         lastStep = char.MinValue;
@@ -105,11 +110,36 @@ public class InspectingController : MonoBehaviour
                 }
                 else if (g.TryGetNextStep(expression, out nextStep, out var nextExpression))
                 {
+                    var line = g.graphText.Substring(expression.textStart, expression.textEnd - expression.textStart).Trim();
+                    var line2 = g.graphText.Substring(nextExpression.textStart, nextExpression.textEnd - nextExpression.textStart).Trim();
+
                     // Dernière étape, on passe au graph suivant
                     if (nextStep == 'Z' && g.graphIndex + 1 < g.graphs.Count)
                     {
                         g.graphText = g.graphs[++g.graphIndex];
                         g.graphStep = 'A';
+                        prevActionStep = 'A';
+                        prevBreakpointStep = 'A';
+                        validateBreakpointSteps.Clear();
+                        return;
+                    }
+
+                    // Jalon
+                    if (g.TryGetBreakpoint(nextExpression, out var expectedSteps))
+                    {
+                        validateBreakpointSteps.Add(g.graphStep);
+                        // Si toutes les étapes ont été atteintes, on passe à l'étape suivante
+                        if (validateBreakpointSteps.SetEquals(expectedSteps))
+                        {
+                            g.graphStep = nextStep;
+                            validateBreakpointSteps.Clear();
+                            prevBreakpointStep = nextStep;
+                        }
+                        // sinon on retourne au jalon précédent
+                        else
+                        {
+                            g.graphStep = prevBreakpointStep;
+                        }
                         return;
                     }
 
@@ -219,10 +249,10 @@ public class InspectingController : MonoBehaviour
             GameGraph.GraphExpression expression;
             if(
                 // utilisation d'un item sur un objet
-                (GameData.SelectedInventoryItem != null && g.TryFindUseAction(g.graphStep, GameData.SelectedInventoryItem.label, HoverCursorFlagStates.HoverFlag, out expression))
+                (GameData.SelectedInventoryItem != InventoryItem.Empty && g.TryFindUseAction(g.graphStep, GameData.SelectedInventoryItem.label, HoverCursorFlagStates.HoverFlag, out expression))
                 ||
                 // ou action sur un objet
-                (GameData.SelectedInventoryItem == null && g.TryFindAction(g.graphStep, GameData.action, HoverCursorFlagStates.HoverFlag, out expression)))
+                (GameData.SelectedInventoryItem == InventoryItem.Empty && g.TryFindAction(g.graphStep, GameData.action, HoverCursorFlagStates.HoverFlag, out expression)))
             {
                 Debug.Log(g.graphText.Substring(expression.textStart, expression.textEnd - expression.textStart));
 
@@ -268,12 +298,12 @@ public class InspectingController : MonoBehaviour
                     g.graphStep = nextStep;
 
                     // Déselectionne l'objet
-                    GameData.SelectedInventoryItem = null;
+                    GameData.SelectedInventoryItem = InventoryItem.Empty;
                     GameData.OnSelectedItemChange();
                 }
                 else
                 {
-                    // sinon, on recommence le graph au début
+                    // sinon, on recommence le graph à l'action précédente
                     // (généralement un dialogue sans suite mais pas la fin du graph)
                     g.graphStep = prevActionStep;
                 }

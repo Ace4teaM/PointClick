@@ -3,6 +3,8 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
+[DefaultExecutionOrder(-100)] // s'execute en premier (Valeur négative = plus tôt, Valeur positive = plus tard)
 public class BootGame : MonoBehaviour
 {
     /// <summary>
@@ -12,12 +14,18 @@ public class BootGame : MonoBehaviour
     [SerializeField]
     public InventoryItem[] GameItems;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
+        // Conserve une référence sur l'item vide
+        InventoryItem.Empty = GameItems.First(p => String.IsNullOrEmpty(p.label));
+
+        // Aucune sélection par défaut
+        GameData.SelectedInventoryItem = InventoryItem.Empty;
+
         // initialise l'inventaire
         // copie les items de la sauvegarde persistante vers les données du jeu en cours
         int i = 0;
+        GameData.InventoryItems = new InventoryItem[Persistant.Instance.inventoryItems.Length];
         foreach (var item in Persistant.Instance.inventoryItems)
         {
             GameData.InventoryItems[i] = GameItems.First(p => p.label == item);
@@ -27,20 +35,19 @@ public class BootGame : MonoBehaviour
         // Copie les items dans la variable statique pour utilisation en jeu
         GameData.GameItems = GameItems;
 
-        // Conserve une référence sur l'item vide
-        InventoryItem.Empty = GameItems.First(p=>String.IsNullOrEmpty(p.label));
-
         // Charger la scène persistante
         if (!string.IsNullOrEmpty(GameData.CurrentSceneUI) && !SceneManager.GetSceneByName(GameData.CurrentSceneUI).isLoaded)
             SceneManager.LoadScene(GameData.CurrentSceneUI, LoadSceneMode.Additive);
         if (!string.IsNullOrEmpty(GameData.CurrentSceneGame) && !SceneManager.GetSceneByName(GameData.CurrentSceneGame).isLoaded)
             SceneManager.LoadScene(GameData.CurrentSceneGame, LoadSceneMode.Additive);
+    }
 
+    void Start()
+    {
         // Evenements d'initialisation
         GameData.OnInventoryChange();
     }
 
-    // Update is called once per frame
     void Update()
     {
         

@@ -5,7 +5,9 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using TMPro;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Animations : MonoBehaviour
 {
@@ -203,6 +205,42 @@ public class Animations : MonoBehaviour
         );
     }
 
+    /// Recherche un enfant désactivé (avec SetActive) qui ne peut êtrer trouvé avec les méthodes classiques (GameObject.Find...)
+    /// Recherche dans toute la scène
+    internal static GameObject FindInactiveInScene(string name)
+    {
+        var scene = SceneManager.GetActiveScene();
+        GameObject[] roots = scene.GetRootGameObjects();
+
+        foreach (GameObject root in roots)
+        {
+            if (root.name == name)
+                return root.gameObject;
+
+            GameObject result = FindInactive(root.transform, name);
+            if (result != null)
+                return result;
+        }
+        return null;
+    }
+
+    /// Recherche un enfant désactivé (avec SetActive) qui ne peut êtrer trouvé avec les méthodes classiques (GameObject.Find...)
+    /// Recherche dans un parent
+    internal static GameObject FindInactive(Transform parent, string name)
+    {
+        foreach (Transform child in parent)
+        {
+            if (child.name == name)
+                return child.gameObject;
+
+            GameObject result = FindInactive(child, name);
+            if (result != null)
+                return result;
+        }
+        return null;
+    }
+
+
     // Cette fonction sera bindée dans Input Action
     internal void OnAnimate(string animationName)
     {
@@ -237,8 +275,25 @@ public class Animations : MonoBehaviour
                     SceneTransition.ChangeUI("DialogUI");
                 }
                 break;
-            case "L'Agent part immédiatement au toilettes, on entend des bruits à travers la porte":
+            case "L'Agent part immédiatement aux toilettes, on entend des bruits à travers la porte":
                 {
+                    GameObject.Find("Agent")?.SetActive(false);
+                    GameObject.Find("Agent_1")?.SetActive(false);
+                }
+                break;
+            case "Faire disparaitre l'objet brillant":
+                {
+                }
+                break;
+            case "L'Agent retourne au guichet":
+                {
+                    FindInactiveInScene("Agent")?.SetActive(true);
+                    FindInactiveInScene("Agent_1")?.SetActive(true);
+                }
+                break;
+            case "Afficher GameUI":
+                {
+                    SceneTransition.ChangeUI("GameUI");
                 }
                 break;
             default:

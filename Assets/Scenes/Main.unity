@@ -231,48 +231,43 @@ MonoBehaviour:
     Si tu ne fait rien, demain ce sera un jeu McFli&Clito qui sortira puis ensuit
     TiboEnforme !!!]\r\n    G --> H>Fred : Nonnnnnnn !!!!!! Pas \xE7aaaa !!!!!]\r\n   
     H --> I[Transition: A\xE9roport]\r\n    I --> Z((F))"
-  - "graph TB\r\nA((S)) --> C{Actions}\r\n    C -->|Utiliser Pot de fleur| K>Fred:
-    Quelle chance ! j'ai trouv\xE9 un peu de monnaie]\r\n    K --> L[[Pi\xE8ces de
-    monnaies]]\r\n    C -->|Parler \xE0 Magasin| N>Fred: Bonjour !]\r\n    N -->
-    O>Caissier: Bonjour monsieur. Je suis d\xE9sol\xE9 mais je ne prends pas la carte
-    de cr\xE9dit, uniquement la monnaie, que d\xE9sirez vous ?]\r\n    C -->|Utiliser
-    pi\xE8ces de monnaies sur magasin| J>Caissier: Faites votre choix...]\r\n   
-    J --> Q(Afficher les \xE9l\xE9ments achetables)\r\n    Q --> D{Actions}\r\n   
-    D -->|Choisir Magazine Elle&Lui| R>Fred:Je n'ai pas besoin de ca !]\r\n    D
-    -->|Choisir Paquet de bonbons| S>Fred:'C'est fou le prix de ce paquet de N&M's]\r\n   
-    D -->|Choisir M\xE9dicament| T[[!Pi\xE8ces de monnaies]]\r\n    T --> B[[M\xE9dicament]]\r\n   
-    C -->|Parler \xE0 Guichet n\xB01| F>Fred: Bonjour ! Je souhaiterai..., Agent:
-    D\xE9sol\xE9 monsieur ! Je dois m'absenter quelques instants]\r\n    F -->|Animation|
-    U[L'Agent part imm\xE9diatement au toilettes, on entend des bruits \xE0 travers
-    la porte]\r\n    U -->|Utiliser Toilettes| V>Agent: 'C'est occup\xE9 !]\r\n   
-    B -->|Animation| E[L'Agent part imm\xE9diatement au toilettes, on entend des
-    bruits \xE0 travers la porte]\r\n    E --> Z((F))"
+  - "graph TB\r\nA((S)) --> C{Actions}\r\n    C -->|Inspecter Objet brillant| K>Fred:
+    Quelle chance ! j'ai trouv\xE9 un peu de monnaie]\r\n    C -->|Porte des toilettes|
+    V>Fred: Je n'ai rien \xE0 y faire]\r\n    K --> L[[Pi\xE8ces de monnaies]]\r\n   
+    L --> E(Faire disparaitre l'objet brillant)\r\n    E --> M((A))\r\n    C -->|Parler
+    \xE0 Magasin| N>Fred: Bonjour !]\r\n    N --> O>Caissier: Bonjour monsieur. Je
+    suis d\xE9sol\xE9 mais je ne prends pas la carte de cr\xE9dit, uniquement la
+    monnaie, que puis-je faire pour vous ?]\r\n    C -->|Utiliser pi\xE8ces de monnaies
+    sur magasin| J>Caissier: Faites votre choix...]\r\n    J --> Q(Afficher les \xE9l\xE9ments
+    achetables)\r\n    Q --> D{Actions}\r\n    D -->|Choisir Magazine Elle&Lui| R>Fred:
+    Je n'ai pas besoin de ca !]\r\n    D -->|Choisir Paquet de bonbons| S>Fred: C'est
+    fou le prix de ce paquet de N&M's]\r\n    D -->|Choisir M\xE9dicament| T[[!Pi\xE8ces
+    de monnaies]]\r\n    D -->|Choisir Retour| W(Afficher GameUI)\r\n    W --> C\r\n   
+    T --> B[[M\xE9dicament]]\r\n    B --> I(Afficher GameUI)\r\n    I --> M\r\n   
+    C -->|Parler \xE0 Agent| F>Fred: Bonjour ! Je souhaiterai...]\r\n    F --> H>Agent:
+    D\xE9sol\xE9 monsieur ! Je dois m'absenter quelques instants]\r\n    H --> U(L'Agent
+    part imm\xE9diatement aux toilettes, on entend des bruits \xE0 travers la porte)\r\n   
+    U --> M\r\n    M --> Z((F))"
   - "graph TB\r\nA((S)) --> C{Actions}\r\n    C -->|Utiliser M\xE9dicament sur Porte
-    des toilettes | W>Fred: Prenez ce m\xE9dicament, Agent: Merci monsieur !]\r\n   
-    W -->|Animation | X[L'Agent retourne au guichet]\r\n    X -->|Parler \xE0 Guichet
-    n\xB01| Y>Fred: Bonjour ! Je souhaiterai un billet pour Osaka, Agent: Ho, il
-    me reste une place sur le prochain vol qui d\xE9cole dans 30min]\r\n    Y -->
-    F[[Billet d'avion]] \n    F --> Z((F))"
+    des toilettes | W>Fred: Prenez ce m\xE9dicament]\r\n    W --> I[[!M\xE9dicament]]\r\n   
+    I -->H>Agent: Merci monsieur !]\r\n    C -->|Utiliser Porte des toilettes| V>Agent:
+    D\xE9sol\xE9 mais j'ai trop mal au ventre]\r\n    H --> X(L'Agent retourne au
+    guichet)\r\n    X --> Y{Actions}\r\n    Y -->|Parler \xE0 Guichet n\xB01| E>Fred:
+    Je souhaiterai un billet pour Osaka]\r\n    E --> G>Agent: Ho, il me reste une
+    place sur le prochain vol qui d\xE9cole dans 30min]\r\n    G --> F[[Billet d'avion]]
+    \r\n    F --> Z((F))"
   - "graph TB\nA((S)) --> C{Actions}\n    C -->|D\xE9placer vers Porte embarquement|
     D[Transition: Carte du monde]\n    D --> Z((F))"
-  graphIndex: 9
-  graphStep: 74
-  graphText: "graph TB\r\nA((S)) --> C{Actions}\r\n    C -->|Utiliser Pot de fleur|
-    K>Fred: Quelle chance ! j'ai trouv\xE9 un peu de monnaie]\r\n    K --> L[[Pi\xE8ces
-    de monnaies]]\r\n    C -->|Parler \xE0 Magasin| N>Fred: Bonjour !]\r\n    N -->
-    O>Caissier: Bonjour monsieur. Je suis d\xE9sol\xE9 mais je ne prends pas la carte
-    de cr\xE9dit, uniquement la monnaie, que d\xE9sirez vous ?]\r\n    C -->|Utiliser
-    pi\xE8ces de monnaies sur magasin| J>Caissier: Faites votre choix...]\r\n   
-    J --> Q(Afficher les \xE9l\xE9ments achetables)\r\n    Q --> D{Actions}\r\n   
-    D -->|Choisir Magazine Elle&Lui| R>Fred:Je n'ai pas besoin de ca !]\r\n    D
-    -->|Choisir Paquet de bonbons| S>Fred:'C'est fou le prix de ce paquet de N&M's]\r\n   
-    D -->|Choisir M\xE9dicament| T[[!Pi\xE8ces de monnaies]]\r\n    T --> B[[M\xE9dicament]]\r\n   
-    C -->|Parler \xE0 Guichet n\xB01| F>Fred: Bonjour ! Je souhaiterai..., Agent:
-    D\xE9sol\xE9 monsieur ! Je dois m'absenter quelques instants]\r\n    F -->|Animation|
-    U[L'Agent part imm\xE9diatement au toilettes, on entend des bruits \xE0 travers
-    la porte]\r\n    U -->|Utiliser Toilettes| V>Agent: 'C'est occup\xE9 !]\r\n   
-    B -->|Animation| E[L'Agent part imm\xE9diatement au toilettes, on entend des
-    bruits \xE0 travers la porte]\r\n    E --> Z((F))"
+  graphIndex: 10
+  graphStep: 72
+  graphText: "graph TB\r\nA((S)) --> C{Actions}\r\n    C -->|Utiliser M\xE9dicament
+    sur Porte des toilettes | W>Fred: Prenez ce m\xE9dicament]\r\n    W --> I[[!M\xE9dicament]]\r\n   
+    I -->H>Agent: Merci monsieur !]\r\n    C -->|Utiliser Porte des toilettes| V>Agent:
+    D\xE9sol\xE9 mais j'ai trop mal au ventre]\r\n    H --> X(L'Agent retourne au
+    guichet)\r\n    X --> Y{Actions}\r\n    Y -->|Parler \xE0 Guichet n\xB01| E>Fred:
+    Je souhaiterai un billet pour Osaka]\r\n    E --> G>Agent: Ho, il me reste une
+    place sur le prochain vol qui d\xE9cole dans 30min]\r\n    G --> F[[Billet d'avion]]
+    \r\n    F --> Z((F))"
 --- !u!1001 &157614906
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -579,7 +574,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   inventoryItems:
-  - "Pi\xE8ces de monnaies"
+  - 
   - 
   - 
   - 
