@@ -12,6 +12,7 @@ public class SceneTransition : MonoBehaviour
     internal static string newCurrentSceneGame = string.Empty;
     internal static string newCurrentSceneUI = string.Empty;
     internal static string newInitialStates = string.Empty;
+    internal static Action newCallback = null;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -24,7 +25,7 @@ public class SceneTransition : MonoBehaviour
     {
         if (loadTransition)
         {
-            StartCoroutine(LoadAndUnload(GameData.TransitionScene, newInitialStates, GameData.CurrentSceneUI, newCurrentSceneUI, GameData.CurrentSceneGame, newCurrentSceneGame));
+            StartCoroutine(LoadAndUnload(GameData.TransitionScene, newInitialStates, GameData.CurrentSceneUI, newCurrentSceneUI, GameData.CurrentSceneGame, newCurrentSceneGame, newCallback));
             loadTransition = false;
         }
     }
@@ -52,6 +53,22 @@ public class SceneTransition : MonoBehaviour
         newCurrentSceneGame = scene;
         newCurrentSceneUI = GameData.CurrentSceneUI;
         newInitialStates = initialStates;
+        GameData.TransitionScene = "CircleTransition";
+
+        loading = true;
+
+        loadTransition = true;
+    }
+
+    internal static void SetTransition(string scene, string ui, string initialStates, Action callback)
+    {
+        if (loadTransition == true)
+            return;
+
+        newCurrentSceneGame = scene;
+        newCurrentSceneUI = ui;
+        newInitialStates = initialStates;
+        newCallback = callback;
         GameData.TransitionScene = "CircleTransition";
 
         loading = true;
@@ -90,14 +107,10 @@ public class SceneTransition : MonoBehaviour
     /// <param name="oldCurrentSceneGame">Nom de la scène Game actuelle</param>
     /// <param name="newCurrentSceneGame">Nom de la scène Game à charger</param>
     /// <remarks>La scène UI est toujours déchargé pour la faire dispartaitre durant la transition</remarks>
-    private IEnumerator LoadAndUnload(string transitionName, string initialStates, string oldCurrentSceneUI, string newCurrentSceneUI, string oldCurrentSceneGame, string newCurrentSceneGame)
+    private IEnumerator LoadAndUnload(string transitionName, string initialStates, string oldCurrentSceneUI, string newCurrentSceneUI, string oldCurrentSceneGame, string newCurrentSceneGame, Action newCallback)
     {
         fadeOutTimer = 0f;
         fadeInTimer = 0f;
-
-        // Décharge l'UI (même si la nouvelle est identique)
-        if (oldCurrentSceneUI != null)
-            yield return SceneManager.UnloadSceneAsync(oldCurrentSceneUI);
 
         // Charge la scène de transition
         if (transitionName != null)
@@ -110,10 +123,15 @@ public class SceneTransition : MonoBehaviour
             });
         }
 
+        // Décharge l'UI (même si la nouvelle est identique)
+        if (oldCurrentSceneUI != null)
+            yield return SceneManager.UnloadSceneAsync(oldCurrentSceneUI);
+
         // Charger la scène de jeu (si nécessaire)
-        if (newCurrentSceneGame != oldCurrentSceneGame && SceneManager.GetSceneByName(oldCurrentSceneGame).isLoaded)
+        if (newCurrentSceneGame != oldCurrentSceneGame)
         {
-            yield return SceneManager.UnloadSceneAsync(oldCurrentSceneGame);
+            if(oldCurrentSceneGame != null && SceneManager.GetSceneByName(oldCurrentSceneGame).isLoaded)
+                yield return SceneManager.UnloadSceneAsync(oldCurrentSceneGame);
             AsyncOperation op = SceneManager.LoadSceneAsync(newCurrentSceneGame, LoadSceneMode.Additive);
             while (!op.isDone)
                 yield return null;
@@ -143,6 +161,9 @@ public class SceneTransition : MonoBehaviour
         // Recharge la nouvelle UI
         if (newCurrentSceneUI != null)
             yield return SceneManager.LoadSceneAsync(newCurrentSceneUI, LoadSceneMode.Additive);
+
+        // Callback de fin
+        newCallback?.Invoke();
 
         loading = false;
 

@@ -54,6 +54,11 @@ public class InspectingController : MonoBehaviour
     }
 
     /// <summary>
+    /// Graph précédent
+    /// </summary>
+    int lastGraph = 0;
+
+    /// <summary>
     /// Etape précédente
     /// </summary>
     char lastStep = char.MinValue;
@@ -72,6 +77,9 @@ public class InspectingController : MonoBehaviour
     void Start()
     {
         lastStep = char.MinValue;
+        lastGraph = gameGraph.graphIndex;
+        prevActionStep = 'A';
+        prevBreakpointStep = 'A';
     }
 
     // Update is called once per frame
@@ -79,6 +87,9 @@ public class InspectingController : MonoBehaviour
     {
         var g = gameGraph;
         var anim = animations;
+
+        if (g.isActiveAndEnabled == false)
+            return;
 
         // Essaie d'ignorer l'animation en cours
         if(wantSkipAnimation && anim?.animationInProgress == true)
@@ -92,11 +103,12 @@ public class InspectingController : MonoBehaviour
             return;
 
         // Vérifie si la prochaine étape est une transition automatique
-        if (lastStep != g.graphStep)
+        if (lastStep != g.graphStep || lastGraph != g.graphIndex)
         {
             char nextStep;
             
             lastStep = g.graphStep;
+            lastGraph = g.graphIndex;
 
             // Obtient la prochaine étape
             if (g.TryFindImmediateStep(g.graphStep, out var expression))

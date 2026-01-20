@@ -168,6 +168,23 @@ public class GameGraph : MonoBehaviour
     }
 
     /// <summary>
+    /// Active le graph
+    /// </summary>
+    internal void Enable(bool enable = true)
+    {
+        gameObject.SetActive(enable);
+    }
+    /// <summary>
+    /// Définit l'état du graph en cours
+    /// </summary>
+    internal void SetStates(int index, char step, bool enable)
+    {
+        graphIndex = index;
+        graphStep = step;
+        graphText = graphs[graphIndex];
+        gameObject.SetActive(enable);
+    }
+    /// <summary>
     /// Retourne true si cette étape en possède une prochaine dans le graph
     /// </summary>
     internal bool HasNextStep(char step)

@@ -164,32 +164,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   graphs:
-  - 'graph TB
-
-    A((S))-- > B[Action]
-
-    B --> Z((F))'
-  - "graph TB\r\nA((S)) --> X[Transition: Pi\xE8ce principale 'Introduction']\r\n   
-    X --> C>Fred: Salut \xE0 tous, cette vid\xE9o est sponsoris\xE9 par Sud-VPN !]\r\n   
-    C --> D[Fred.SatState=1]\r\n    D --> E>Fred: Regardez ce que je viens de trouver,
-    c'est navrant. Vous n'auriez pas pu d\xE9couvrir autre chose non ? ]\r\n    E
-    --> R[Fred.SatState=0]\r\n    R --> F>Fred: Je commence cette semaine par une
-    bonne r\xE9f\xE9rence franco-fran\xE7aise.]\r\n    F --> Y>Fred: Quoi ? Attends,
-    Moulin Sartre, les Duponts Duponts, c'est bon, c'est parce qu'il a pas une baguette
-    au b\xE9ret qu'il est pas fran\xE7ais, Tintin. ]\r\n    Y --> G>Fred: Vous connaissez
-    cet \xE9trange sentiment qu'il va se passer quelque chose d'horrible, du genre
-    en voyant la bo\xEEte ? ]\r\n    G --> H>Fred: Mais si, si, vous le connaissez,
-    c'est ce sentiment que vous allez jouer \xE0 une vraie horreur, un jeu de plateforme
-    o\xF9 vous allez sans cesse tomber dans le vide et mourir dans des endroits improbables.
-    ]\r\n    H --> I>Fred: Eh bien, putain, mon vieux, vous aviez raison ! Ce jeu
-    est comme une esp\xE8ce de punition cruelle que vous vous infligeriez. ]\r\n   
-    I --> J>Fred: On dirait un concentr\xE9 de tout ce qu'il y a de pire dans les
-    jeux de plateforme. ]\r\n    J --> L>Seb: MAIS ATTENDS !]\r\n    L --> M>Seb:
-    la boite que tu nous a montr\xE9 l\xE0... c'est pas Tintin au Tibet ?!]\r\n   
-    M --> N>Fred: mais Seb... tu sais bien que ce jeu me donne des tensions dans
-    la main]\r\n    N --> O>Seb: on a besoin de cette sc\xE8ne, on reprendera une
-    fois que tu l'aura retrouv\xE9]\r\n    O --> P>Fred: OK Seb...]\r\n    P -->
-    Q[Fred.IsSat=false]\r\n    Q --> Z((F))"
+  - "graph TB\nA((S))-- > X[Transition: Pi\xE8ce principale 'Introduction']\nB -->
+    Z((F))"
+  - "graph TB\r\nA((S)) --> C>Fred: Salut \xE0 tous, cette vid\xE9o est sponsoris\xE9
+    par Sud-VPN !]\r\n    C --> D[Fred.SatState=1]\r\n    D --> E>Fred: Regardez
+    ce que je viens de trouver, c'est navrant. Vous n'auriez pas pu d\xE9couvrir
+    autre chose non ? ]\r\n    E --> R[Fred.SatState=0]\r\n    R --> F>Fred: Je commence
+    cette semaine par une bonne r\xE9f\xE9rence franco-fran\xE7aise.]\r\n    F -->
+    Y>Fred: Quoi ? Attends, Moulin Sartre, les Duponts Duponts, c'est bon, c'est
+    parce qu'il a pas une baguette au b\xE9ret qu'il est pas fran\xE7ais, Tintin.
+    ]\r\n    Y --> G>Fred: Vous connaissez cet \xE9trange sentiment qu'il va se passer
+    quelque chose d'horrible, du genre en voyant la bo\xEEte ? ]\r\n    G --> H>Fred:
+    Mais si, si, vous le connaissez, c'est ce sentiment que vous allez jouer \xE0
+    une vraie horreur, un jeu de plateforme o\xF9 vous allez sans cesse tomber dans
+    le vide et mourir dans des endroits improbables. ]\r\n    H --> I>Fred: Eh bien,
+    putain, mon vieux, vous aviez raison ! Ce jeu est comme une esp\xE8ce de punition
+    cruelle que vous vous infligeriez. ]\r\n    I --> J>Fred: On dirait un concentr\xE9
+    de tout ce qu'il y a de pire dans les jeux de plateforme. ]\r\n    J --> L>Seb:
+    MAIS ATTENDS !]\r\n    L --> M>Seb: la boite que tu nous a montr\xE9 l\xE0...
+    c'est pas Tintin au Tibet ?!]\r\n    M --> N>Fred: mais Seb... tu sais bien que
+    ce jeu me donne des tensions dans la main]\r\n    N --> O>Seb: on a besoin de
+    cette sc\xE8ne, on reprendera une fois que tu l'aura retrouv\xE9]\r\n    O -->
+    P>Fred: OK Seb...]\r\n    P --> Q[Fred.IsSat=false]\r\n    Q --> Z((F))"
   - "graph TB\r\nA((S)) --> B>Alors que Fred et Seb tournent leur prochaine vid\xE9o,
     nul n'aurait pu se douter quelle l'histoire les attendait...]\r\n    B --> C>Nous
     sommes en 2025 et une nouvelle...enfin ancienne...console s'appr\xEAte \xE0 rentrer
@@ -258,16 +254,10 @@ MonoBehaviour:
     \r\n    F --> Z((F))"
   - "graph TB\nA((S)) --> C{Actions}\n    C -->|D\xE9placer vers Porte embarquement|
     D[Transition: Carte du monde]\n    D --> Z((F))"
-  graphIndex: 10
-  graphStep: 72
-  graphText: "graph TB\r\nA((S)) --> C{Actions}\r\n    C -->|Utiliser M\xE9dicament
-    sur Porte des toilettes | W>Fred: Prenez ce m\xE9dicament]\r\n    W --> I[[!M\xE9dicament]]\r\n   
-    I -->H>Agent: Merci monsieur !]\r\n    C -->|Utiliser Porte des toilettes| V>Agent:
-    D\xE9sol\xE9 mais j'ai trop mal au ventre]\r\n    H --> X(L'Agent retourne au
-    guichet)\r\n    X --> Y{Actions}\r\n    Y -->|Parler \xE0 Guichet n\xB01| E>Fred:
-    Je souhaiterai un billet pour Osaka]\r\n    E --> G>Agent: Ho, il me reste une
-    place sur le prochain vol qui d\xE9cole dans 30min]\r\n    G --> F[[Billet d'avion]]
-    \r\n    F --> Z((F))"
+  graphIndex: 0
+  graphStep: 65
+  graphText: "graph TB\nA((S))-- > X[Transition: Pi\xE8ce principale 'Introduction']\nB
+    --> Z((F))"
 --- !u!1001 &157614906
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -294,11 +284,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7298048762378481468, guid: 9921d60645540124b80fdaddc6db3d37, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.78
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7298048762378481468, guid: 9921d60645540124b80fdaddc6db3d37, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.63
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7298048762378481468, guid: 9921d60645540124b80fdaddc6db3d37, type: 3}
       propertyPath: m_LocalPosition.z

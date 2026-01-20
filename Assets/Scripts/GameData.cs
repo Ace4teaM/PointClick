@@ -1,11 +1,17 @@
 using System;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Données statiques non persistantes du jeu
 /// </summary>
 public static class GameData
 {
+    /// <summary>
+    /// GameGraph principal
+    /// </summary>
+    public static GameGraph GameGraph;
+
     // Liste de tous les items du jeu
     internal static InventoryItem[] GameItems;
 
@@ -158,5 +164,16 @@ public static class GameData
         var index = Array.IndexOf(InventoryItems, item);
 
         InventoryItems[index] = InventoryItem.Empty;
+    }
+
+    /// <summary>
+    /// Démarre le jeu
+    /// </summary>
+    internal static void StartGame()
+    {
+        GameGraph.SetStates(1, 'A', false);
+        SceneTransition.SetTransition("Pièce Principale", "GameUI", "Introduction", () => {
+            GameGraph.Enable();
+        });
     }
 }

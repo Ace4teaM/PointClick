@@ -39,7 +39,7 @@ EditorBuildSettings:
     path: "Assets/Scenes/Game/Aeroport/A\xE9roport.unity"
     guid: 24a6c2fca336ad8459a039d02971caf3
   - enabled: 1
-    path: "Assets/Cin\xE9matiques/Carte du monde/Carte du monde.unity"
+    path: "Assets/Scenes/Cin\xE9matiques/Carte du monde/Carte du monde.unity"
     guid: c20a90623333485438a9cf28dfafbf27
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

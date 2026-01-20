@@ -35,11 +35,19 @@ public class BootGame : MonoBehaviour
         // Copie les items dans la variable statique pour utilisation en jeu
         GameData.GameItems = GameItems;
 
-        // Charger la scène persistante
+        // Référence l'instance du GameGraph
+        GameData.GameGraph = SceneUtils.GetObjectByName("Main", "GameGraph").GetComponent<GameGraph>();
+
+        // Charger la scène persistante (si des scènes sont déja chargé dans l'éditeur)
+#if UNITY_EDITOR
         if (!string.IsNullOrEmpty(GameData.CurrentSceneUI) && !SceneManager.GetSceneByName(GameData.CurrentSceneUI).isLoaded)
             SceneManager.LoadScene(GameData.CurrentSceneUI, LoadSceneMode.Additive);
         if (!string.IsNullOrEmpty(GameData.CurrentSceneGame) && !SceneManager.GetSceneByName(GameData.CurrentSceneGame).isLoaded)
             SceneManager.LoadScene(GameData.CurrentSceneGame, LoadSceneMode.Additive);
+#else
+        GlobalGameGraph.Instance.SetStates(0, 'A', true);
+        SceneManager.LoadScene("Accueil", LoadSceneMode.Additive);
+#endif
     }
 
     void Start()

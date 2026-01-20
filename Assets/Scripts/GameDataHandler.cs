@@ -96,4 +96,8 @@ public class GameDataHandler : MonoBehaviour
             GameData.OnSelectedChoiceChange();
         }
     }
+    public void StartGame()
+    {
+        GameData.StartGame();
+    }
 }
