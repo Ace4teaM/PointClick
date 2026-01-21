@@ -171,9 +171,10 @@ public static class GameData
     /// </summary>
     internal static void StartGame()
     {
-        GameGraph.SetStates(1, 'A', false);
-        SceneTransition.SetTransition("Pièce Principale", "GameUI", "Introduction", () => {
+        GameGraph.SetStates(1, 'A', true);
+       /* GameGraph.SetStates(1, 'A', false);
+        SceneTransition.SetTransition("Pièce Principale", null, "Introduction", () => {
             GameGraph.Enable();
-        });
+        });*/
     }
 }

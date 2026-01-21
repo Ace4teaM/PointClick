@@ -41,6 +41,8 @@ public class SceneTransition : MonoBehaviour
         newCurrentSceneGame = GameData.CurrentSceneGame;
         newCurrentSceneUI = sceneUI;
         GameData.TransitionScene = null;
+        GameData.action = ActionType.None;
+        GameData.OnActionChange();
 
         loadTransition = true;
     }
@@ -51,9 +53,11 @@ public class SceneTransition : MonoBehaviour
             return;
 
         newCurrentSceneGame = scene;
-        newCurrentSceneUI = GameData.CurrentSceneUI;
+        newCurrentSceneUI = "CutsceneUI";
         newInitialStates = initialStates;
         GameData.TransitionScene = "CircleTransition";
+        GameData.action = ActionType.None;
+        GameData.OnActionChange();
 
         loading = true;
 
@@ -70,6 +74,8 @@ public class SceneTransition : MonoBehaviour
         newInitialStates = initialStates;
         newCallback = callback;
         GameData.TransitionScene = "CircleTransition";
+        GameData.action = ActionType.None;
+        GameData.OnActionChange();
 
         loading = true;
 
@@ -124,7 +130,7 @@ public class SceneTransition : MonoBehaviour
         }
 
         // Décharge l'UI (même si la nouvelle est identique)
-        if (oldCurrentSceneUI != null)
+        if (oldCurrentSceneUI != null && SceneManager.GetSceneByName(oldCurrentSceneUI).isLoaded)
             yield return SceneManager.UnloadSceneAsync(oldCurrentSceneUI);
 
         // Charger la scène de jeu (si nécessaire)
@@ -147,6 +153,10 @@ public class SceneTransition : MonoBehaviour
             }
         }
 
+        // Recharge la nouvelle UI
+        if (newCurrentSceneUI != null)
+            yield return SceneManager.LoadSceneAsync(newCurrentSceneUI, LoadSceneMode.Additive);
+
         if (transitionName != null)
         {
             yield return WaitAndAnimate(2f, t =>
@@ -157,10 +167,6 @@ public class SceneTransition : MonoBehaviour
             // Unload de la scène de transition
             yield return SceneManager.UnloadSceneAsync(transitionName);
         }
-
-        // Recharge la nouvelle UI
-        if (newCurrentSceneUI != null)
-            yield return SceneManager.LoadSceneAsync(newCurrentSceneUI, LoadSceneMode.Additive);
 
         // Callback de fin
         newCallback?.Invoke();

@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 390b6dbc823d76541b87008069b3a137, type: 3}
   m_Name: Item Billets avion
   m_EditorClassIdentifier: Assembly-CSharp::InventoryItem
-  label: Billets d'avions
+  label: Billets d'avion
   description: Ce sont des billets aller/retour pour le vol vers Kyoto
   sprite: {fileID: -603121064427391695, guid: b5834472af860374c9a83d178f83f752, type: 3}

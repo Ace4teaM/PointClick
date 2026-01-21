@@ -161,6 +161,14 @@ public class GameGraph : MonoBehaviour
     [SerializeField, HideInInspector]
     internal string graphText = string.Empty;
 
+    internal bool IsPrimary
+    {
+        get
+        {
+            return GameData.GameGraph == this;
+        }
+    }
+
     internal struct GraphExpression
     {
         public int textStart;
@@ -347,14 +355,21 @@ public class GameGraph : MonoBehaviour
     /// </summary>
     /// <param name="expression">Expression donné</param>
     /// <remarks>Un choix indique qu'il faut passer immédiatement à la prochaine étape</remarks>
-    internal bool TryGetChoice(GraphExpression expression)
+    internal bool TryGetChoice(GraphExpression expression, out string type)
     {
         if (char.IsLetter(graphText[expression.textStart]))
         {
             var text = graphText.Substring(expression.textStart + 1);
-            return text.StartsWith("{Actions}", true, System.Globalization.CultureInfo.InvariantCulture);
+            var pattern = @"^\s*\{([A-z]+)\}";
+            var match = Regex.Match(text, pattern, RegexOptions.Multiline | RegexOptions.IgnoreCase);
+            if (match.Success)
+            {
+                type = match.Groups[1].Value;
+                return true;
+            }
         }
 
+        type = String.Empty;
         return false;
     }
     /// <summary>

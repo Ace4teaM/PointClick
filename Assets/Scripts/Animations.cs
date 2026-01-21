@@ -207,19 +207,20 @@ public class Animations : MonoBehaviour
 
     /// Recherche un enfant désactivé (avec SetActive) qui ne peut êtrer trouvé avec les méthodes classiques (GameObject.Find...)
     /// Recherche dans toute la scène
-    internal static GameObject FindInactiveInScene(string name)
+    internal static GameObject FindInactiveInScenes(string name)
     {
-        var scene = SceneManager.GetActiveScene();
-        GameObject[] roots = scene.GetRootGameObjects();
-
-        foreach (GameObject root in roots)
+        foreach (var scene in SceneManager.GetAllScenes())
         {
-            if (root.name == name)
-                return root.gameObject;
+            GameObject[] roots = scene.GetRootGameObjects();
+            foreach (GameObject root in roots)
+            {
+                if (root.name == name)
+                    return root.gameObject;
 
-            GameObject result = FindInactive(root.transform, name);
-            if (result != null)
-                return result;
+                GameObject result = FindInactive(root.transform, name);
+                if (result != null)
+                    return result;
+            }
         }
         return null;
     }
@@ -272,7 +273,6 @@ public class Animations : MonoBehaviour
                         "Médicament",
                         "Retour"
                     };
-                    SceneTransition.ChangeUI("DialogUI");
                 }
                 break;
             case "L'Agent part immédiatement aux toilettes, on entend des bruits à travers la porte":
@@ -283,17 +283,13 @@ public class Animations : MonoBehaviour
                 break;
             case "Faire disparaitre l'objet brillant":
                 {
+                    GameObject.Find("Pièces de monnaies")?.SetActive(false);
                 }
                 break;
             case "L'Agent retourne au guichet":
                 {
-                    FindInactiveInScene("Agent")?.SetActive(true);
-                    FindInactiveInScene("Agent_1")?.SetActive(true);
-                }
-                break;
-            case "Afficher GameUI":
-                {
-                    SceneTransition.ChangeUI("GameUI");
+                    FindInactiveInScenes("Agent")?.SetActive(true);
+                    FindInactiveInScenes("Agent_1")?.SetActive(true);
                 }
                 break;
             default:

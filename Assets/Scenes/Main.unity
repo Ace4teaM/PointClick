@@ -164,28 +164,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   graphs:
-  - "graph TB\nA((S))-- > X[Transition: Pi\xE8ce principale 'Introduction']\nB -->
-    Z((F))"
-  - "graph TB\r\nA((S)) --> C>Fred: Salut \xE0 tous, cette vid\xE9o est sponsoris\xE9
-    par Sud-VPN !]\r\n    C --> D[Fred.SatState=1]\r\n    D --> E>Fred: Regardez
-    ce que je viens de trouver, c'est navrant. Vous n'auriez pas pu d\xE9couvrir
-    autre chose non ? ]\r\n    E --> R[Fred.SatState=0]\r\n    R --> F>Fred: Je commence
-    cette semaine par une bonne r\xE9f\xE9rence franco-fran\xE7aise.]\r\n    F -->
-    Y>Fred: Quoi ? Attends, Moulin Sartre, les Duponts Duponts, c'est bon, c'est
-    parce qu'il a pas une baguette au b\xE9ret qu'il est pas fran\xE7ais, Tintin.
-    ]\r\n    Y --> G>Fred: Vous connaissez cet \xE9trange sentiment qu'il va se passer
-    quelque chose d'horrible, du genre en voyant la bo\xEEte ? ]\r\n    G --> H>Fred:
-    Mais si, si, vous le connaissez, c'est ce sentiment que vous allez jouer \xE0
-    une vraie horreur, un jeu de plateforme o\xF9 vous allez sans cesse tomber dans
-    le vide et mourir dans des endroits improbables. ]\r\n    H --> I>Fred: Eh bien,
-    putain, mon vieux, vous aviez raison ! Ce jeu est comme une esp\xE8ce de punition
-    cruelle que vous vous infligeriez. ]\r\n    I --> J>Fred: On dirait un concentr\xE9
-    de tout ce qu'il y a de pire dans les jeux de plateforme. ]\r\n    J --> L>Seb:
-    MAIS ATTENDS !]\r\n    L --> M>Seb: la boite que tu nous a montr\xE9 l\xE0...
-    c'est pas Tintin au Tibet ?!]\r\n    M --> N>Fred: mais Seb... tu sais bien que
-    ce jeu me donne des tensions dans la main]\r\n    N --> O>Seb: on a besoin de
-    cette sc\xE8ne, on reprendera une fois que tu l'aura retrouv\xE9]\r\n    O -->
-    P>Fred: OK Seb...]\r\n    P --> Q[Fred.IsSat=false]\r\n    Q --> Z((F))"
+  - 'graph TB
+
+    A((S))-- > Z((A))'
+  - "graph TB\r\nA((S)) --> X[Transition: Pi\xE8ce principale 'Introduction']\n   
+    X --> C>Fred: Salut \xE0 tous, cette vid\xE9o est sponsoris\xE9 par Sud-VPN !]\r\n   
+    C --> D[Fred.SatState=1]\r\n    D --> E>Fred: Regardez ce que je viens de trouver,
+    c'est navrant. Vous n'auriez pas pu d\xE9couvrir autre chose non ? ]\r\n    E
+    --> R[Fred.SatState=0]\r\n    R --> F>Fred: Je commence cette semaine par une
+    bonne r\xE9f\xE9rence franco-fran\xE7aise.]\r\n    F --> Y>Fred: Quoi ? Attends,
+    Moulin Sartre, les Duponts Duponts, c'est bon, c'est parce qu'il a pas une baguette
+    au b\xE9ret qu'il est pas fran\xE7ais, Tintin. ]\r\n    Y --> G>Fred: Vous connaissez
+    cet \xE9trange sentiment qu'il va se passer quelque chose d'horrible, du genre
+    en voyant la bo\xEEte ? ]\r\n    G --> H>Fred: Mais si, si, vous le connaissez,
+    c'est ce sentiment que vous allez jouer \xE0 une vraie horreur, un jeu de plateforme
+    o\xF9 vous allez sans cesse tomber dans le vide et mourir dans des endroits improbables.
+    ]\r\n    H --> I>Fred: Eh bien, putain, mon vieux, vous aviez raison ! Ce jeu
+    est comme une esp\xE8ce de punition cruelle que vous vous infligeriez. ]\r\n   
+    I --> J>Fred: On dirait un concentr\xE9 de tout ce qu'il y a de pire dans les
+    jeux de plateforme. ]\r\n    J --> L>Seb: MAIS ATTENDS !]\r\n    L --> M>Seb:
+    la boite que tu nous a montr\xE9 l\xE0... c'est pas Tintin au Tibet ?!]\r\n   
+    M --> N>Fred: mais Seb... tu sais bien que ce jeu me donne des tensions dans
+    la main]\r\n    N --> O>Seb: on a besoin de cette sc\xE8ne, on reprendera une
+    fois que tu l'aura retrouv\xE9]\r\n    O --> P>Fred: OK Seb...]\r\n    P -->
+    Q[Fred.IsSat=false]\r\n    Q --> Z((F))"
   - "graph TB\r\nA((S)) --> B>Alors que Fred et Seb tournent leur prochaine vid\xE9o,
     nul n'aurait pu se douter quelle l'histoire les attendait...]\r\n    B --> C>Nous
     sommes en 2025 et une nouvelle...enfin ancienne...console s'appr\xEAte \xE0 rentrer
@@ -194,15 +196,15 @@ MonoBehaviour:
     Et maintenant... Allons chercher ce jeu pourrit...]\r\n    H --> C{Actions}\r\n   
     C -->|Parler \xE0 Seb| D>Seb: Tu dois trouver Tintin au tibet pour la prochaine
     vid\xE9o]\r\n    C -->|Utiliser Biblioth\xE8que| E[Transition: Biblioth\xE8que]\r\n   
-    E --> J>Fred: Je dois trouver Tintin au tibet]\r\n    J --> F{Actions}\r\n   
+    E --> J>Fred: Je dois trouver Tintin au tibet]\r\n    J --> F{Trouver}\r\n   
     F -->|Inspecter Tintin au Tibet| G>Fred: C'est lui, prenons cette boite et finissons
-    en]\n    F -->|Int\xE9ragir avec Tintin au Tibet| K[Transition: Pi\xE8ce principale
+    en]\r\n    F -->|Int\xE9ragir avec Tintin au Tibet| K[Transition: Pi\xE8ce principale
     'Assomm\xE9']\r\n    K --> Z((F))"
   - "graph TB\r\nA((S)) --> C(Les boites tombent sur Fred)\r\n    C --> D[Transition:
     Boites au sol]\r\n    D --> Z((F))"
   - "graph TB\r\nA((S)) --> C>Seb: Ca va Fred ?]\r\n    C --> D>Seb: Tu te sent bien
     ?]\r\n    D --> Z((F))"
-  - "graph TB\r\nA((S)) --> C{Actions}\n    C -->|Inspecter Publicit\xE9| G>Fred:
+  - "graph TB\r\nA((S)) --> C{Trouver}\r\n    C -->|Inspecter Publicit\xE9| G>Fred:
     Une publicit\xE9 ? Qu'est ce que \xE7a fait l\xE0 ?]\r\n    G --> I>Fred: Je
     me demande si... nannnn...]\r\n    C -->|Int\xE9ragir avec Publicit\xE9| J[Transition:
     Pi\xE8ce principale]\r\n    J --> Z((F))"
@@ -235,29 +237,34 @@ MonoBehaviour:
     suis d\xE9sol\xE9 mais je ne prends pas la carte de cr\xE9dit, uniquement la
     monnaie, que puis-je faire pour vous ?]\r\n    C -->|Utiliser pi\xE8ces de monnaies
     sur magasin| J>Caissier: Faites votre choix...]\r\n    J --> Q(Afficher les \xE9l\xE9ments
-    achetables)\r\n    Q --> D{Actions}\r\n    D -->|Choisir Magazine Elle&Lui| R>Fred:
+    achetables)\r\n    Q --> D{Choix}\r\n    D -->|Choisir Magazine Elle&Lui| R>Fred:
     Je n'ai pas besoin de ca !]\r\n    D -->|Choisir Paquet de bonbons| S>Fred: C'est
     fou le prix de ce paquet de N&M's]\r\n    D -->|Choisir M\xE9dicament| T[[!Pi\xE8ces
-    de monnaies]]\r\n    D -->|Choisir Retour| W(Afficher GameUI)\r\n    W --> C\r\n   
-    T --> B[[M\xE9dicament]]\r\n    B --> I(Afficher GameUI)\r\n    I --> M\r\n   
-    C -->|Parler \xE0 Agent| F>Fred: Bonjour ! Je souhaiterai...]\r\n    F --> H>Agent:
-    D\xE9sol\xE9 monsieur ! Je dois m'absenter quelques instants]\r\n    H --> U(L'Agent
-    part imm\xE9diatement aux toilettes, on entend des bruits \xE0 travers la porte)\r\n   
-    U --> M\r\n    M --> Z((F))"
+    de monnaies]]\r\n    D -->|Choisir Retour| C\r\n    T --> B[[M\xE9dicament]]\r\n   
+    B --> M\r\n    C -->|Parler \xE0 Agent| F>Fred: Bonjour ! Je souhaiterai...]\r\n   
+    F --> H>Agent: D\xE9sol\xE9 monsieur ! Je dois m'absenter quelques instants]\r\n   
+    H --> U(L'Agent part imm\xE9diatement aux toilettes, on entend des bruits \xE0
+    travers la porte)\r\n    U --> M\r\n    M --> Z((F))"
   - "graph TB\r\nA((S)) --> C{Actions}\r\n    C -->|Utiliser M\xE9dicament sur Porte
     des toilettes | W>Fred: Prenez ce m\xE9dicament]\r\n    W --> I[[!M\xE9dicament]]\r\n   
     I -->H>Agent: Merci monsieur !]\r\n    C -->|Utiliser Porte des toilettes| V>Agent:
     D\xE9sol\xE9 mais j'ai trop mal au ventre]\r\n    H --> X(L'Agent retourne au
-    guichet)\r\n    X --> Y{Actions}\r\n    Y -->|Parler \xE0 Guichet n\xB01| E>Fred:
-    Je souhaiterai un billet pour Osaka]\r\n    E --> G>Agent: Ho, il me reste une
-    place sur le prochain vol qui d\xE9cole dans 30min]\r\n    G --> F[[Billet d'avion]]
-    \r\n    F --> Z((F))"
+    guichet)\r\n    X --> Y{Actions}\r\n    Y -->|Parler \xE0 Agent| E>Fred: Je souhaiterai
+    un billet pour Osaka]\r\n    E --> G>Agent: Ho, il me reste une place sur le
+    prochain vol qui d\xE9cole dans 30min]\r\n    G --> F[[Billets d'avion]] \r\n   
+    F --> Z((F))"
   - "graph TB\nA((S)) --> C{Actions}\n    C -->|D\xE9placer vers Porte embarquement|
     D[Transition: Carte du monde]\n    D --> Z((F))"
-  graphIndex: 0
-  graphStep: 65
-  graphText: "graph TB\nA((S))-- > X[Transition: Pi\xE8ce principale 'Introduction']\nB
-    --> Z((F))"
+  graphIndex: 10
+  graphStep: 72
+  graphText: "graph TB\r\nA((S)) --> C{Actions}\r\n    C -->|Utiliser M\xE9dicament
+    sur Porte des toilettes | W>Fred: Prenez ce m\xE9dicament]\r\n    W --> I[[!M\xE9dicament]]\r\n   
+    I -->H>Agent: Merci monsieur !]\r\n    C -->|Utiliser Porte des toilettes| V>Agent:
+    D\xE9sol\xE9 mais j'ai trop mal au ventre]\r\n    H --> X(L'Agent retourne au
+    guichet)\r\n    X --> Y{Actions}\r\n    Y -->|Parler \xE0 Agent| E>Fred: Je souhaiterai
+    un billet pour Osaka]\r\n    E --> G>Agent: Ho, il me reste une place sur le
+    prochain vol qui d\xE9cole dans 30min]\r\n    G --> F[[Billets d'avion]] \r\n   
+    F --> Z((F))"
 --- !u!1001 &157614906
 PrefabInstance:
   m_ObjectHideFlags: 0

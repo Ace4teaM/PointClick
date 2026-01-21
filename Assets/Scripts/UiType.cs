@@ -8,5 +8,7 @@ public enum UiType
     [Description("Jeu")]
     Game,
     [Description("Recherche")]
-    Search
+    Search,
+    [Description("Cinématique")]
+    CutScene
 }

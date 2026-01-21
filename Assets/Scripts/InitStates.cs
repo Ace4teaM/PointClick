@@ -202,10 +202,6 @@ public class InitStates : MonoBehaviour
     }
     public SceneType sceneType;
 
-    public UiType ui;
-
-    public ActionType defaultAction;
-
     [Serializable]
     public class Element
     {
@@ -228,6 +224,9 @@ public class InitStates : MonoBehaviour
     /// <summary>
     /// Etats spécifiques
     /// </summary>
+    /// <remarks>
+    /// nom=>json states
+    /// </remarks>
     [HideInInspector, SerializeField]
     internal SerializableDictionary states = new SerializableDictionary();
 
@@ -313,24 +312,20 @@ public class InitStates : MonoBehaviour
     // Update is called once per frame
     void Start()
     {
-        // Initialise l'UI associée
-        if (SceneType.GameScene == sceneType)
+    }
+    void OnDestroy()
+    {
+        // Stock le nom de l'objet
+        switch (sceneType)
         {
-            switch (ui)
-            {
-                case UiType.None:
-                    SceneTransition.ChangeUI(null);
-                    break;
-                case UiType.Game:
-                    SceneTransition.ChangeUI("GameUI");
-                    break;
-                case UiType.Search:
-                    SceneTransition.ChangeUI("SearchUI");
-                    break;
-            }
-
-            GameData.action = defaultAction;
-            GameData.OnActionChange();
+            case SceneType.GameScene:
+                if(GameData.CurrentSceneGame == gameObject.scene.name)
+                    GameData.CurrentSceneGame = null;
+                break;
+            case SceneType.UIScene:
+                if (GameData.CurrentSceneUI == gameObject.scene.name)
+                    GameData.CurrentSceneUI = null;
+                break;
         }
     }
 }

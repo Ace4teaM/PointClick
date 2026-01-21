@@ -41,6 +41,12 @@ EditorBuildSettings:
   - enabled: 1
     path: "Assets/Scenes/Cin\xE9matiques/Carte du monde/Carte du monde.unity"
     guid: c20a90623333485438a9cf28dfafbf27
+  - enabled: 1
+    path: Assets/Scenes/Menus/Accueil/Accueil.unity
+    guid: 1c852e0f3b41f6040aea4b56e6f90c18
+  - enabled: 1
+    path: Assets/Scenes/UserInterface/CutsceneUI/CutsceneUI.unity
+    guid: c6e1381c124a88d42b16b14a60482d8e
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

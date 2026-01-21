@@ -173,8 +173,25 @@ public class InspectingController : MonoBehaviour
                     }
 
                     // Vérifie si la prochaine étape est un choix à plusieurs possibilités
-                    if (g.TryGetChoice(nextExpression))
+                    if (g.TryGetChoice(nextExpression, out var choiceType))
                     {
+                        if (g.IsPrimary)
+                        {
+                            var newUIScene = String.Empty;
+
+                            if (choiceType == "Actions")
+                                newUIScene = "GameUI";
+                            else if (choiceType == "Choix")
+                                newUIScene = "DialogUI";
+                            else if (choiceType == "Trouver")
+                                newUIScene = "SearchUI";
+
+                            if (String.IsNullOrEmpty(newUIScene))
+                                Debug.LogError($"Impossible de déterminer d'UI pour le type choix: {choiceType}");
+                            else if (GameData.CurrentSceneUI != newUIScene)
+                                SceneTransition.ChangeUI(newUIScene);
+                        }
+
                         // On passe à l'étape suivante
                         g.graphStep = nextStep;
                         prevActionStep = nextStep; // enregistre la dernière étape d'action pour restaurer si il n'y a pas de suite à l'étape
