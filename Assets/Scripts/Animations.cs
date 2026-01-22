@@ -27,6 +27,11 @@ public class Animations : MonoBehaviour
         GameData.OnAnimationChanged -= OnAnimate;
     }
 
+    public void Execute()
+    {
+        start = true;
+    }
+
     public void TrySkipAnimation()
     {
         cancel.Cancel();
@@ -55,6 +60,15 @@ public class Animations : MonoBehaviour
                 break;
             await Task.Delay(10); // petite pause pour éviter de bloquer le CPU
         }
+    }
+
+    internal void Wait(int milliseconds)
+    {
+        tasks.Add(() => WaitForBoolAsync(
+            () => { },
+            () => Task.Delay(milliseconds),
+            true)
+        );
     }
 
     internal void Transition(string scene)
@@ -257,6 +271,7 @@ public class Animations : MonoBehaviour
                 break;
             case "Les boites tombent sur Fred":
                 {
+                    Wait(4000);
                     ChangeState("Fred", "IsDizzy", true);
                     start = true;
                 }
@@ -332,23 +347,29 @@ public class Animations : MonoBehaviour
     {
         if (start && animationInProgress == false)
         {
-            RunAll();
+            _ = RunAllAsync(); // fire-and-forget maîtrisé
             start = false;
         }
     }
 
-    private async void RunAll()
+    private async Task RunAllAsync()
     {
         animationInProgress = true;
-        foreach (var f in tasks)
-        {
-            await f();
 
-            // si une annulation a eu lieu, on restore l'instance
-            if (cancel.IsCancellationRequested)
-                cancel = new CancellationTokenSource();
+        try
+        {
+            foreach (var f in tasks)
+            {
+                await f();
+
+                if (cancel.IsCancellationRequested)
+                    cancel = new CancellationTokenSource();
+            }
         }
-        tasks.Clear();
-        animationInProgress = false;
+        finally
+        {
+            tasks.Clear();
+            animationInProgress = false;
+        }
     }
 }
