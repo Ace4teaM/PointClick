@@ -40,6 +40,7 @@ public class SceneTransition : MonoBehaviour
 
         newCurrentSceneGame = GameData.CurrentSceneGame;
         newCurrentSceneUI = sceneUI;
+        newInitialStates = null;
         GameData.TransitionScene = null;
         GameData.action = ActionType.None;
         GameData.OnActionChange();
