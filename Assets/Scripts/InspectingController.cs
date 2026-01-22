@@ -158,16 +158,9 @@ public class InspectingController : MonoBehaviour
                     // Dialogue
                     if (g.TryGetDialog(nextExpression, out var dialog))
                     {
-                        if (anim == null)
-                        {
-                            Debug.LogError($"Impossible de trouver l'objet d'animations 'Animations'");
-                        }
-                        else
-                        {
-                            anim.ShowDialog(dialog);
-                            anim.HideDialog();
-                            anim.start = true;
-                        }
+                        anim?.ShowDialog(dialog);
+                        anim?.HideDialog();
+                        anim?.Execute();
                         g.graphStep = nextStep;
                         return;
                     }
@@ -202,14 +195,14 @@ public class InspectingController : MonoBehaviour
                     if (g.TryGetState(nextExpression, out var obj, out var state, out var val))
                     {
                         if(val is bool)
-                            anim.ChangeState(obj, state, (bool)val);
+                            anim?.ChangeState(obj, state, (bool)val);
                         else if(val is float)
-                            anim.ChangeState(obj, state, (float)val);
+                            anim?.ChangeState(obj, state, (float)val);
                         else if(val is int)
-                            anim.ChangeState(obj, state, (int)val);
+                            anim?.ChangeState(obj, state, (int)val);
                         else
                             Debug.LogError($"Impossible de déterminer un type compatible pour la valeur du changement d'état {obj}.{state}={val}");
-                        anim.start = true;
+                        anim?.Execute();
                         // On passe à l'étape suivante
                         g.graphStep = nextStep;
                         return;
@@ -225,8 +218,8 @@ public class InspectingController : MonoBehaviour
 
                     if (g.TryGetTransition(nextExpression, out var scene, out var initialStates))
                     {
-                        anim.Transition(scene, initialStates);
-                        anim.start = true;
+                        anim?.Transition(scene, initialStates);
+                        anim?.Execute();
                         g.graphStep = nextStep;
                         return;
                     }
@@ -235,8 +228,8 @@ public class InspectingController : MonoBehaviour
                     {
                         GameData.AddItem(item);
                         GameData.OnInventoryChange();
-                        anim.TriggerAnimator("Inventory","Show");
-                        anim.start = true;
+                        anim?.TriggerAnimator("Inventory","Show");
+                        anim?.Execute();
                         g.graphStep = nextStep;
                         return;
                     }
@@ -245,8 +238,8 @@ public class InspectingController : MonoBehaviour
                     {
                         GameData.RemoveItem(itemLose);
                         GameData.OnInventoryChange();
-                        anim.TriggerAnimator("Inventory", "Show");
-                        anim.start = true;
+                        anim?.TriggerAnimator("Inventory", "Show");
+                        anim?.Execute();
                         g.graphStep = nextStep;
                         return;
                     }
@@ -288,20 +281,20 @@ public class InspectingController : MonoBehaviour
                 // d'abord on se déplace vers l'objet
                 if (GameData.action == ActionType.Talk || GameData.action == ActionType.Activate)
                 {
-                    anim.MoveTo("Fred", HoverCursorFlagStates.HoverFlag);
+                    anim?.MoveTo("Fred", HoverCursorFlagStates.HoverFlag);
                 }
 
                 // examine le résultat de l'action
                 if (g.TryGetDialog(expression, out var dialog))
                 {
-                    anim.ShowDialog(dialog);
-                    anim.HideDialog();
-                    anim.start = true;
+                    anim?.ShowDialog(dialog);
+                    anim?.HideDialog();
+                    anim?.Execute();
                 }
                 else if (g.TryGetTransition(expression, out var scene, out var initialStates))
                 {
-                    anim.Transition(scene, initialStates);
-                    anim.start = true;
+                    anim?.Transition(scene, initialStates);
+                    anim?.Execute();
                 }
                 else if (g.TryGetItem(expression, out var item))
                 {
