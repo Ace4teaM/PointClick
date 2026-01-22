@@ -209,8 +209,9 @@ public class Animations : MonoBehaviour
     /// Recherche dans toute la scène
     internal static GameObject FindInactiveInScenes(string name)
     {
-        foreach (var scene in SceneManager.GetAllScenes())
+        for(int i=0;i<SceneManager.sceneCount;i++)
         {
+            var scene = SceneManager.GetSceneAt(i);
             GameObject[] roots = scene.GetRootGameObjects();
             foreach (GameObject root in roots)
             {
@@ -256,7 +257,6 @@ public class Animations : MonoBehaviour
                 break;
             case "Les boites tombent sur Fred":
                 {
-                    GameObject.Find("Fred").transform.position = GameObject.Find("Bibliothèque").transform.position;
                     ChangeState("Fred", "IsDizzy", true);
                     start = true;
                 }
