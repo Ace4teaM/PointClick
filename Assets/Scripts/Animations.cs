@@ -1,11 +1,8 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using TMPro;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,6 +10,8 @@ public class Animations : MonoBehaviour
 {
     List<Func<Task>> tasks = new List<Func<Task>>();
     CancellationTokenSource cancel = new CancellationTokenSource();
+
+    public AnimationAsset animationAsset;
 
     private static int readTimeByWordInMs = 300;
     private static int readTimeMinMs = 1000 * 2;
@@ -260,56 +259,7 @@ public class Animations : MonoBehaviour
     // Cette fonction sera bindée dans Input Action
     internal void OnAnimate(string animationName)
     {
-        switch (animationName)
-        {
-            case "Fred se lève du canapé":
-                {
-                    ChangeState("Fred", "IsSat", false);
-                    MoveTo("Fred", "Canapé");
-                    start = true;
-                }
-                break;
-            case "Les boites tombent sur Fred":
-                {
-                    Wait(4000);
-                    ChangeState("Fred", "IsDizzy", true);
-                    start = true;
-                }
-                break;
-            case "Animation du tonnerre":
-                {
-                }
-                break;
-            case "Afficher les éléments achetables":
-                {
-                    GameData.ShowDialogChoices = new string[]{
-                        "Magazine Elle&Lui",
-                        "Paquet de bonbons",
-                        "Médicament",
-                        "Retour"
-                    };
-                }
-                break;
-            case "L'Agent part immédiatement aux toilettes, on entend des bruits à travers la porte":
-                {
-                    GameObject.Find("Agent")?.SetActive(false);
-                    GameObject.Find("Agent_1")?.SetActive(false);
-                }
-                break;
-            case "Faire disparaitre l'objet brillant":
-                {
-                    GameObject.Find("Pièces de monnaies")?.SetActive(false);
-                }
-                break;
-            case "L'Agent retourne au guichet":
-                {
-                    FindInactiveInScenes("Agent")?.SetActive(true);
-                    FindInactiveInScenes("Agent_1")?.SetActive(true);
-                }
-                break;
-            default:
-                throw new Exception($"Impossible de déterminer l'animation nommée: '{animationName}'");
-        }
+        animationAsset?.OnAnimate(this, animationName);
     }
 
     /// <summary>
