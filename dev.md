@@ -1,5 +1,7 @@
 # Point&Click
 
+[TOC]
+
 ## Configuration du projet Unity
 
 **Projet Universal Render 2D**
@@ -110,7 +112,7 @@ Certains objets on besoins d'être relier à des objets de la scène `Main`, les
 
 Les données persistantes entre les scènes sont contenu dans le `GameObject` nommé `Persistant` il est contenu dans la scène Main qui est constamment chargé. Les autres scènes sont ouvertes en plus de la scène principale.
 
-### Etats initial
+### Etat initial
 
 Lorsqu'une scène est chargé dynamiquement vous pouvez spécifier les états intial des objets dans le Script `InitStates`.
 
@@ -168,6 +170,8 @@ La méthode appelée est programmée dans un **GameObject** nommé **SoundContro
 
 ## Evénements et séquences
 
+### Graph
+
 l'organisation des animations et événements déclancheurs sont décrit dans une série de graphs au format Mermaid directement utilisable dans l'éditeur Unity.
 
 Les séquences sont décrites de facon textuels dans le document [Evenements et progressions](../../Evenements et progressions.md) puis copié/collé dans l'objet GameGraph comme ceci:
@@ -175,3 +179,14 @@ Les séquences sont décrites de facon textuels dans le document [Evenements et 
 ![gamegraph](gamegraph.png)
 
 > Attention à respecter l'ordre car chaque fin de graph correspond au début du prochain.
+
+### Animations
+
+l'exécution des animations est réalisé en séquence ordonnée par le graph du jeu. A chaque étape la pile d'animations `Animations.cs` est alimenté par les actions du graph.
+
+Par exemple l'action "parler à ..." réalisera 2 animations : 
+
+1. Déplacer le personnage
+2. Exécuter le dialogue
+
+> Les animation s'exécutent séquentiellement l'une après l'autre par synchronisation.

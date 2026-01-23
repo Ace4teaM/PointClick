@@ -779,8 +779,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   sceneType: 0
-  ui: 0
-  defaultAction: 2
   elements:
   - gameObject: {fileID: 650576862}
     states:
@@ -834,8 +832,8 @@ Transform:
   m_GameObject: {fileID: 650576862}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.57, y: -2.16, z: 0}
-  m_LocalScale: {x: 8.4713745, y: 8.4713745, z: 8.4713745}
+  m_LocalPosition: {x: -2.62, y: -0.45, z: 0}
+  m_LocalScale: {x: 7.4923663, y: 7.4923663, z: 7.4923663}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 734505872456020753}
@@ -1847,7 +1845,7 @@ Transform:
   m_GameObject: {fileID: 1883474615}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.66, y: -0.52, z: 0}
+  m_LocalPosition: {x: -0.49, y: -0.52, z: 0}
   m_LocalScale: {x: 7.5324426, y: 7.5324426, z: 7.5324426}
   m_ConstrainProportionsScale: 0
   m_Children:

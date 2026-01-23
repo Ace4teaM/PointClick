@@ -255,16 +255,10 @@ MonoBehaviour:
     F --> Z((F))"
   - "graph TB\nA((S)) --> C{Actions}\n    C -->|D\xE9placer vers Porte embarquement|
     D[Transition: Carte du monde]\n    D --> Z((F))"
-  graphIndex: 10
-  graphStep: 72
-  graphText: "graph TB\r\nA((S)) --> C{Actions}\r\n    C -->|Utiliser M\xE9dicament
-    sur Porte des toilettes | W>Fred: Prenez ce m\xE9dicament]\r\n    W --> I[[!M\xE9dicament]]\r\n   
-    I -->H>Agent: Merci monsieur !]\r\n    C -->|Utiliser Porte des toilettes| V>Agent:
-    D\xE9sol\xE9 mais j'ai trop mal au ventre]\r\n    H --> X(L'Agent retourne au
-    guichet)\r\n    X --> Y{Actions}\r\n    Y -->|Parler \xE0 Agent| E>Fred: Je souhaiterai
-    un billet pour Osaka]\r\n    E --> G>Agent: Ho, il me reste une place sur le
-    prochain vol qui d\xE9cole dans 30min]\r\n    G --> F[[Billets d'avion]] \r\n   
-    F --> Z((F))"
+  graphIndex: 4
+  graphStep: 65
+  graphText: "graph TB\r\nA((S)) --> C(Les boites tombent sur Fred)\r\n    C -->
+    D[Transition: Boites au sol]\r\n    D --> Z((F))"
 --- !u!1001 &157614906
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -416,7 +410,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   gameGraph: {fileID: 116317636}
-  animations: {fileID: 879356050}
+  animations: {fileID: 1637190520}
 --- !u!4 &530946239
 Transform:
   m_ObjectHideFlags: 0
@@ -476,50 +470,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &879356048
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 879356049}
-  - component: {fileID: 879356050}
-  m_Layer: 0
-  m_Name: Animations
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &879356049
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 879356048}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &879356050
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 879356048}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fee37d44df83266499ec773a3c38bfbd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
 --- !u!1 &1083558411 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1872574099001820018, guid: 9921d60645540124b80fdaddc6db3d37, type: 3}
@@ -541,6 +491,64 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_MaxRayIntersections: 0
+--- !u!1 &1637190518
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1637190521}
+  - component: {fileID: 1637190520}
+  - component: {fileID: 1637190519}
+  m_Layer: 0
+  m_Name: Animations
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1637190519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1637190518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03a4d6d6333bfa14ba5a1f4e9ccd04ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AnimationAsset
+--- !u!114 &1637190520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1637190518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fee37d44df83266499ec773a3c38bfbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  animationAsset: {fileID: 1637190519}
+--- !u!4 &1637190521
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1637190518}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1888794664
 GameObject:
   m_ObjectHideFlags: 0
@@ -776,4 +784,4 @@ SceneRoots:
   - {fileID: 2110915179}
   - {fileID: 329879907}
   - {fileID: 1888794666}
-  - {fileID: 879356049}
+  - {fileID: 1637190521}
