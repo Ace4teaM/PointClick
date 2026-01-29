@@ -29,22 +29,25 @@ public class CurrentDialogText : MonoBehaviour
 
     void SetDialog(string text)
     {
+        string nom = "default";
         var i = text.IndexOf(':');
         if(i != -1 && i > 0)
         {
-            var nom = text.Substring(0, i);
-            var color = dialogColors.GetColor(nom);
-            if (color != null)
-            {
-                textMesh.color = color.color;
-                textMesh.outlineColor = color.outline;
-            }
-            else
-            {
-                textMesh.color = Color.white;
-                textMesh.outlineColor = Color.black;
-            }
+            nom = text.Substring(0, i).Trim();
         }
+
+        var color = dialogColors.GetColor(nom);
+        if (color != null)
+        {
+            textMesh.color = color.color;
+            textMesh.outlineColor = color.outline;
+        }
+        else
+        {
+            textMesh.color = Color.white;
+            textMesh.outlineColor = Color.black;
+        }
+
         textMesh.text = text;
     }
 
