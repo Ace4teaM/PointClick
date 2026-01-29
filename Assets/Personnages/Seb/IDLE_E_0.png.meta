@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 8d93c02f4e8c09c4c9cd6170cda44abb
+guid: 02991bc1959e56e49a19832e179901a3
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1474435645280242844
-    second: PERCHE_S_0_0
+      213: 3563468485407967559
+    second: IDLE_E_0_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,12 +126,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PERCHE_S_0_0
+      name: IDLE_E_0_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1024
+        width: 256
         height: 1024
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 463b5eea790c98be0800000000000000
-      internalID: -1474435645280242844
+      spriteID: 7498a0915bbf37130800000000000000
+      internalID: 3563468485407967559
       vertices: []
       indices: 
       edges: []
@@ -151,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 1d0f4b17c96173541bcecd47c4a26404
+    spriteID: e22c65ddd4b08c640b58a92267c07214
     internalID: 0
     vertices: []
     indices: 
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      PERCHE_S_0_0: -1474435645280242844
+      IDLE_E_0_0: 3563468485407967559
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

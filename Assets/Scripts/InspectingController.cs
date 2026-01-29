@@ -210,8 +210,7 @@ public class InspectingController : MonoBehaviour
 
                     if (g.TryGetAnimation(nextExpression, out var animation))
                     {
-                        GameData.ShowAnimation = animation;
-                        GameData.OnAnimationChange();
+                        anim?.OnAnimate(animation);
                         g.graphStep = nextStep;
                         return;
                     }

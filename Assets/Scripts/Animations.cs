@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -25,7 +26,27 @@ public class Animations : MonoBehaviour
     {
         GameData.OnAnimationChanged -= OnAnimate;
     }
+#if UNITY_EDITOR
+    private void OnEnable()
+    {
+        EditorApplication.playModeStateChanged += OnPlayModeChanged;
+    }
 
+    private void OnDisable()
+    {
+        EditorApplication.playModeStateChanged -= OnPlayModeChanged;
+    }
+
+    void OnPlayModeChanged(PlayModeStateChange state)
+    {
+        // s'assure que les taches sont annulées à la fin du mode Play
+        if (state == PlayModeStateChange.ExitingPlayMode)
+        {
+            cancel.Cancel();
+            tasks.Clear();
+        }
+    }
+#endif
     public void Execute()
     {
         start = true;
@@ -36,7 +57,7 @@ public class Animations : MonoBehaviour
         cancel.Cancel();
     }
 
-    public async Task WaitForBoolAsync(Action exec, Func<bool> condition, bool cancelable)
+    public async Task ExecuteAndWaitForBoolAsync(Action exec, Func<bool> condition, bool cancelable)
     {
         exec();
         // Attend que la condition soit vraie
@@ -48,7 +69,7 @@ public class Animations : MonoBehaviour
         }
     }
 
-    public async Task WaitForBoolAsync(Action exec, Func<Task> condition, bool cancelable)
+    public async Task ExecuteAndWaitForBoolAsync(Action exec, Func<Task> condition, bool cancelable)
     {
         exec();
         var task = condition();
@@ -61,9 +82,34 @@ public class Animations : MonoBehaviour
         }
     }
 
+    public async Task RepeatAndWaitForBoolAsync(Action exec, Func<bool> condition, bool cancelable)
+    {
+        // Attend que la condition soit vraie
+        while (!condition())
+        {
+            exec();
+            if (cancelable && cancel.IsCancellationRequested)
+                break;
+            await Task.Delay(10); // petite pause pour éviter de bloquer le CPU
+        }
+    }
+
+    public async Task RepeatAndWaitForBoolAsync(Action exec, Func<Task> condition, bool cancelable)
+    {
+        var task = condition();
+        // Attend que la condition soit vraie
+        while (!task.IsCompleted)
+        {
+            exec();
+            if (cancelable && cancel.IsCancellationRequested)
+                break;
+            await Task.Delay(10); // petite pause pour éviter de bloquer le CPU
+        }
+    }
+
     internal void Wait(int milliseconds)
     {
-        tasks.Add(() => WaitForBoolAsync(
+        tasks.Add(() => ExecuteAndWaitForBoolAsync(
             () => { },
             () => Task.Delay(milliseconds),
             true)
@@ -72,7 +118,7 @@ public class Animations : MonoBehaviour
 
     internal void Transition(string scene)
     {
-        tasks.Add(() => WaitForBoolAsync(
+        tasks.Add(() => ExecuteAndWaitForBoolAsync(
             () =>
             {
                 SceneTransition.SetTransition(scene, null);
@@ -84,7 +130,7 @@ public class Animations : MonoBehaviour
 
     internal void Transition(string scene, string initialStates)
     {
-        tasks.Add(() => WaitForBoolAsync(
+        tasks.Add(() => ExecuteAndWaitForBoolAsync(
             () =>
             {
                 SceneTransition.SetTransition(scene, initialStates);
@@ -103,7 +149,7 @@ public class Animations : MonoBehaviour
             delay = () => Task.Delay(duration);
         }
 
-        tasks.Add(() => WaitForBoolAsync(
+        tasks.Add(() => ExecuteAndWaitForBoolAsync(
             () =>
             {
                 GameData.ShowDialog = dialog;
@@ -116,13 +162,47 @@ public class Animations : MonoBehaviour
 
     internal void HideDialog()
     {
-        tasks.Add(() => WaitForBoolAsync(
+        tasks.Add(() => ExecuteAndWaitForBoolAsync(
             () =>
             {
                 GameData.ShowDialog = String.Empty;
                 GameData.OnDialogChange();
             },
             () => true, 
+            false)
+        );
+    }
+
+    internal void Disable(string objectName)
+    {
+        var obj = Animations.FindInactiveInScenes(objectName);
+
+        if (obj == null)
+            throw new Exception($"Object name '{objectName}' not found in game objects");
+
+        tasks.Add(() => ExecuteAndWaitForBoolAsync(
+            () =>
+            {
+                obj.SetActive(false);
+            },
+            () => true,
+            false)
+        );
+    }
+
+    internal void Enable(string objectName)
+    {
+        var obj = Animations.FindInactiveInScenes(objectName);
+
+        if (obj == null)
+            throw new Exception($"Object name '{objectName}' not found in game objects");
+
+        tasks.Add(() => ExecuteAndWaitForBoolAsync(
+            () =>
+            {
+                obj.SetActive(true);
+            },
+            () => true,
             false)
         );
     }
@@ -138,13 +218,67 @@ public class Animations : MonoBehaviour
         if (player == null)
             throw new Exception($"Player name '{playerName}' not found in game objects");
 
-        tasks.Add(() => WaitForBoolAsync(
+        tasks.Add(() => ExecuteAndWaitForBoolAsync(
             () =>
             {
                 var path = GameObject.Find("MovingController").GetComponentInChildren<MovingController>().MakePath(anchor.position);
                 player.GetComponentInChildren<MoverAnimator>().SetDestinations(path);
             },
             () => player.GetComponentInChildren<MoverAnimator>().IsFinish,
+            false)
+        );
+    }
+
+    internal void ChangeProperty<T>(string objectName, string propertyName, object value) where T : Component
+    {
+        var obj = GameObject.Find(objectName);
+
+        if (obj == null)
+            throw new Exception($"Object '{objectName}' not found in game objects");
+
+        var comp = obj.GetComponent<T>();
+
+        if (comp == null)
+            throw new Exception($"Object '{objectName}' as not component {typeof(T).Name}");
+
+        var prop = comp.GetType().GetProperty(propertyName);
+
+        if (prop == null)
+            throw new Exception($"Object '{objectName}' as not property {propertyName}");
+
+        tasks.Add(() => ExecuteAndWaitForBoolAsync(
+            () =>
+            {
+                prop.SetValue(comp, value);
+            },
+            () => true,
+            false)
+        );
+    }
+
+    internal void UpTo<T>(string objectName, string propertyName, float delta, float targetValue) where T : Component
+    {
+        var obj = GameObject.Find(objectName);
+
+        if (obj == null)
+            throw new Exception($"Object '{objectName}' not found in game objects");
+
+        var comp = obj.GetComponent<T>();
+
+        if (comp == null)
+            throw new Exception($"Object '{objectName}' as not component {typeof(T).Name}");
+
+        var prop = comp.GetType().GetProperty(propertyName);
+
+        if (prop == null)
+            throw new Exception($"Object '{objectName}' as not property {propertyName}");
+
+        tasks.Add(() => RepeatAndWaitForBoolAsync(
+            () =>
+            {
+                prop.SetValue(comp, (float)prop.GetValue(comp) + delta * Time.deltaTime);
+            },
+            () => comp == null || Math.Abs((float)prop.GetValue(comp) - targetValue) < Math.Abs(delta * Time.deltaTime),
             false)
         );
     }
@@ -156,7 +290,7 @@ public class Animations : MonoBehaviour
         if (player == null)
             throw new Exception($"Player name '{playerName}' not found in game objects");
 
-        tasks.Add(() => WaitForBoolAsync(
+        tasks.Add(() => ExecuteAndWaitForBoolAsync(
             () =>
             {
                 player.GetComponentInChildren<Animator>().SetBool(name, value);
@@ -173,7 +307,7 @@ public class Animations : MonoBehaviour
         if (player == null)
             throw new Exception($"Player name '{playerName}' not found in game objects");
 
-        tasks.Add(() => WaitForBoolAsync(
+        tasks.Add(() => ExecuteAndWaitForBoolAsync(
             () =>
             {
                 player.GetComponentInChildren<Animator>().SetFloat(name, value);
@@ -190,7 +324,7 @@ public class Animations : MonoBehaviour
         if (player == null)
             throw new Exception($"Player name '{playerName}' not found in game objects");
 
-        tasks.Add(() => WaitForBoolAsync(
+        tasks.Add(() => ExecuteAndWaitForBoolAsync(
             () =>
             {
                 player.GetComponentInChildren<Animator>().SetInteger(name, value);
@@ -207,7 +341,7 @@ public class Animations : MonoBehaviour
         if (player == null)
             throw new Exception($"Player name '{playerName}' not found in game objects");
 
-        tasks.Add(() => WaitForBoolAsync(
+        tasks.Add(() => ExecuteAndWaitForBoolAsync(
             () =>
             {
                 player.GetComponentInChildren<Animator>().SetFloat(name, value);
@@ -274,7 +408,7 @@ public class Animations : MonoBehaviour
         if (obj == null)
             return;
 
-        tasks.Add(() => WaitForBoolAsync(
+        tasks.Add(() => ExecuteAndWaitForBoolAsync(
             () =>
             {
                 obj.GetComponentInChildren<Animator>().SetTrigger(triggerName);
@@ -310,7 +444,11 @@ public class Animations : MonoBehaviour
         {
             foreach (var f in tasks)
             {
-                await f();
+                var task = f();
+
+                await task;
+
+                var c = task.IsCompleted;
 
                 if (cancel.IsCancellationRequested)
                     cancel = new CancellationTokenSource();

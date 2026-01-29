@@ -47,6 +47,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/UserInterface/CutsceneUI/CutsceneUI.unity
     guid: c6e1381c124a88d42b16b14a60482d8e
+  - enabled: 1
+    path: "Assets/Scenes/Cin\xE9matiques/Naration/Naration.unity"
+    guid: ef5995e63323f6445900d4aeca3a1dc1
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
