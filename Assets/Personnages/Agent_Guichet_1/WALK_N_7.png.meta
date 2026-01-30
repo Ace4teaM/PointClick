@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: 5521aa05b220e134f84f08849a42c2e5
+guid: b84fd48abaae32942849aa1405ca6611
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4728604019573252392
-    second: IDLE_SE_0_0
+      213: -6747576861269875596
+    second: WALK_N_7_0
+  - first:
+      213: -6157799536102118312
+    second: WALK_N_7_1
+  - first:
+      213: -561646144538154321
+    second: WALK_N_7_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -48,7 +54,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 1400
@@ -126,7 +132,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: IDLE_SE_0_0
+      name: WALK_N_7_0
       rect:
         serializedVersion: 2
         x: 0
@@ -141,8 +147,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 821e5267d406f9140800000000000000
-      internalID: 4728604019573252392
+      spriteID: 4742d59489acb52a0800000000000000
+      internalID: -6747576861269875596
       vertices: []
       indices: 
       edges: []
@@ -151,7 +157,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 87887469ba9136747a00eaef8bbe792e
+    spriteID: 4c58f100c7a614d49b12bf46d6b59ff9
     internalID: 0
     vertices: []
     indices: 
@@ -161,7 +167,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      IDLE_SE_0_0: 4728604019573252392
+      WALK_N_7_0: -6747576861269875596
+      WALK_N_7_1: -6157799536102118312
+      WALK_N_7_2: -561646144538154321
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

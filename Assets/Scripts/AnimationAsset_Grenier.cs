@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using UnityEngine;
 
 public class AnimationAsset_Grenier : AnimationAsset
@@ -102,19 +103,21 @@ public class AnimationAsset_Grenier : AnimationAsset
                 break;
             case "L'Agent part immédiatement aux toilettes, on entend des bruits à travers la porte":
                 {
-                    GameObject.Find("Agent")?.SetActive(false);
-                    GameObject.Find("Agent_1")?.SetActive(false);
+                    anim.MoveTo("Agent_1", "Agent 1 Walking Path", GameObject.Find("WC").transform.position);
+                    anim.Disable("Agent_1");
+                    anim.Execute();
+                }
+                break;
+            case "L'Agent retourne au guichet":
+                {
+                    anim.Enable("Agent_1");
+                    anim.MoveTo("Agent_1", "Agent 1 Walking Path", GameObject.Find("Position Agent 1").transform.position);
+                    anim.Execute();
                 }
                 break;
             case "Faire disparaitre l'objet brillant":
                 {
                     GameObject.Find("Pièces de monnaies")?.SetActive(false);
-                }
-                break;
-            case "L'Agent retourne au guichet":
-                {
-                    Animations.FindInactiveInScenes("Agent")?.SetActive(true);
-                    Animations.FindInactiveInScenes("Agent_1")?.SetActive(true);
                 }
                 break;
         }

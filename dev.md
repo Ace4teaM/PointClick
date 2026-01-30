@@ -10,7 +10,7 @@
 
 ![version](version.png)
 
-**Gestion des Inputs**
+### **Gestion des Inputs**
 
 Gestion des binding sur les inputs (clavier/souris/joystick,...)
 
@@ -32,7 +32,7 @@ Attacher à l'objet  `PlayerInputsManager`
 
 ![](input_binding2.png)
 
-**Sprites personnages**
+### **Sprites personnages**
 
 Lors de l'importation des sprites vérifier que celui-ci n'est pas tronqué automatiquement.
 
@@ -58,19 +58,29 @@ et changer les groupes de sprite pour chaque direction dans les propriétés
 
 ![](C:\Users\aceteam\source\repos\PointClick\Unity\PointClick\animation_override_controler_prop.png)
 
-**Ordre de profondeur des objets**
+### **Ordre de profondeur des objets**
 
 L'ordre de rendu est définit sur l'axe `Y` ce qui permet d'utiliser la position des objets comme profondeur de champ. Cela permet de simuler un personnage qui passe devant ou derrière un objet.
 
-Note la profondeur est géré par `Layer` donc `Background` ne passera jamais devant `Character`
+De base la profondeur des objets est géré par le `Layer Group` définit, donc `Background` ne passera jamais devant `Characters`.
+
+Mais pour trier des objets au sein d'un même groupe ou utilise l'attribut `Order in Layer`. Le script `Order Sorting Group`permet d'ajuster l'index dynamiquement en fonction de la position `Y`de l'objet (donnant l'impression de profondeur).
+
+![render transparency axis_scene](render transparency axis_scene.png)
+
+![](order sorting layer.png)
+
+> Chaque objet **doit** possèder son propre composant `Order Sorting Group`.
+
+![](order sorting layer2.png)
+
+Pour une visualisation dans l'éditeur, nous pouvons utiliser les paramètres de rendu:
 
 ![animation_override_controler](render transparency axis.png)
 
 ![animation_override_controler_prop](render transparency axis_prop.png)
 
-![render transparency axis_scene](render transparency axis_scene.png)
-
-**Déboguer avec VisualStudio**
+### **Déboguer avec VisualStudio**
 
 Attacher le debogeur Unity depuis l'éditeur Visual Studio
 

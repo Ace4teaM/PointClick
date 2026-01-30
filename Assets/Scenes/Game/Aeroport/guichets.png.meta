@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: 5521aa05b220e134f84f08849a42c2e5
+guid: 9ca131fe65f50cb4c92955c48fcfe514
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4728604019573252392
-    second: IDLE_SE_0_0
+      213: 5739326164011053716
+    second: guichets_0
+  - first:
+      213: -1140836901027783734
+    second: guichets_1
+  - first:
+      213: 1350942249755529755
+    second: guichets_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -48,10 +54,10 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 1400
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -126,23 +132,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: IDLE_SE_0_0
+      name: guichets_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 256
-        height: 1024
+        width: 94
+        height: 76
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 821e5267d406f9140800000000000000
-      internalID: 4728604019573252392
+      spriteID: b6903ec7306d3de459c1988242893dbd
+      internalID: 5739326164011053716
       vertices: []
       indices: 
       edges: []
@@ -151,7 +157,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 87887469ba9136747a00eaef8bbe792e
+    spriteID: df6a0a60a32870c43ab9fc997a3609cf
     internalID: 0
     vertices: []
     indices: 
@@ -161,7 +167,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      IDLE_SE_0_0: 4728604019573252392
+      guichets_0: 5739326164011053716
+      guichets_1: -1140836901027783734
+      guichets_2: 1350942249755529755
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

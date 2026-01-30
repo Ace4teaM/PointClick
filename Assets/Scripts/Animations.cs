@@ -209,8 +209,8 @@ public class Animations : MonoBehaviour
 
     internal void MoveTo(string playerName, string anchorName)
     {
-        var anchor = GameObject.Find(anchorName)?.GetComponentInChildren<Transform>();
-        var player = GameObject.Find(playerName);
+        var anchor = Animations.FindInactiveInScenes(anchorName)?.GetComponentInChildren<Transform>();
+        var player = Animations.FindInactiveInScenes(playerName);
 
         if (anchor == null)
             throw new Exception($"Object name '{anchorName}' not found in game objects");
@@ -229,9 +229,32 @@ public class Animations : MonoBehaviour
         );
     }
 
+    internal void MoveTo(string playerName, string walkingPathName, Vector3 position)
+    {
+        var player = Animations.FindInactiveInScenes(playerName);
+        var walkingPath = Animations.FindInactiveInScenes(walkingPathName)?.GetComponent<PathFinder>();
+
+        if (player == null)
+            throw new Exception($"Player name '{playerName}' not found in game objects");
+
+        if (walkingPath == null)
+            throw new Exception($"Impossible trouver l'objet : {walkingPathName}");
+
+        var path = walkingPath.FindPath(player.transform.position, position);
+
+        tasks.Add(() => ExecuteAndWaitForBoolAsync(
+            () =>
+            {
+                player.GetComponentInChildren<MoverAnimator>().SetDestinations(path);
+            },
+            () => player.GetComponentInChildren<MoverAnimator>().IsFinish,
+            false)
+        );
+    }
+
     internal void ChangeProperty<T>(string objectName, string propertyName, object value) where T : Component
     {
-        var obj = GameObject.Find(objectName);
+        var obj = Animations.FindInactiveInScenes(objectName);
 
         if (obj == null)
             throw new Exception($"Object '{objectName}' not found in game objects");
@@ -258,7 +281,7 @@ public class Animations : MonoBehaviour
 
     internal void UpTo<T>(string objectName, string propertyName, float delta, float targetValue) where T : Component
     {
-        var obj = GameObject.Find(objectName);
+        var obj = Animations.FindInactiveInScenes(objectName);
 
         if (obj == null)
             throw new Exception($"Object '{objectName}' not found in game objects");
@@ -285,7 +308,7 @@ public class Animations : MonoBehaviour
 
     internal void ChangeState(string playerName, string name, bool value)
     {
-        var player = GameObject.Find(playerName);
+        var player = Animations.FindInactiveInScenes(playerName);
 
         if (player == null)
             throw new Exception($"Player name '{playerName}' not found in game objects");
@@ -302,7 +325,7 @@ public class Animations : MonoBehaviour
 
     internal void ChangeState(string playerName, string name, float value)
     {
-        var player = GameObject.Find(playerName);
+        var player = Animations.FindInactiveInScenes(playerName);
 
         if (player == null)
             throw new Exception($"Player name '{playerName}' not found in game objects");
@@ -319,7 +342,7 @@ public class Animations : MonoBehaviour
 
     internal void ChangeState(string playerName, string name, int value)
     {
-        var player = GameObject.Find(playerName);
+        var player = Animations.FindInactiveInScenes(playerName);
 
         if (player == null)
             throw new Exception($"Player name '{playerName}' not found in game objects");
@@ -336,7 +359,7 @@ public class Animations : MonoBehaviour
 
     internal void ChangeState(string playerName, string name, float value, Func<Task> delay)
     {
-        var player = GameObject.Find(playerName);
+        var player = Animations.FindInactiveInScenes(playerName);
 
         if (player == null)
             throw new Exception($"Player name '{playerName}' not found in game objects");
