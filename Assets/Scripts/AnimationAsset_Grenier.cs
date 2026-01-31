@@ -105,6 +105,11 @@ public class AnimationAsset_Grenier : AnimationAsset
                 {
                     anim.MoveTo("Agent_1", "Agent 1 Walking Path", GameObject.Find("WC").transform.position);
                     anim.Disable("Agent_1");
+                    anim.Wait(500);
+                    anim.ChangeProperty<MoverAnimator>("Fred", "direction", (int)MoverAnimator.Directions.N);
+                    anim.Wait(500);
+                    anim.ShowDialog("Fred: J'ai l'impression que cet homme est pressé d'aller aux WC...");
+                    anim.HideDialog();
                     anim.Execute();
                 }
                 break;

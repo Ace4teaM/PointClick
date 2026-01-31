@@ -259,12 +259,12 @@ public class Animations : MonoBehaviour
         if (obj == null)
             throw new Exception($"Object '{objectName}' not found in game objects");
 
-        var comp = obj.GetComponent<T>();
+        var comp = obj.GetComponentInChildren<T>();
 
         if (comp == null)
             throw new Exception($"Object '{objectName}' as not component {typeof(T).Name}");
 
-        var prop = comp.GetType().GetProperty(propertyName);
+        var prop = comp.GetType().GetProperty(propertyName, System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.IgnoreCase);
 
         if (prop == null)
             throw new Exception($"Object '{objectName}' as not property {propertyName}");
@@ -286,12 +286,12 @@ public class Animations : MonoBehaviour
         if (obj == null)
             throw new Exception($"Object '{objectName}' not found in game objects");
 
-        var comp = obj.GetComponent<T>();
+        var comp = obj.GetComponentInChildren<T>();
 
         if (comp == null)
             throw new Exception($"Object '{objectName}' as not component {typeof(T).Name}");
 
-        var prop = comp.GetType().GetProperty(propertyName);
+        var prop = comp.GetType().GetProperty(propertyName, System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.IgnoreCase);
 
         if (prop == null)
             throw new Exception($"Object '{objectName}' as not property {propertyName}");
@@ -467,11 +467,16 @@ public class Animations : MonoBehaviour
         {
             foreach (var f in tasks)
             {
-                var task = f();
+                try
+                {
+                    var task = f();
 
-                await task;
-
-                var c = task.IsCompleted;
+                    await task;
+                }
+                catch (Exception ex)
+                {
+                    Debug.Log(ex.Message);
+                }
 
                 if (cancel.IsCancellationRequested)
                     cancel = new CancellationTokenSource();

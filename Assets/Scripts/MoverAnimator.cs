@@ -13,7 +13,7 @@ public class MoverAnimator : MonoBehaviour
     private Animator animator;
     public Transform walkingPoint;
 
-    public enum Direction : int
+    public enum Directions : int
     {
        N,S,E,W,NE,SE,NW,SW
     }
@@ -23,7 +23,7 @@ public class MoverAnimator : MonoBehaviour
     /// </summary>
     /// <param name="targetDirection"></param>
     /// <returns></returns>
-    public static Direction GetClosestDirection(Vector3 targetDirection)
+    public static Directions GetClosestDirection(Vector3 targetDirection)
     {
         targetDirection.Normalize(); // normalise le vecteur cible
 
@@ -40,10 +40,15 @@ public class MoverAnimator : MonoBehaviour
             }
         }
 
-        return (Direction)closest;
+        return (Directions)closest;
     }
 
-    [SerializeField] public Direction direction;
+    [SerializeField] public Directions direction;
+    public Directions Direction
+    {
+        get => direction;
+        set => direction = value;
+    }
 
     #region Gizmo
     [SerializeField] public float gizmoSize = 1.0f;
@@ -92,8 +97,17 @@ public class MoverAnimator : MonoBehaviour
     private float speed;
     [Tooltip("Vitesse du personnage lorsque qu'il se trouve au plus proche du point Max Point")]
     public double maxSpeed = 5f;
+    public double MaxSpeed
+    {
+        get => maxSpeed;
+        set => maxSpeed = value;
+    }
     [Tooltip("Vitesse du personnage lorsque qu'il se trouve au plus proche du point Min Point")]
     public double minSpeed = 5f;
+    public double MinSpeed {
+        get => minSpeed;
+        set => minSpeed = value;
+    }
 
     /// <summary>
     /// Point représentant l'horizon et le seuil du stage
@@ -222,35 +236,35 @@ public class MoverAnimator : MonoBehaviour
             animator.SetBool("IsMoving", hasDestination);
             switch (direction)
             {
-                case Direction.N:
+                case Directions.N:
                     animator.SetFloat("DirX", 0.0f);
                     animator.SetFloat("DirY", -1.0f);
                     break;
-                case Direction.S:
+                case Directions.S:
                     animator.SetFloat("DirX", 0.0f);
                     animator.SetFloat("DirY", 1.0f);
                     break;
-                case Direction.E:
+                case Directions.E:
                     animator.SetFloat("DirX", -1.0f);
                     animator.SetFloat("DirY", 0.0f);
                     break;
-                case Direction.W:
+                case Directions.W:
                     animator.SetFloat("DirX", -1.0f);
                     animator.SetFloat("DirY", 0.0f);
                     break;
-                case Direction.NE:
+                case Directions.NE:
                     animator.SetFloat("DirX", 1.0f);
                     animator.SetFloat("DirY", -1.0f);
                     break;
-                case Direction.NW:
+                case Directions.NW:
                     animator.SetFloat("DirX", -1.0f);
                     animator.SetFloat("DirY", -1.0f);
                     break;
-                case Direction.SE:
+                case Directions.SE:
                     animator.SetFloat("DirX", 1.0f);
                     animator.SetFloat("DirY", 1.0f);
                     break;
-                case Direction.SW:
+                case Directions.SW:
                     animator.SetFloat("DirX", -1.0f);
                     animator.SetFloat("DirY", 1.0f);
                     break;
@@ -260,7 +274,7 @@ public class MoverAnimator : MonoBehaviour
         // Animation
         if (reverseSpriteRenderer && spriteRenderer)
         {
-            spriteRenderer.flipX = direction == Direction.W || direction == Direction.N || direction == Direction.NW || direction == Direction.SW;
+            spriteRenderer.flipX = direction == Directions.W || direction == Directions.N || direction == Directions.NW || direction == Directions.SW;
         }
     }
 

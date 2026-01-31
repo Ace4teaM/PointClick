@@ -13,7 +13,7 @@ public class MoverAnimatorTester : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Animator animator;
     public Transform walkingPoint;
-    public MoverAnimator.Direction direction;
+    public MoverAnimator.Directions direction;
     public Vector3 directionVector;
 
     public bool reverseSpriteRenderer = true;
@@ -41,35 +41,35 @@ public class MoverAnimatorTester : MonoBehaviour
             animator.SetBool("IsMoving", true);
             switch (direction)
             {
-                case MoverAnimator.Direction.N:
+                case MoverAnimator.Directions.N:
                     animator.SetFloat("DirX", 0.0f);
                     animator.SetFloat("DirY", -1.0f);
                     break;
-                case MoverAnimator.Direction.S:
+                case MoverAnimator.Directions.S:
                     animator.SetFloat("DirX", 0.0f);
                     animator.SetFloat("DirY", 1.0f);
                     break;
-                case MoverAnimator.Direction.E:
+                case MoverAnimator.Directions.E:
                     animator.SetFloat("DirX", -1.0f);
                     animator.SetFloat("DirY", 0.0f);
                     break;
-                case MoverAnimator.Direction.W:
+                case MoverAnimator.Directions.W:
                     animator.SetFloat("DirX", -1.0f);
                     animator.SetFloat("DirY", 0.0f);
                     break;
-                case MoverAnimator.Direction.NE:
+                case MoverAnimator.Directions.NE:
                     animator.SetFloat("DirX", 1.0f);
                     animator.SetFloat("DirY", -1.0f);
                     break;
-                case MoverAnimator.Direction.NW:
+                case MoverAnimator.Directions.NW:
                     animator.SetFloat("DirX", -1.0f);
                     animator.SetFloat("DirY", -1.0f);
                     break;
-                case MoverAnimator.Direction.SE:
+                case MoverAnimator.Directions.SE:
                     animator.SetFloat("DirX", 1.0f);
                     animator.SetFloat("DirY", 1.0f);
                     break;
-                case MoverAnimator.Direction.SW:
+                case MoverAnimator.Directions.SW:
                     animator.SetFloat("DirX", -1.0f);
                     animator.SetFloat("DirY", 1.0f);
                     break;
@@ -79,7 +79,7 @@ public class MoverAnimatorTester : MonoBehaviour
         // Animation
         if (reverseSpriteRenderer && spriteRenderer)
         {
-            spriteRenderer.flipX = direction == MoverAnimator.Direction.W || direction == MoverAnimator.Direction.N || direction == MoverAnimator.Direction.NW || direction == MoverAnimator.Direction.SW;
+            spriteRenderer.flipX = direction == MoverAnimator.Directions.W || direction == MoverAnimator.Directions.N || direction == MoverAnimator.Directions.NW || direction == MoverAnimator.Directions.SW;
         }
     }
 
