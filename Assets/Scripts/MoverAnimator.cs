@@ -88,7 +88,8 @@ public class MoverAnimator : MonoBehaviour
     /// Il s'agit de la vitesse calculée par interpolation de minSpeed et maxSpeed
     /// </summary>
     [Tooltip("Vitesse calculée par interpolation de minSpeed et maxSpeed")]
-    public float speed;
+    [SerializeField, ReadOnly]
+    private float speed;
     [Tooltip("Vitesse du personnage lorsque qu'il se trouve au plus proche du point Max Point")]
     public double maxSpeed = 5f;
     [Tooltip("Vitesse du personnage lorsque qu'il se trouve au plus proche du point Min Point")]
