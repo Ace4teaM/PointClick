@@ -99,6 +99,7 @@ public class AnimationAsset_Grenier : AnimationAsset
                         "Médicament",
                         "Retour"
                     };
+                    GameData.OnChoicesChange();
                 }
                 break;
             case "L'Agent part immédiatement aux toilettes, on entend des bruits à travers la porte":

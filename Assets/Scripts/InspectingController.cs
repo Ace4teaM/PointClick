@@ -309,7 +309,7 @@ public class InspectingController : MonoBehaviour
                     GameData.RemoveItem(itemLose);
                     GameData.OnInventoryChange();
                 }
-                else
+                else if (g.TryGetNext(expression, out nextStep) == false)
                 {
                     Debug.LogError($"Impossible de déterminer l'action {GameData.action} à l'étape {g.graphStep}");
                     return;

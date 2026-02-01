@@ -465,6 +465,26 @@ public class GameGraph : MonoBehaviour
     }
 
     /// <summary>
+    /// Essayer de parser l'expression comme une transition immédiate
+    /// </summary>
+    /// <param name="nextStep">Prochaine étape</param>
+    internal bool TryGetNext(GraphExpression expression, out char nextStep)
+    {
+        var line = graphText.Substring(expression.textStart, expression.textEnd - expression.textStart).Trim();
+
+        var pattern = $@"^([A-z])\s*$";
+        var match = Regex.Match(line, pattern, RegexOptions.Multiline | RegexOptions.IgnoreCase);
+        if (match.Success)
+        {
+            nextStep = match.Groups[1].Value[0];
+            return true;
+        }
+
+        nextStep = Char.MinValue;
+        return false;
+    }
+
+    /// <summary>
     /// Essayer de parser l'expression comme : obtenir un item
     /// </summary>
     /// <param name="expression">Expression donné</param>

@@ -116,6 +116,14 @@ public class GameDataHandler : MonoBehaviour
             GameData.OnSelectedChoiceChange();
         }
     }
+    public void ClickChoice4()
+    {
+        if (GameData.ShowDialogChoices.Length >= 4)
+        {
+            GameData.SelectedChoice = GameData.ShowDialogChoices[3];
+            GameData.OnSelectedChoiceChange();
+        }
+    }
     public void StartGame()
     {
         GameData.StartGame();

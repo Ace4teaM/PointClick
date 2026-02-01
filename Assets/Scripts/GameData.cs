@@ -52,6 +52,11 @@ public static class GameData
     public static event Action<string> OnAnimationChanged;
 
     /// <summary>
+    /// Evénement les choix ont changés
+    /// </summary>
+    public static event Action<string[]> OnChoicesChanged;
+
+    /// <summary>
     /// Evénement le choix du dialogue a changé
     /// </summary>
     public static event Action<string> OnSelectedChoiceChanged;
@@ -91,6 +96,11 @@ public static class GameData
     /// </summary>
     public static string ShowAnimation;
     internal static string SelectedChoice;
+
+    internal static void OnChoicesChange()
+    {
+        OnChoicesChanged?.Invoke(ShowDialogChoices);
+    }
 
     internal static void OnSelectedChoiceChange()
     {
