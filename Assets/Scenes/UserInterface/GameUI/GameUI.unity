@@ -339,8 +339,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   sceneType: 1
-  ui: 0
-  defaultAction: 0
   elements: []
   defaultStates: 
   states:
@@ -3239,8 +3237,8 @@ MonoBehaviour:
   uiHotspot: {x: 0, y: 0}
   moveHotspot: {x: 0, y: 0}
   inspectHotspot: {x: 0, y: 0}
-  talkHotspot: {x: 0, y: 0}
-  actionHotspot: {x: 0, y: 0}
+  talkHotspot: {x: 0.6, y: 0.5}
+  actionHotspot: {x: 0.4, y: 0}
   interactHotspot: {x: 0, y: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

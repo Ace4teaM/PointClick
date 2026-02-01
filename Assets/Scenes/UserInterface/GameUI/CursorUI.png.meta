@@ -129,12 +129,12 @@ TextureImporter:
       name: CursorUI_0
       rect:
         serializedVersion: 2
-        x: 116
-        y: 125
-        width: 178
-        height: 262
+        x: 0
+        y: 0
+        width: 416
+        height: 416
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -151,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 133d5a475c52c664c93a257c042b6d8b
     internalID: 0
     vertices: []
     indices: 

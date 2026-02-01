@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -21,11 +22,12 @@ public class CursorManager : MonoBehaviour
     public Vector2 actionHotspot;
     public Vector2 interactHotspot;
 
-    public void SetMove() => Cursor.SetCursor(moveCursor, moveHotspot, CursorMode.Auto);
-    public void SetInspect() => Cursor.SetCursor(inspectCursor, inspectHotspot, CursorMode.Auto);
-    public void SetTalk() => Cursor.SetCursor(talkCursor, talkHotspot, CursorMode.Auto);
-    public void SetAction() => Cursor.SetCursor(actionCursor, actionHotspot, CursorMode.Auto);
-    public void SetInteract() => Cursor.SetCursor(interactCursor, interactHotspot, CursorMode.Auto);
+    public void SetMove() => Cursor.SetCursor(moveCursor, new Vector2(moveCursor.width, moveCursor.height) * moveHotspot, CursorMode.Auto);
+    public void SetInspect() => Cursor.SetCursor(inspectCursor, new Vector2(inspectCursor.width, inspectCursor.height) * inspectHotspot, CursorMode.Auto);
+    public void SetTalk() => Cursor.SetCursor(talkCursor, new Vector2(talkCursor.width, talkCursor.height) * talkHotspot, CursorMode.Auto);
+    public void SetAction() => Cursor.SetCursor(actionCursor, new Vector2(actionCursor.width, actionCursor.height) * actionHotspot, CursorMode.Auto);
+    public void SetInteract() => Cursor.SetCursor(interactCursor, new Vector2(interactCursor.width, interactCursor.height) * interactHotspot, CursorMode.Auto);
+    public void SetUI() => Cursor.SetCursor(uiCursor, new Vector2(uiCursor.width, uiCursor.height) * uiHotspot, CursorMode.Auto);
 
     void Awake()
     {
@@ -54,26 +56,26 @@ public class CursorManager : MonoBehaviour
         // Le curseur se trouve sur un élément de l’UI (Button ou autre)
         if (HoverCursorFlagStates.HoverFlagType == HoverFlagType.UI || HoverCursorFlagStates.HoverFlagType == HoverFlagType.GameItem)
         {
-            Cursor.SetCursor(uiCursor, uiHotspot, CursorMode.Auto);
+            SetUI();
         }
         else
         {
             switch (GameData.action)
             {
                 case ActionType.Move:
-                    Cursor.SetCursor(moveCursor, moveHotspot, CursorMode.Auto);
+                    SetMove();
                     break;
                 case ActionType.Inspect:
-                    Cursor.SetCursor(inspectCursor, inspectHotspot, CursorMode.Auto);
+                    SetInspect();
                     break;
                 case ActionType.Talk:
-                    Cursor.SetCursor(talkCursor, talkHotspot, CursorMode.Auto);
+                    SetTalk();
                     break;
                 case ActionType.Activate:
-                    Cursor.SetCursor(actionCursor, actionHotspot, CursorMode.Auto);
+                    SetAction();
                     break;
                 case ActionType.Interact:
-                    Cursor.SetCursor(interactCursor, interactHotspot, CursorMode.Auto);
+                    SetInteract();
                     break;
             }
         }
