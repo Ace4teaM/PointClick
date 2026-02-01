@@ -11,6 +11,10 @@ public class GameDataHandler : MonoBehaviour
         GameData.SelectedInventoryItem = InventoryItem.Empty;
         GameData.action = ActionType.Move;
         GameData.OnActionChange();
+
+        var anim = GameObject.Find("Inventory")?.GetComponent<Animator>();
+        anim?.ResetTrigger("Show");
+        anim?.SetTrigger("Hide");
     }
 
     public void EnableInspect()
@@ -18,6 +22,10 @@ public class GameDataHandler : MonoBehaviour
         GameData.SelectedInventoryItem = InventoryItem.Empty;
         GameData.action = ActionType.Inspect;
         GameData.OnActionChange();
+
+        var anim = GameObject.Find("Inventory")?.GetComponent<Animator>();
+        anim?.ResetTrigger("Show");
+        anim?.SetTrigger("Hide");
     }
 
     public void EnableInteract()
@@ -25,6 +33,10 @@ public class GameDataHandler : MonoBehaviour
         GameData.SelectedInventoryItem = InventoryItem.Empty;
         GameData.action = ActionType.Interact;
         GameData.OnActionChange();
+
+        var anim = GameObject.Find("Inventory")?.GetComponent<Animator>();
+        anim?.ResetTrigger("Show");
+        anim?.SetTrigger("Hide");
     }
 
     public void EnableTalk()
@@ -32,6 +44,10 @@ public class GameDataHandler : MonoBehaviour
         GameData.SelectedInventoryItem = InventoryItem.Empty;
         GameData.action = ActionType.Talk;
         GameData.OnActionChange();
+
+        var anim = GameObject.Find("Inventory")?.GetComponent<Animator>();
+        anim?.ResetTrigger("Show");
+        anim?.SetTrigger("Hide");
     }
 
     public void EnableActivate()
@@ -39,6 +55,10 @@ public class GameDataHandler : MonoBehaviour
         GameData.SelectedInventoryItem = InventoryItem.Empty;
         GameData.action = ActionType.Activate;
         GameData.OnActionChange();
+
+        var anim = GameObject.Find("Inventory")?.GetComponent<Animator>();
+        anim?.ResetTrigger("Hide");
+        anim?.SetTrigger("Show");
     }
     public void ClickItem1()
     {

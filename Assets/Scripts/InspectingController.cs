@@ -227,7 +227,9 @@ public class InspectingController : MonoBehaviour
                     {
                         GameData.AddItem(item);
                         GameData.OnInventoryChange();
-                        anim?.TriggerAnimator("Inventory","Show");
+                        anim?.TriggerAnimator("Inventory","Show", "Hide");
+                        anim?.Wait(3000);
+                        anim?.TriggerAnimator("Inventory", "Hide", "Show");
                         anim?.Execute();
                         g.graphStep = nextStep;
                         return;
@@ -237,7 +239,9 @@ public class InspectingController : MonoBehaviour
                     {
                         GameData.RemoveItem(itemLose);
                         GameData.OnInventoryChange();
-                        anim?.TriggerAnimator("Inventory", "Show");
+                        anim?.TriggerAnimator("Inventory", "Show", "Hide");
+                        anim?.Wait(3000);
+                        anim?.TriggerAnimator("Inventory", "Hide", "Show");
                         anim?.Execute();
                         g.graphStep = nextStep;
                         return;

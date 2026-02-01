@@ -422,9 +422,9 @@ public class Animations : MonoBehaviour
     /// <summary>
     /// Déclenche une animation
     /// </summary>
-    /// <param name="objectName">Nom de l'objet possèdant un composant 'Animator'</param>
+    /// <param name="objectName">Nom de l'objet possédant un composant 'Animator'</param>
     /// <param name="triggerName">Nom du trigger de l'animation</param>
-    internal void TriggerAnimator(string objectName, string triggerName)
+    internal void TriggerAnimator(string objectName, string triggerName, string? resetName)
     {
         var obj = GameObject.Find(objectName);
 
@@ -434,6 +434,8 @@ public class Animations : MonoBehaviour
         tasks.Add(() => ExecuteAndWaitForBoolAsync(
             () =>
             {
+                if(resetName != null)
+                    obj.GetComponentInChildren<Animator>().ResetTrigger(resetName);
                 obj.GetComponentInChildren<Animator>().SetTrigger(triggerName);
             },
             () => true/*player.GetComponentInChildren<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Entry") == false*/,
